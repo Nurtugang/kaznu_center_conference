@@ -7,85 +7,153 @@
     <title>{% block title %}{% endblock %} | Конференции ЦУР КазНУ</title>
     
     <link rel="stylesheet" href="{% static 'css/style.css' %}?v={% now 'U' %}">
+    <link rel="stylesheet" href="{% static 'css/ckeditor-style.css' %}">
     
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-    <style>
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        .ck-content blockquote { border-left: 4px solid #8a1538; padding-left: 15px; font-style: italic; }
-    </style>
 </head>
-<body class="font-sans text-gray-800 bg-gray-50 flex flex-col min-h-screen">
+<body class="font-sans text-gray-800 bg-gray-50 flex flex-col min-h-screen" x-data="{ mobileMenuOpen: false }">
 
-    <div class="bg-dark text-white py-2">
-        <div class="container mx-auto px-6 flex justify-between items-center text-[10px] font-bold uppercase tracking-[0.2em]">
-            <span>Казахский национальный университет им. аль-Фараби</span>
-            <span class="hidden md:block">Центр устойчивого развития в Центральной Азии</span>
+    <!-- Верхняя полоса -->
+    <div class="bg-gradient-to-r from-[#8a1538] to-[#5a0d23] text-white py-2.5">
+        <div class="container mx-auto px-6 flex justify-between items-center text-[9px] font-bold uppercase tracking-[0.15em]">
+            <a href="{{ BASE_SITE }}" target="_blank" class="hover:opacity-80 transition-opacity flex items-center gap-2">
+                <i class="fas fa-external-link-alt text-[8px]"></i>
+                <span class="hidden sm:inline">Центр устойчивого развития КазНУ</span>
+                <span class="sm:hidden">ЦУР КазНУ</span>
+            </a>
+            <span class="hidden md:block opacity-90">Казахский национальный университет им. аль-Фараби</span>
         </div>
     </div>
 
-    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-100 shadow-sm">
+    <!-- Главная навигация -->
+    <nav class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-sm">
         <div class="container mx-auto px-6 h-20 flex justify-between items-center">
             {% if current_conf %}
                 <a href="{% url 'conferences:detail' %}" class="flex items-center gap-4 group">
-                    <div class="w-12 h-12 bg-brand rounded-2xl flex items-center justify-center text-white shadow-lg group-hover:scale-105 transition-transform">
+                    <div class="w-12 h-12 bg-gradient-to-br from-[#8a1538] to-[#5a0d23] rounded-2xl flex items-center justify-center text-white shadow-lg group-hover:scale-105 transition-transform">
                         <i class="fas fa-university text-xl"></i>
                     </div>
                     <div class="flex flex-col">
                         <span class="text-lg font-black tracking-tighter text-dark uppercase leading-none">
                             {{ current_conf.short_title }}
                         </span>
+                        <span class="text-[8px] text-gray-400 uppercase tracking-wider mt-0.5">Conference</span>
                     </div>
-                </a>
-            {% else %}
-                <a href="#" class="flex items-center gap-4 group">
-                    <div class="w-12 h-12 bg-gray-400 rounded-2xl flex items-center justify-center text-white">
-                        <i class="fas fa-archive text-xl"></i>
-                    </div>
-                    <span class="text-lg font-black text-dark uppercase"></span>
                 </a>
             {% endif %}
             
-            <div class="flex items-center gap-6">
+            <!-- Desktop Menu -->
+            <div class="hidden lg:flex items-center gap-6">
                 {% if user.is_authenticated %}
                     <a href="{% url 'conferences:profile' %}" class="flex items-center gap-3 bg-gray-50 hover:bg-gray-100 p-1.5 pr-4 rounded-full border border-gray-200 transition-all group">
                         <div class="w-8 h-8 bg-dark rounded-full flex items-center justify-center text-white text-xs">
                             <i class="fas fa-user"></i>
                         </div>
-                        <span class="text-[10px] font-bold text-gray-600 uppercase tracking-widest group-hover:text-brand">{{ user.last_name }} {{ user.first_name }}</span>
+                        <span class="text-[10px] font-bold text-gray-600 uppercase tracking-widest group-hover:text-[#8a1538]">
+                            {{ user.last_name }} {{ user.first_name }}
+                        </span>
                     </a>
                     <form action="{% url 'conferences:logout' %}" method="post" class="inline">
                         {% csrf_token %}
-                        <button type="submit" class="text-gray-400 hover:text-brand transition-colors"><i class="fas fa-power-off"></i></button>
+                        <button type="submit" class="text-gray-400 hover:text-[#8a1538] transition-colors">
+                            <i class="fas fa-power-off"></i>
+                        </button>
                     </form>
                 {% else %}
-                    <a href="{% url 'conferences:login' %}" class="text-xs font-bold text-gray-500 hover:text-brand transition-colors uppercase tracking-widest">Вход</a>
-                    <a href="{% url 'conferences:register' %}" class="bg-brand text-white px-6 py-2.5 rounded-full text-xs font-bold shadow-md hover:-translate-y-0.5 transition-all uppercase tracking-widest">Регистрация</a>
+                    <a href="{% url 'conferences:login' %}" class="text-xs font-bold text-gray-500 hover:text-[#8a1538] transition-colors uppercase tracking-widest">Вход</a>
+                    <a href="{% url 'conferences:register' %}" class="bg-gradient-to-r from-[#8a1538] to-[#5a0d23] text-white px-6 py-2.5 rounded-full text-xs font-bold shadow-md hover:-translate-y-0.5 transition-all uppercase tracking-widest">
+                        Регистрация
+                    </a>
                 {% endif %}
             </div>
+
+            <!-- Mobile Menu Button -->
+            <button @click="mobileMenuOpen = !mobileMenuOpen" class="lg:hidden text-dark">
+                <i class="fas" :class="mobileMenuOpen ? 'fa-times' : 'fa-bars'" class="text-2xl"></i>
+            </button>
         </div>
 
+        <!-- Navigation Links -->
         {% if current_conf %}
-        <div class="bg-gray-50 border-t border-gray-100">
-            <div class="container mx-auto px-6 flex space-x-8 overflow-x-auto py-3 no-scrollbar text-[10px] font-bold uppercase tracking-widest text-gray-500">
-                <a href="{% url 'conferences:detail' %}" class="hover:text-brand whitespace-nowrap">Обзор</a>
-                <a href="{% url 'conferences:program' %}" class="hover:text-brand whitespace-nowrap">Программа</a>
-                <a href="{% url 'conferences:committee' %}" class="hover:text-brand whitespace-nowrap">Комитет</a>
-                <a href="{% url 'conferences:gallery' %}" class="hover:text-brand whitespace-nowrap">Галерея</a>
-                <a href="{% url 'conferences:proceedings' %}" class="hover:text-brand whitespace-nowrap">Материалы</a>
-                <a href="{% url 'conferences:submit' %}" class="hover:text-brand whitespace-nowrap text-red-500">Отправить материал</a>
+        <div class="bg-gradient-to-r from-gray-50 to-white border-t border-gray-100">
+            <div class="container mx-auto px-6 hidden lg:flex space-x-8 overflow-x-auto py-3 no-scrollbar text-[10px] font-bold uppercase tracking-widest text-gray-500">
+                <a href="{% url 'conferences:detail' %}" class="hover:text-[#8a1538] whitespace-nowrap transition-colors">Обзор</a>
+                <a href="{% url 'conferences:program' %}" class="hover:text-[#8a1538] whitespace-nowrap transition-colors">Программа</a>
+                <a href="{% url 'conferences:committee' %}" class="hover:text-[#8a1538] whitespace-nowrap transition-colors">Комитет</a>
+                <a href="{% url 'conferences:venue' %}" class="hover:text-[#8a1538] whitespace-nowrap transition-colors">Место проведения</a>
+                <a href="{% url 'conferences:gallery' %}" class="hover:text-[#8a1538] whitespace-nowrap transition-colors">Галерея</a>
+                <a href="{% url 'conferences:documentation' %}" class="hover:text-[#8a1538] whitespace-nowrap transition-colors">Документация</a>
+                <a href="{% url 'conferences:contacts' %}" class="hover:text-[#8a1538] whitespace-nowrap transition-colors">Контакты</a>
+                <a href="{% url 'conferences:proceedings' %}" class="hover:text-[#8a1538] whitespace-nowrap transition-colors">Материалы</a>
+                <a href="{% url 'conferences:participation_fee' %}" class="hover:text-[#8a1538] whitespace-nowrap transition-colors">Плата за участие</a>
+                <a href="{% url 'conferences:submission_format' %}" class="hover:text-[#8a1538] whitespace-nowrap transition-colors">Формат работы</a>
+                <a href="{% url 'conferences:submit' %}" class="hover:text-[#8a1538] whitespace-nowrap transition-colors">Отправить материал</a>
             </div>
         </div>
         {% endif %}
     </nav>
 
+    <!-- Mobile Menu -->
+    <div x-show="mobileMenuOpen" 
+         x-transition:enter="transition ease-out duration-200"
+         x-transition:enter-start="opacity-0 transform -translate-y-2"
+         x-transition:enter-end="opacity-100 transform translate-y-0"
+         x-transition:leave="transition ease-in duration-150"
+         x-transition:leave-start="opacity-100 transform translate-y-0"
+         x-transition:leave-end="opacity-0 transform -translate-y-2"
+         class="lg:hidden fixed inset-0 z-40 bg-black/50 backdrop-blur-sm"
+         @click="mobileMenuOpen = false">
+        <div class="bg-white h-full max-w-sm w-full shadow-2xl overflow-y-auto" @click.stop>
+            <div class="p-6 space-y-4">
+                {% if user.is_authenticated %}
+                    <div class="pb-4 border-b border-gray-100">
+                        <p class="text-sm font-bold text-dark">{{ user.last_name }} {{ user.first_name }}</p>
+                        <p class="text-xs text-gray-400">{{ user.email }}</p>
+                    </div>
+                {% endif %}
+                
+                <a href="{% url 'conferences:detail' %}" class="block py-2 text-sm font-bold text-gray-700 hover:text-[#8a1538]">Обзор</a>
+                <a href="{% url 'conferences:program' %}" class="block py-2 text-sm font-bold text-gray-700 hover:text-[#8a1538]">Программа</a>
+                <a href="{% url 'conferences:committee' %}" class="block py-2 text-sm font-bold text-gray-700 hover:text-[#8a1538]">Комитет</a>
+                <a href="{% url 'conferences:venue' %}" class="block py-2 text-sm font-bold text-gray-700 hover:text-[#8a1538]">Место проведения</a>
+                <a href="{% url 'conferences:gallery' %}" class="block py-2 text-sm font-bold text-gray-700 hover:text-[#8a1538]">Галерея</a>
+                <a href="{% url 'conferences:documentation' %}" class="block py-2 text-sm font-bold text-gray-700 hover:text-[#8a1538]">Документация</a>
+                <a href="{% url 'conferences:contacts' %}" class="block py-2 text-sm font-bold text-gray-700 hover:text-[#8a1538]">Контакты</a>
+                <a href="{% url 'conferences:proceedings' %}" class="block py-2 text-sm font-bold text-gray-700 hover:text-[#8a1538]">Материалы</a>
+                
+                <div class="pt-4 border-t border-gray-100">
+                    <p class="text-xs font-bold text-gray-400 uppercase mb-2">Для авторов</p>
+                    <a href="{% url 'conferences:submit' %}" class="block py-2 pl-3 text-sm text-gray-700 hover:text-[#8a1538]">Отправить материал</a>
+                    <a href="{% url 'conferences:participation_fee' %}" class="block py-2 pl-3 text-sm text-gray-700 hover:text-[#8a1538]">Плата за участие</a>
+                    <a href="{% url 'conferences:submission_format' %}" class="block py-2 pl-3 text-sm text-gray-700 hover:text-[#8a1538]">Формат работы</a>
+                </div>
+                
+                {% if user.is_authenticated %}
+                    <div class="pt-4 border-t border-gray-100">
+                        <a href="{% url 'conferences:profile' %}" class="block py-2 text-sm font-bold text-gray-700 hover:text-[#8a1538]">Личный кабинет</a>
+                        <form action="{% url 'conferences:logout' %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="w-full text-left py-2 text-sm font-bold text-red-500 hover:text-red-600">Выход</button>
+                        </form>
+                    </div>
+                {% else %}
+                    <div class="pt-4 space-y-2">
+                        <a href="{% url 'conferences:login' %}" class="block w-full text-center py-3 border border-gray-200 rounded-xl text-sm font-bold">Вход</a>
+                        <a href="{% url 'conferences:register' %}" class="block w-full text-center py-3 bg-gradient-to-r from-[#8a1538] to-[#5a0d23] text-white rounded-xl text-sm font-bold">Регистрация</a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
     <main class="flex-grow">
         {% if messages %}
             <div class="container mx-auto px-6 mt-4">
                 {% for message in messages %}
-                <div class="p-4 rounded-2xl text-xs font-bold uppercase tracking-widest {% if message.tags == 'success' %}bg-green-100 text-green-700{% else %}bg-brand/10 text-brand{% endif %} mb-4">
+                <div class="p-4 rounded-2xl text-xs font-bold uppercase tracking-widest {% if message.tags == 'success' %}bg-green-100 text-green-700{% else %}bg-red-100 text-red-700{% endif %} mb-4 flex items-center gap-3">
+                    <i class="fas {% if message.tags == 'success' %}fa-check-circle{% else %}fa-exclamation-circle{% endif %}"></i>
                     {{ message }}
                 </div>
                 {% endfor %}
@@ -94,21 +162,38 @@
         {% block content %}{% endblock %}
     </main>
 
-    <footer class="bg-dark text-white pt-16 pb-8 mt-auto">
+    <footer class="bg-gradient-to-br from-dark to-[#1a2332] text-white pt-16 pb-8 mt-auto">
         <div class="container mx-auto px-6">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
                 <div>
-                    <h4 class="text-brand font-bold uppercase tracking-widest text-xs mb-4">Организатор</h4>
-                    <p class="text-gray-400 text-sm max-w-md">Центр устойчивого развития — научный хаб КазНУ им. аль-Фараби, координирующий международные исследования в области ЦУР.</p>
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 bg-[#8a1538] rounded-xl flex items-center justify-center">
+                            <i class="fas fa-university"></i>
+                        </div>
+                        <h4 class="text-white font-bold uppercase tracking-widest text-sm">ЦУР КазНУ</h4>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Центр устойчивого развития — научный хаб КазНУ им. аль-Фараби, координирующий международные исследования в области ЦУР.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-[#8a1538] font-bold uppercase tracking-widest text-xs mb-4">Быстрые ссылки</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="{{ BASE_SITE }}" target="_blank" class="hover:text-white transition-colors">Сайт центра ЦУР</a></li>
+                        <li><a href="https://www.kaznu.kz" target="_blank" class="hover:text-white transition-colors">КазНУ им. аль-Фараби</a></li>
+                    </ul>
                 </div>
                 <div class="md:text-right">
-                    <h4 class="text-brand font-bold uppercase tracking-widest text-xs mb-4">Контакты</h4>
+                    <h4 class="text-[#8a1538] font-bold uppercase tracking-widest text-xs mb-4">Контакты</h4>
                     <p class="text-gray-400 text-sm">info@kaznu.kz</p>
                     <p class="text-gray-400 text-sm">Алматы, пр. аль-Фараби 71</p>
+                    <p class="text-gray-400 text-sm">+7 727 377 33 33</p>
                 </div>
             </div>
             <div class="pt-8 border-t border-white/5 text-center">
-                <p class="text-[9px] text-gray-500 font-medium uppercase tracking-[0.3em]">© {% now "Y" %} КазНУ им. аль-Фараби. Все права защищены.</p>
+                <p class="text-[9px] text-gray-500 font-medium uppercase tracking-[0.3em]">
+                    © {% now "Y" %} КазНУ им. аль-Фараби. Все права защищены.
+                </p>
             </div>
         </div>
     </footer>

@@ -1,0 +1,19 @@
+{% extends "conferences/base_conf.html" %}
+
+{% block title %}Программа | {{ conference.title }}{% endblock %}
+
+{% block content %}
+<section class="py-12">
+    <div class="container mx-auto px-6 max-w-4xl">
+        <div class="text-center mb-10">
+            <h1 class="text-3xl font-black text-dark uppercase tracking-tighter">Плата за участие</h1>
+        </div>
+
+        <div class="bg-white rounded-[2rem] p-8 md:p-12 shadow-xl shadow-gray-200/50 border border-gray-100">
+            <div class="prose max-w-none prose-headings:text-dark prose-a:text-brand prose-strong:text-dark">
+                {{ conference.venue|safe }}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

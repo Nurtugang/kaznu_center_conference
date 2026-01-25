@@ -1,0 +1,91 @@
+{% extends "conferences/base_conf.html" %}
+
+{% block title %}Документация | {{ conference.title }}{% endblock %}
+
+{% block content %}
+<section class="py-16 bg-gradient-to-b from-gray-50 to-white min-h-screen">
+    <div class="container mx-auto px-6 max-w-5xl">
+        <div class="text-center mb-16">
+            <span class="text-[#8a1538] font-bold uppercase tracking-[0.2em] text-[10px]">Documents & Resources</span>
+            <h1 class="text-4xl font-black text-dark mt-2 mb-4 uppercase tracking-tighter">Документация</h1>
+            <div class="w-20 h-1.5 bg-[#8a1538] mx-auto rounded-full"></div>
+            <p class="text-gray-500 mt-6 text-sm max-w-2xl mx-auto">
+                Все необходимые документы, шаблоны и материалы для участников конференции
+            </p>
+        </div>
+
+        <div class="space-y-6">
+            {% for document in documents %}
+            <div class="bg-white rounded-[2rem] p-8 shadow-lg border border-gray-100 hover:shadow-2xl transition-all duration-500 group">
+                <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                    <div class="flex-1">
+                        <div class="flex items-start gap-4">
+                            <div class="w-14 h-14 bg-gradient-to-br from-[#8a1538]/10 to-[#5a0d23]/5 rounded-2xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                                <i class="fas fa-file-pdf text-[#8a1538] text-2xl"></i>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold text-dark mb-2 group-hover:text-[#8a1538] transition-colors">
+                                    {{ document.title }}
+                                </h3>
+                                {% if document.description %}
+                                <p class="text-sm text-gray-500 leading-relaxed">
+                                    {{ document.description }}
+                                </p>
+                                {% endif %}
+                                <div class="flex items-center gap-4 mt-3 text-xs text-gray-400">
+                                    <span class="flex items-center gap-1">
+                                        <i class="far fa-calendar-alt"></i>
+                                        {{ document.uploaded_at|date:"d.m.Y" }}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <a href="{{ document.file.url }}" 
+                       download
+                       class="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#8a1538] to-[#5a0d23] text-white rounded-2xl font-bold uppercase text-xs tracking-widest hover:shadow-lg hover:shadow-[#8a1538]/20 transition-all group/btn flex-shrink-0">
+                        <i class="fas fa-download group-hover/btn:animate-bounce"></i>
+                        Скачать
+                    </a>
+                </div>
+            </div>
+            {% empty %}
+            <div class="bg-white rounded-[3rem] border border-dashed border-gray-200 py-20 text-center">
+                <div class="w-24 h-24 bg-gray-50 rounded-full flex items-center justify-center text-gray-300 mb-6 mx-auto text-4xl">
+                    <i class="fas fa-folder-open"></i>
+                </div>
+                <h3 class="text-xl font-bold text-dark mb-2">Документы еще не добавлены</h3>
+                <p class="text-gray-400 text-sm">Материалы будут опубликованы позже</p>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Информационный блок -->
+        <div class="mt-16 bg-gradient-to-r from-[#8a1538]/5 to-[#5a0d23]/5 rounded-[2.5rem] p-10 border border-[#8a1538]/10">
+            <div class="flex items-start gap-4">
+                <div class="w-12 h-12 bg-[#8a1538] rounded-xl flex items-center justify-center flex-shrink-0">
+                    <i class="fas fa-info-circle text-white text-xl"></i>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-dark mb-3">Важная информация</h3>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-check text-[#8a1538] mt-1"></i>
+                            <span>Все документы предоставлены в формате PDF для удобства просмотра</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-check text-[#8a1538] mt-1"></i>
+                            <span>Для корректного отображения убедитесь, что у вас установлен PDF-ридер</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-check text-[#8a1538] mt-1"></i>
+                            <span>При возникновении вопросов обращайтесь к организаторам</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

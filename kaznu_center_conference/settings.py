@@ -44,6 +44,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'conferences.context_processors.latest_conference',
+                'conferences.context_processors.base_site',
             ],
         },
     },
@@ -115,3 +116,5 @@ LOGIN_URL = 'conferences:login'
 LOGIN_REDIRECT_URL = 'conferences:profile'
 
 LOGOUT_REDIRECT_URL = 'conferences:detail'
+
+BASE_SITE = os.getenv('BASE_SITE')

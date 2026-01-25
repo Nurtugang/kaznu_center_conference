@@ -33,6 +33,9 @@ class Conference(models.Model):
     
     program = CKEditor5Field("Программа конференции", config_name='default', blank=True)
     committee = CKEditor5Field("Оргкомитет", config_name='default', blank=True)
+    venue = CKEditor5Field("Место проведения (подробно)", config_name='default', blank=True)
+    participation_fee = CKEditor5Field("Плата за участие", config_name='default', blank=True)
+    submission_format = CKEditor5Field("Формат работы", config_name='default', blank=True)
     
     poster = models.ImageField("Постер (широкоугольный)", upload_to='conf/posters/')
     
@@ -154,3 +157,60 @@ class GalleryMedia(models.Model):
     class Meta:
         verbose_name = "Медиа галереи"
         verbose_name_plural = "Галерея"
+
+class Document(models.Model):
+    conference = models.ForeignKey(Conference, on_delete=models.CASCADE, related_name='documents')
+    title = models.CharField("Название документа", max_length=255)
+    file = models.FileField("Файл документа", upload_to='conf/documents/')
+    description = models.TextField("Описание", blank=True)
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        verbose_name = "Документ"
+        verbose_name_plural = "Документы"
+        ordering = ['-uploaded_at']
+    
+    def __str__(self):
+        return self.title
+    
+class ContactPerson(models.Model):
+    conference = models.ForeignKey(Conference, on_delete=models.CASCADE, related_name='contacts')
+    full_name = models.CharField("ФИО", max_length=255)
+    position = models.CharField("Должность", max_length=255)
+    email = models.EmailField("Email")
+    phone = models.CharField("Телефон", max_length=50, blank=True)
+    photo = models.ImageField("Фотография", upload_to='conf/contacts/', blank=True)
+    order = models.PositiveIntegerField("Порядок", default=0)
+    
+    class Meta:
+        verbose_name = "Контактное лицо"
+        verbose_name_plural = "Контактные лица"
+        ordering = ['order', 'full_name']
+    
+    def __str__(self):
+        return self.full_name
+
+class CommitteeMember(models.Model):
+    ROLE_CHOICES = [
+        ('chair', 'Председатель'),
+        ('vice_chair', 'Зам. председателя'),
+        ('member', 'Член комитета'),
+        ('secretary', 'Секретарь'),
+    ]
+    
+    conference = models.ForeignKey(Conference, on_delete=models.CASCADE, related_name='committee_members')
+    full_name = models.CharField("ФИО", max_length=255)
+    role = models.CharField("Роль", max_length=20, choices=ROLE_CHOICES, default='member')
+    position = models.CharField("Должность", max_length=500)
+    organization = models.CharField("Организация", max_length=500, blank=True)
+    photo = models.ImageField("Фотография", upload_to='conf/committee/', blank=True)
+    bio = models.TextField("Биография", blank=True)
+    order = models.PositiveIntegerField("Порядок", default=0)
+    
+    class Meta:
+        verbose_name = "Член комитета"
+        verbose_name_plural = "Члены комитета"
+        ordering = ['order', 'full_name']
+    
+    def __str__(self):
+        return f"{self.full_name} ({self.get_role_display()})"

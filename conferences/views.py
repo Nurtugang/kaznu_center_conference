@@ -1,7 +1,7 @@
 from django.utils import timezone
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
-from .models import Conference, Submission, SubmissionVersion
+from .models import Conference, Submission, SubmissionVersion, Document, ContactPerson, CommitteeMember
 from django.contrib.auth import login
 from .forms import RegistrationForm, SubmissionForm
 from django.contrib import messages
@@ -118,7 +118,11 @@ def conference_program(request):
 
 def conference_committee(request):
     conference = Conference.get_current()
-    return render(request, 'conferences/committee.html', {'conference': conference})
+    committee_members = conference.committee_members.all().order_by('order', 'full_name')
+    return render(request, 'conferences/committee.html', {
+        'conference': conference,
+        'committee_members': committee_members
+    })
 
 def conference_gallery(request):
     conference = Conference.get_current()
@@ -137,6 +141,34 @@ def conference_proceedings(request):
         'is_released': is_released,
         'submissions': submissions
     })
+    
+def conference_venue(request):
+    conference = Conference.get_current()
+    return render(request, 'conferences/venue.html', {'conference': conference})
+
+def conference_documentation(request):
+    conference = Conference.get_current()
+    documents = conference.documents.all()
+    return render(request, 'conferences/documentation.html', {
+        'conference': conference,
+        'documents': documents
+    })
+
+def conference_contacts(request):
+    conference = Conference.get_current()
+    contacts = conference.contacts.all()
+    return render(request, 'conferences/contacts.html', {
+        'conference': conference,
+        'contacts': contacts
+    })
+
+def participation_fee(request):
+    conference = Conference.get_current()
+    return render(request, 'conferences/participation_fee.html', {'conference': conference})
+
+def submission_format(request):
+    conference = Conference.get_current()
+    return render(request, 'conferences/submission_format.html', {'conference': conference})
 
 @login_required
 def profile_view(request):
