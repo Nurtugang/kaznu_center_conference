@@ -1,0 +1,74 @@
+{% extends "conferences/base_conf.html" %}
+
+{% block content %}
+<section class="py-12 flex justify-center">
+    <div class="w-full max-w-3xl">
+        <div class="bg-white rounded-[2.5rem] p-10 shadow-2xl shadow-brand/5 border border-gray-100">
+            <h2 class="text-3xl font-bold text-dark mb-2">Подача материала</h2>
+            <p class="text-brand text-xs font-bold uppercase tracking-widest mb-8">{{ conference.title }}</p>
+
+            <form method="post" enctype="multipart/form-data" class="space-y-6 text-left">
+                {% csrf_token %}
+                
+                {% if form.errors %}
+                <div class="p-4 bg-red-50 text-brand text-xs font-bold rounded-2xl mb-4 uppercase">
+                    Исправьте ошибки в полях ниже
+                </div>
+                {% endif %}
+
+                <div>
+                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Тема доклада / Название статьи</label>
+                    {{ form.title }}
+                    {% if form.title.errors %}<p class="text-brand text-[10px] font-bold mt-1">{{ form.title.errors.0 }}</p>{% endif %}
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Список авторов и организаций</label>
+                    {{ form.authors_list }}
+                    <p class="text-[9px] text-gray-400 mt-1 italic italic">Пример: Иванов И.И. (КазНУ), Смит Дж. (Oxford)</p>
+                    {% if form.authors_list.errors %}<p class="text-brand text-[10px] font-bold mt-1">{{ form.authors_list.errors.0 }}</p>{% endif %}
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Краткая аннотация (Abstract)</label>
+                    {{ form.abstract_text }}
+                    {% if form.abstract_text.errors %}<p class="text-brand text-[10px] font-bold mt-1">{{ form.abstract_text.errors.0 }}</p>{% endif %}
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Ключевые слова</label>
+                    {{ form.keywords }}
+                    {% if form.keywords.errors %}<p class="text-brand text-[10px] font-bold mt-1">{{ form.keywords.errors.0 }}</p>{% endif %}
+                </div>
+                
+                <div>
+                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">
+                        Комментарий к работе (необязательно)
+                    </label>
+                    {{ form.author_comment }}
+                    {% if form.author_comment.errors %}
+                        <p class="text-brand text-[10px] font-bold mt-1">{{ form.author_comment.errors.0 }}</p>
+                    {% endif %}
+                </div>
+
+                <div class="p-8 border-2 border-dashed border-gray-100 rounded-[2rem] bg-gray-50/50 text-center group hover:border-brand/20 transition-colors relative">
+                    <i class="fas fa-cloud-upload-alt text-3xl text-gray-300 group-hover:text-brand transition-colors mb-4"></i>
+                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Выберите файл версии (PDF, DOC, DOCX)</label>
+                    
+                    {{ form.file }}
+                    
+                    {% if form.file.errors %}
+                        <p class="text-brand text-[10px] mt-2 font-bold">{{ form.file.errors.0 }}</p>
+                    {% endif %}
+                </div>
+
+                <div class="pt-6 text-center">
+                    <button type="submit" class="w-full bg-dark text-white py-4 rounded-2xl font-bold hover:bg-brand transition-all shadow-xl uppercase text-xs tracking-widest">
+                        Отправить работу на проверку
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

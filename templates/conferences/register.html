@@ -1,0 +1,73 @@
+{% extends "conferences/base_conf.html" %}
+
+{% block content %}
+<section class="py-12 flex justify-center">
+    <div class="w-full max-w-2xl">
+        <div class="bg-white rounded-[2rem] p-10 shadow-2xl shadow-brand/5 border border-gray-100">
+            <h2 class="text-3xl font-bold text-dark mb-2 text-center">Регистрация</h2>
+            <p class="text-gray-400 text-[10px] mb-8 font-bold text-center uppercase tracking-[0.3em]">Создайте аккаунт участника</p>
+
+            {% if form.errors %}
+            <div class="mb-8 p-5 bg-red-50 border border-red-100 rounded-2xl">
+                <p class="text-brand text-xs font-black uppercase mb-3">Пожалуйста, исправьте следующие ошибки:</p>
+                <ul class="list-disc list-inside text-[11px] text-red-600 font-medium space-y-1">
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <li>{{ field.label }}: {{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                    {% for error in form.non_field_errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+            <form method="post" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {% csrf_token %}
+                
+                <div class="md:col-span-2">
+                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Логин (Username)</label>
+                    {{ form.username }}
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Фамилия</label>
+                    {{ form.last_name }}
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Имя</label>
+                    {{ form.first_name }}
+                </div>
+
+                <div class="md:col-span-2">
+                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Электронная почта</label>
+                    {{ form.email }}
+                </div>
+
+                <div class="md:col-span-2">
+                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Организация / ВУЗ</label>
+                    {{ form.organization }}
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Пароль</label>
+                    {{ form.password }}
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Подтверждение</label>
+                    {{ form.password_confirm }}
+                </div>
+
+                <div class="md:col-span-2 pt-4">
+                    <button type="submit" class="w-full bg-brand text-white py-4 rounded-2xl font-bold shadow-lg shadow-brand/20 hover:shadow-brand/40 hover:-translate-y-1 transition-all uppercase tracking-widest text-xs">
+                        Зарегистрироваться
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

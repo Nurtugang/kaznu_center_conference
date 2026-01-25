@@ -1,0 +1,20 @@
+{% extends "conferences/base_conf.html" %}
+
+{% block title %}Оргкомитет | {{ conference.title }}{% endblock %}
+
+{% block content %}
+<section class="py-12">
+    <div class="container mx-auto px-6 max-w-4xl">
+        <div class="text-center mb-10">
+            <h1 class="text-3xl font-black text-dark uppercase tracking-tighter">Организационный комитет</h1>
+            <p class="text-brand text-xs font-bold uppercase tracking-[0.3em] mt-2">Organizing Committee</p>
+        </div>
+
+        <div class="bg-white rounded-[2rem] p-8 md:p-12 shadow-xl shadow-gray-200/50 border border-gray-100">
+            <div class="prose max-w-none prose-headings:text-dark prose-strong:text-dark">
+                {{ conference.committee|safe }}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

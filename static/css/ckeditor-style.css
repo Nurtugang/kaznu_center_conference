@@ -1,0 +1,36 @@
+.ckeditor-content a {
+    color: #2563eb !important;
+    text-decoration: underline;
+    transition: color 0.2s;
+}
+
+.ckeditor-content a:hover {
+    color: #1d4ed8;
+}
+
+.ckeditor-content ul {
+    list-style-type: disc !important;
+    margin-left: 1.5rem !important;
+    margin-bottom: 1rem !important;
+    display: block !important;
+}
+
+.ckeditor-content ol {
+    list-style-type: decimal !important;
+    margin-left: 1.5rem !important;
+    margin-bottom: 1rem !important;
+    display: block !important;
+}
+
+.ckeditor-content li {
+    display: list-item !important;
+    margin-bottom: 0.5rem !important;
+    padding-left: 0.5rem !important;
+}
+
+.ckeditor-content ul li::marker, 
+.ckeditor-content ol li::marker {
+    color: #8a1538; 
+    font-weight: bold;
+}
+
