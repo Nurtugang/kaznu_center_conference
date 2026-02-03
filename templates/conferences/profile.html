@@ -1,119 +1,152 @@
 {% extends "conferences/base_conf.html" %}
+{% load i18n %}
+{% load static %}
 
-{% block title %}Личный кабинет{% endblock %}
+{% block title %}{% trans "Личный кабинет" %} | {{ user.get_full_name }}{% endblock %}
 
 {% block content %}
-<section class="py-12 bg-gray-50">
-    <div class="container mx-auto px-6 max-w-6xl">
-        
-        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
-            <div class="lg:col-span-1">
-                <div class="bg-white rounded-[2rem] p-8 shadow-sm border border-gray-100 sticky top-6">
-                    <div class="w-20 h-20 bg-brand/10 rounded-3xl flex items-center justify-center text-brand text-3xl mb-6 mx-auto">
-                        <i class="fas fa-id-card"></i>
+<div class="bg-white min-h-screen py-12 md:py-16">
+    <div class="container mx-auto px-4 sm:px-6 max-w-6xl">
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+
+            <div class="lg:col-span-3">
+                <div class="sticky top-24">
+                    <div class="mb-6">
+                        <h2 class="text-2xl font-serif font-bold text-gray-900 leading-tight mb-2">
+                            {{ user.last_name }}<br>
+                            {{ user.first_name }}
+                        </h2>
+                        <p class="text-xs font-bold text-gray-400 uppercase tracking-widest">
+                            {% trans "Участник" %}
+                        </p>
                     </div>
-                    <div class="text-center mb-8">
-                        <h2 class="text-xl font-bold text-dark">{{ user.last_name }} {{ user.first_name }}</h2>
-                        <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest mt-1">{{ user.organization }}</p>
-                    </div>
-                    
-                    <div class="space-y-4 pt-6 border-t border-gray-50">
-                        <div class="flex flex-col">
-                            <span class="text-[9px] text-gray-400 font-bold uppercase tracking-widest">Email</span>
-                            <span class="text-sm font-medium text-dark">{{ user.email }}</span>
+
+                    <div class="space-y-4 text-sm text-gray-600 mb-8">
+                        {% if user.organization %}
+                        <div>
+                            <p class="text-[10px] text-gray-400 uppercase font-bold mb-0.5">{% trans "Организация" %}</p>
+                            <p class="leading-snug">{{ user.organization }}</p>
+                        </div>
+                        {% endif %}
+
+                        <div>
+                            <p class="text-[10px] text-gray-400 uppercase font-bold mb-0.5">Email</p>
+                            <p class="font-medium text-gray-900">{{ user.email }}</p>
                         </div>
                     </div>
+
+                    <form action="{% url 'conferences:logout' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="text-xs font-bold text-[#8a1538] hover:text-[#70102d] uppercase tracking-widest border-b border-[#8a1538]/30 hover:border-[#8a1538] transition-all pb-0.5">
+                            {% trans "Выйти из системы" %}
+                        </button>
+                    </form>
                 </div>
             </div>
 
-            <div class="lg:col-span-3">
-                <div class="mb-8">
-                    <h3 class="text-2xl font-bold text-dark flex items-center gap-3">
-                        <span class="w-10 h-1 bg-brand rounded-full"></span>
-                        Мои публикации
-                    </h3>
+            <div class="lg:col-span-9">
+                <div class="flex items-center justify-between mb-8 border-b border-gray-200 pb-6">
+                    <h1 class="text-3xl font-bold text-gray-900 tracking-tight">
+                        {% trans "Мои публикации" %}
+                    </h1>
+                    <a href="{% url 'conferences:submit' %}" class="inline-flex items-center gap-2 px-5 py-2 bg-gray-900 text-white text-xs font-bold uppercase tracking-widest rounded hover:bg-[#8a1538] transition-colors">
+                        <i class="fas fa-plus"></i> <span class="hidden sm:inline">{% trans "Подать заявку" %}</span>
+                    </a>
                 </div>
 
                 {% if submissions %}
-                    {% for sub in submissions %}
-                    <div class="bg-white rounded-[2.5rem] p-8 shadow-sm border border-gray-100 mb-8 overflow-hidden">
-                        <div class="grid grid-cols-1 xl:grid-cols-3 gap-8">
-                            
-                            <div class="xl:col-span-2 border-b xl:border-b-0 xl:border-r border-gray-100 pb-8 xl:pb-0 xl:pr-8">
-                                <div class="flex flex-wrap items-center gap-3 mb-4">
+                    <div class="space-y-12">
+                        {% for sub in submissions %}
+                        <div class="group relative">
+                            <div class="absolute -left-4 top-0 bottom-0 w-1 bg-gray-100 group-hover:bg-[#8a1538] transition-colors duration-300 rounded-full"></div>
+
+                            <div class="flex flex-wrap items-start justify-between gap-4 mb-3 pl-2">
+                                <div class="flex items-center gap-3">
                                     {% if sub.status == 'accepted' %}
-                                        <span class="px-3 py-1 bg-green-100 text-green-700 text-[9px] font-black uppercase rounded-full tracking-widest">Принято</span>
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-emerald-50 text-emerald-700 border border-emerald-100">
+                                            {% trans "Принято" %}
+                                        </span>
                                     {% elif sub.status == 'revision' %}
-                                        <span class="px-3 py-1 bg-amber-100 text-amber-700 text-[9px] font-black uppercase rounded-full tracking-widest">Требуется доработка</span>
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-amber-50 text-amber-700 border border-amber-100 animate-pulse">
+                                            {% trans "Требуется доработка" %}
+                                        </span>
                                     {% elif sub.status == 'rejected' %}
-                                        <span class="px-3 py-1 bg-red-100 text-red-700 text-[9px] font-black uppercase rounded-full tracking-widest">Отклонено</span>
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-red-50 text-red-700 border border-red-100">
+                                            {% trans "Отклонено" %}
+                                        </span>
                                     {% else %}
-                                        <span class="px-3 py-1 bg-blue-100 text-blue-700 text-[9px] font-black uppercase rounded-full tracking-widest">На проверке</span>
-                                    {% endif %}
-                                    <span class="text-[9px] text-gray-400 font-bold uppercase ml-auto">{{ sub.conference.short_title }}</span>
-                                </div>
-
-                                <h3 class="text-xl font-bold text-dark mb-6 leading-tight">{{ sub.title }}</h3>
-
-                                <div class="space-y-5">
-                                    {% if sub.authors_list %}
-                                    <div>
-                                        <h4 class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Соавторы:</h4>
-                                        <p class="text-sm text-gray-700">{{ sub.authors_list }}</p>
-                                    </div>
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-blue-50 text-blue-700 border border-blue-100">
+                                            {% trans "На проверке" %}
+                                        </span>
                                     {% endif %}
 
-                                    {% if sub.abstract_text %}
-                                    <div>
-                                        <h4 class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Аннотация:</h4>
-                                        <p class="text-xs text-gray-500 leading-relaxed">{{ sub.abstract_text|truncatewords:40 }}</p>
-                                    </div>
-                                    {% endif %}
+                                    <span class="text-xs text-gray-400 font-medium">
+                                        {{ sub.conference.short_title }}
+                                    </span>
                                 </div>
+                                <span class="text-xs text-gray-400 font-mono">ID: {{ sub.id }}</span>
+                            </div>
 
-                                {% if sub.status == 'revision' %}
-                                <div class="mt-8">
-                                    <a href="{% url 'conferences:resubmit' sub.id %}" class="inline-flex items-center px-6 py-3 bg-brand text-white text-[10px] font-bold uppercase rounded-2xl hover:shadow-lg hover:shadow-brand/20 transition-all">
-                                        <i class="fas fa-file-upload mr-2"></i> Загрузить исправленную версию
-                                    </a>
+                            <div class="pl-2 mb-6">
+                                <h3 class="text-xl md:text-2xl font-serif font-bold text-gray-900 mb-3 leading-tight group-hover:text-[#8a1538] transition-colors">
+                                    {{ sub.title }}
+                                </h3>
+
+                                {% if sub.authors_list %}
+                                <div class="text-sm text-gray-600 mb-2">
+                                    <span class="font-bold text-gray-400 uppercase text-[10px] tracking-wider mr-2">{% trans "Авторы:" %}</span>
+                                    {{ sub.authors_list }}
                                 </div>
+                                {% endif %}
+
+                                {% if sub.abstract_text %}
+                                <p class="text-sm text-gray-500 leading-relaxed line-clamp-2">
+                                    {{ sub.abstract_text }}
+                                </p>
                                 {% endif %}
                             </div>
 
-                            <div class="xl:col-span-1">
-                                <h4 class="text-[10px] font-bold text-dark uppercase tracking-widest mb-6 flex items-center justify-between">
-                                    История правок
-                                    <span class="bg-gray-100 text-gray-500 px-2 py-0.5 rounded-full text-[9px]">{{ sub.versions.count }}</span>
+                            {% if sub.status == 'revision' %}
+                            <div class="pl-2 mb-6">
+                                <a href="{% url 'conferences:resubmit' sub.id %}" class="inline-flex items-center gap-2 px-6 py-3 bg-[#8a1538] text-white text-xs font-bold uppercase tracking-widest hover:bg-[#70102d] transition-colors shadow-sm">
+                                    <i class="fas fa-sync-alt"></i> {% trans "Загрузить исправленную версию" %}
+                                </a>
+                            </div>
+                            {% endif %}
+
+                            <div class="bg-gray-50 rounded-lg p-5 ml-2 border border-gray-100">
+                                <h4 class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-4">
+                                    {% trans "История версий" %}
                                 </h4>
 
-                                <div class="relative space-y-6 before:absolute before:left-3 before:top-2 before:bottom-2 before:w-0.5 before:bg-gray-100">
+                                <div class="space-y-4">
                                     {% for version in sub.versions.all %}
-                                    <div class="relative pl-8">
-                                        <div class="absolute left-1.5 top-1.5 w-3 h-3 bg-white border-2 {% if forloop.first %}border-brand animate-pulse{% else %}border-gray-300{% endif %} rounded-full -translate-x-1/2 z-10"></div>
-                                        
-                                        <div class="bg-gray-50/50 p-4 rounded-2xl border border-gray-100 group hover:border-brand/20 transition-colors">
-                                            <div class="flex justify-between items-start mb-2">
-                                                <span class="text-[10px] font-bold {% if forloop.first %}text-brand{% else %}text-gray-500{% endif %}">
-                                                    Версия №{{ version.version_number }}
-                                                </span>
-                                                <span class="text-[9px] text-gray-400">{{ version.created_at|date:"d.m.y" }}</span>
-                                            </div>
+                                    <div class="flex flex-col sm:flex-row sm:items-start gap-4 text-sm relative {% if not forloop.last %}pb-4 border-b border-gray-200 border-dashed{% endif %}">
 
-                                            {% if version.author_comment %}
-                                                <p class="text-[10px] text-gray-600 mb-3 leading-relaxed bg-white/50 p-2 rounded-lg border border-gray-50 italic">
-                                                    <i class="fas fa-comment-dots text-gray-300 mr-1"></i> {{ version.author_comment }}
-                                                </p>
-                                            {% endif %}
+                                        <div class="sm:w-32 shrink-0">
+                                            <div class="font-bold text-gray-900">v.{{ version.version_number }}</div>
+                                            <div class="text-xs text-gray-400">{{ version.created_at|date:"d.m.Y H:i" }}</div>
+                                        </div>
 
+                                        <div class="flex-grow">
                                             {% if version.admin_comment %}
-                                                <div class="mb-3 p-3 bg-brand/5 rounded-xl border border-brand/10">
-                                                    <p class="text-[8px] font-black text-brand uppercase mb-1">Оргкомитет:</p>
-                                                    <p class="text-[10px] text-dark leading-tight">{{ version.admin_comment }}</p>
+                                                <div class="bg-white p-3 rounded border border-amber-100 mb-2 shadow-sm">
+                                                    <p class="text-[9px] font-bold text-amber-600 uppercase mb-1">{% trans "Рецензия:" %}</p>
+                                                    <p class="text-gray-800">{{ version.admin_comment }}</p>
                                                 </div>
                                             {% endif %}
-                                            
-                                            <a href="{{ version.file.url }}" class="flex items-center gap-2 text-[10px] font-bold text-blue-600 hover:text-brand transition-colors uppercase tracking-tighter">
-                                                <i class="fas fa-download"></i> Скачать файл
+
+                                            {% if version.author_comment %}
+                                                <p class="text-gray-500 italic text-xs mb-1">
+                                                    <span class="font-bold not-italic text-gray-400">{% trans "Ваш коммент:" %}</span> {{ version.author_comment }}
+                                                </p>
+                                            {% endif %}
+                                        </div>
+
+                                        <div class="shrink-0">
+                                            <a href="{{ version.file.url }}" class="text-[#8a1538] font-bold text-xs uppercase hover:underline flex items-center gap-1">
+                                                <i class="fas fa-download"></i> PDF
                                             </a>
                                         </div>
                                     </div>
@@ -121,21 +154,31 @@
                                 </div>
                             </div>
 
+                            {% if not forloop.last %}
+                                <div class="h-px bg-gray-200 my-12"></div>
+                            {% endif %}
                         </div>
+                        {% endfor %}
                     </div>
-                    {% endfor %}
-                    
+
                 {% else %}
-                    <div class="bg-white rounded-[3rem] border border-dashed border-gray-200 py-20 text-center">
-                        <div class="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center text-gray-300 mb-6 mx-auto text-3xl">
-                            <i class="fas fa-feather"></i>
+                    <div class="py-24 text-center bg-gray-50 rounded-xl border border-dashed border-gray-300">
+                        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-white text-gray-300 mb-6 shadow-sm">
+                            <i class="fas fa-folder-open text-2xl"></i>
                         </div>
-                        <h4 class="text-lg font-bold text-dark mb-2">Здесь пока пусто</h4>
-                        <p class="text-gray-400 text-sm mb-8">Вы еще не подали ни одной работы.</p>
+                        <h3 class="text-lg font-bold text-gray-900 mb-2">
+                            {% trans "Нет активных заявок" %}
+                        </h3>
+                        <p class="text-gray-500 text-sm max-w-sm mx-auto mb-8">
+                            {% trans "Вы еще не подали ни одной работы. Начните с подачи заявки на участие." %}
+                        </p>
+                        <a href="{% url 'conferences:submit' %}" class="inline-flex items-center gap-2 px-6 py-3 bg-[#8a1538] text-white text-xs font-bold uppercase tracking-widest rounded hover:bg-[#70102d] transition-colors">
+                            {% trans "Подать первую заявку" %}
+                        </a>
                     </div>
                 {% endif %}
             </div>
         </div>
     </div>
-</section>
+</div>
 {% endblock %}

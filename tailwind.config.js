@@ -10,7 +10,7 @@ module.exports = {
       colors: {
         brand: '#8a1538',
         brand_dark: '#70102d',
-        dark: '#0f172a',
+        dark: '#0f172a', // Этот цвет теперь корректно подхватится классом text-dark
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
@@ -20,5 +20,7 @@ module.exports = {
       }
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/typography'), // <--- ОБЯЗАТЕЛЬНО ДОБАВИТЬ ЭТУ СТРОКУ
+  ],
 }

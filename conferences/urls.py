@@ -1,6 +1,7 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
 from . import views
+from .views import UserLoginView
 
 app_name = 'conferences'
 
@@ -8,7 +9,7 @@ urlpatterns = [
     path('', views.conference_detail, name='detail'),
     
     path('register/', views.register, name='register'),
-    path('login/', auth_views.LoginView.as_view(template_name='conferences/login.html'), name='login'),
+    path('login/', UserLoginView.as_view(), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('profile/', views.profile_view, name='profile'),
     
@@ -24,4 +25,6 @@ urlpatterns = [
     path('contacts/', views.conference_contacts, name='contacts'),
     path('participation-fee/', views.participation_fee, name='participation_fee'),
     path('submission-format/', views.submission_format, name='submission_format'),
+    path('privacy/', views.privacy_policy, name='privacy'),
+    path('terms/', views.terms, name='terms'),
 ]

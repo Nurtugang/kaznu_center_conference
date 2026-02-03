@@ -10,6 +10,7 @@ DEBUG = (os.getenv("DEBUG") == 'True')
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "").split(",")
 
 INSTALLED_APPS = [
+    'modeltranslation',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -17,12 +18,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_ckeditor_5',
-    'conferences'
+    'conferences',
+    'django_recaptcha',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -83,6 +86,18 @@ TIME_ZONE = 'Asia/Almaty'
 USE_I18N = True
 USE_TZ = True
 
+gettext = lambda s: s
+LANGUAGES = (
+    ('ru', gettext('Russian')),
+    ('en', gettext('English')),
+    ('kk', gettext('Kazakh')),
+)
+
+MODELTRANSLATION_DEFAULT_LANGUAGE = 'ru'
+MODELTRANSLATION_FALLBACK_LANGUAGES = ('ru', 'en', 'kk')
+
+MODELTRANSLATION_CUSTOM_FIELDS = ('CKEditor5Field',)
+
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [BASE_DIR / 'static']
@@ -92,18 +107,47 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Настройки редактора
 CKEDITOR_5_CONFIGS = {
     'default': {
         'toolbar': [
-            'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 
-            'blockQuote', 'imageUpload', '|', 'undo', 'redo'
+            'heading', '|',
+            'bold', 'italic', 'underline', 'strikethrough', '|',
+            'link', 'bulletedList', 'numberedList', 'blockQuote', '|',
+            'insertTable', 'mediaEmbed', '|',
+            'sourceEditing',
+            '|', 'undo', 'redo',
+            '|', 'fontSize', 'fontColor', 'fontBackgroundColor'
         ],
-    },
+        'image': {
+            'toolbar': ['imageTextAlternative', '|', 'imageStyle:alignLeft', 'imageStyle:alignRight', 'imageStyle:alignCenter', 'imageStyle:side'],
+            'styles': [
+                'full',
+                'side',
+                'alignLeft',
+                'alignRight',
+                'alignCenter',
+            ]
+        },
+        'table': {
+            'contentToolbar': [ 'tableColumn', 'tableRow', 'mergeTableCells', 'tableProperties', 'tableCellProperties' ],
+        },
+        'heading': {
+            'options': [
+                { 'model': 'paragraph', 'title': 'Paragraph', 'class': 'ck-heading_paragraph' },
+                { 'model': 'heading1', 'view': 'h1', 'title': 'Heading 1', 'class': 'ck-heading_heading1' },
+                { 'model': 'heading2', 'view': 'h2', 'title': 'Heading 2', 'class': 'ck-heading_heading2' },
+                { 'model': 'heading3', 'view': 'h3', 'title': 'Heading 3', 'class': 'ck-heading_heading3' }
+            ]
+        },
+        'htmlSupport': {
+            'allow': [
+                {'name': '/.*/', 'attributes': True, 'classes': True, 'styles': True}
+            ]
+        }
+    }
 }
 CKEDITOR_5_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
 
-# Настройки аутентификации
 AUTHENTICATION_BACKENDS = [
     'conferences.backends.EmailOrUsernameModelBackend',
     'django.contrib.auth.backends.ModelBackend',
@@ -113,8 +157,19 @@ AUTH_USER_MODEL = 'conferences.User'
 
 LOGIN_URL = 'conferences:login'
 
+LOCALE_PATHS = [
+    BASE_DIR / 'locale',
+]
+
 LOGIN_REDIRECT_URL = 'conferences:profile'
 
 LOGOUT_REDIRECT_URL = 'conferences:detail'
 
 BASE_SITE = os.getenv('BASE_SITE')
+
+RECAPTCHA_PUBLIC_KEY = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'
+RECAPTCHA_PRIVATE_KEY = '6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe'
+
+RECAPTCHA_USE_SSL = True
+
+SILENCED_SYSTEM_CHECKS = ['django_recaptcha.recaptcha_test_key_error']

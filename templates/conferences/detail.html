@@ -1,113 +1,198 @@
 {% extends "conferences/base_conf.html" %}
 {% load tz %}
-{% block title %}{{ conference.title }}{% endblock %}
+{% load static %}
+{% load i18n %} {% block title %}{{ conference.title }}{% endblock %}
 
 {% block content %}
-<section class="py-10">
-    <div class="container mx-auto px-6 max-w-6xl">
-        
-        <div class="relative w-full h-[400px] rounded-[2.5rem] overflow-hidden shadow-2xl mb-12 border border-gray-200">
-            <img src="{{ conference.poster.url }}" class="w-full h-full object-cover" alt="{{ conference.title }}">
-            <div class="absolute inset-0 bg-gradient-to-t from-dark via-dark/20 to-transparent"></div>
-            <div class="absolute bottom-10 left-10 right-10">
-                <div class="flex items-center gap-3 mb-4">
-                    <span class="px-3 py-1 bg-brand text-white text-[9px] font-black uppercase rounded-full tracking-widest shadow-lg">Active Event</span>
-                    <span class="text-white/80 text-xs font-bold uppercase tracking-widest"><i class="fas fa-map-marker-alt mr-2"></i>{{ conference.location }}</span>
-                </div>
-                <h1 class="text-3xl md:text-5xl font-black text-white leading-tight uppercase tracking-tighter">{{ conference.title }}</h1>
-            </div>
-        </div>
+<section class="py-12 md:py-16 relative overflow-hidden bg-white">
+    <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-[#8a1538]/5 rounded-full blur-3xl pointer-events-none"></div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
-            <div class="lg:col-span-2 space-y-8">
-                <div class="bg-white rounded-[2rem] p-10 shadow-sm border border-gray-100">
-                    <h3 class="text-xl font-bold text-dark mb-6 flex items-center gap-3">
-                        <span class="w-10 h-1 bg-brand rounded-full"></span>Обзор события
-                    </h3>
-                    <div class="text-gray-600 leading-relaxed space-y-4 prose max-w-none">
-                        {{ conference.description|linebreaks }}
-                    </div>
-                </div>
-            </div>
+    <div class="container mx-auto px-4 sm:px-6 relative z-10">
 
-            <div class="space-y-6">
-                <div class="bg-white rounded-[2.5rem] p-8 shadow-xl shadow-gray-200/60 border border-gray-100 relative overflow-hidden mb-6">
-                    <div class="absolute top-0 left-0 w-full h-1.5 bg-brand"></div>
-                    
-                    <h4 id="timer-label" class="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400 mb-6 text-center">
-                        До начала события осталось:
-                    </h4>
-                    
-                    <div id="timer-grid" class="grid grid-cols-4 gap-3 text-center">
-                        <div class="bg-gray-50 rounded-2xl py-4 border border-gray-100">
-                            <span id="days" class="text-2xl font-black block text-dark">00</span>
-                            <p class="text-[7px] font-bold uppercase opacity-60 text-gray-500">Дней</p>
-                        </div>
-                        <div class="bg-gray-50 rounded-2xl py-4 border border-gray-100">
-                            <span id="hours" class="text-2xl font-black block text-dark">00</span>
-                            <p class="text-[7px] font-bold uppercase opacity-60 text-gray-500">Часов</p>
-                        </div>
-                        <div class="bg-gray-50 rounded-2xl py-4 border border-gray-100">
-                            <span id="minutes" class="text-2xl font-black block text-dark">00</span>
-                            <p class="text-[7px] font-bold uppercase opacity-60 text-gray-500">Мин</p>
-                        </div>
-                        <div class="bg-brand/5 rounded-2xl py-4 border border-brand/10">
-                            <span id="seconds" class="text-2xl font-black block text-brand">00</span>
-                            <p class="text-[7px] font-bold uppercase text-brand/60">Сек</p>
-                        </div>
-                    </div>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
 
-                    <div id="event-started" class="hidden text-center py-4 bg-green-50 rounded-2xl border border-green-100">
-                        <span class="text-green-600 font-bold uppercase text-[10px] tracking-widest flex items-center justify-center gap-2">
-                            <span class="relative flex h-2 w-2">
-                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                            <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-                            </span>
-                            Событие уже идет
-                        </span>
-                    </div>
-                </div>
+            <div class="lg:col-span-8 space-y-8">
 
-                <div class="bg-white rounded-[2rem] p-8 border border-gray-100 shadow-sm">
-                    <h4 class="text-xs font-bold text-dark uppercase tracking-widest mb-6 border-b pb-4">Важные даты</h4>
-                    <div class="space-y-5">
-                        <div class="flex items-center gap-4">
-                            <div class="w-8 h-8 rounded-lg bg-gray-50 flex items-center justify-center text-brand text-xs border border-gray-100"><i class="fas fa-clock"></i></div>
-                            <div>
-                                <p class="text-[9px] text-gray-400 font-bold uppercase tracking-widest">Дедлайн подачи</p>
-                                <p class="text-xs font-bold text-dark">{{ conference.registration_deadline|date:"d.m.Y H:i" }}</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center gap-4">
-                            <div class="w-8 h-8 rounded-lg bg-gray-50 flex items-center justify-center text-brand text-xs border border-gray-100"><i class="fas fa-bullhorn"></i></div>
-                            <div>
-                                <p class="text-[9px] text-gray-400 font-bold uppercase tracking-widest">Результаты</p>
-                                <p class="text-xs font-bold text-dark">{{ conference.notification_date|date:"d.m.Y" }}</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="mt-8">
-                        {% if user.is_authenticated %}
-                            {% if conference.registration_deadline < now %}
-                                <div class="flex items-center justify-center w-full py-2 bg-gray-200 text-gray-500 rounded-2xl font-bold cursor-not-allowed border-2 border-gray-300">
-                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                    Прием заявок завершен
-                                </div>
-                            {% else %}
-                                <a href="{% url 'conferences:submit' %}" 
-                                class="flex items-center justify-center w-full py-2 bg-gradient-to-r from-blue-600 to-indigo-700 text-white rounded-2xl font-bold hover:shadow-lg hover:shadow-blue-500/30 transition-all duration-300 group">
-                                    Подать работу
-                                    <svg class="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                                    </svg>
-                                </a>
-                            {% endif %}
+                <div class="bg-white rounded-[1.5rem] overflow-hidden shadow-xl shadow-slate-200/50 border border-slate-100 group relative">
+                    <div class="relative h-[300px] md:h-[450px] overflow-hidden">
+                        {% if conference.poster %}
+                            <img src="{{ conference.poster.url }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="{{ conference.title }}">
                         {% else %}
-                            <a href="{% url 'conferences:login' %}?next={{ request.path }}" class="block w-full text-center bg-dark text-white py-4 rounded-2xl font-bold hover:bg-brand transition-all text-xs uppercase tracking-widest">Участвовать</a>
+                            <div class="w-full h-full bg-slate-100 flex items-center justify-center">
+                                <i class="fas fa-image text-4xl text-slate-300"></i>
+                            </div>
                         {% endif %}
+
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-[#0f172a]/70 to-transparent opacity-90"></div>
+
+                        <div class="absolute bottom-0 left-0 w-full p-6 md:p-10">
+                            <div class="flex flex-wrap items-center gap-3 mb-4">
+                                {% if conference.is_active %}
+                                    <span class="px-3 py-1 bg-[#8a1538] text-white text-[10px] font-bold uppercase rounded-full tracking-widest shadow-lg shadow-[#8a1538]/30 backdrop-blur-md border border-white/10">
+                                        {% trans "Активное событие" %}
+                                    </span>
+                                {% else %}
+                                    <span class="px-3 py-1 bg-slate-600 text-white text-[10px] font-bold uppercase rounded-full tracking-widest border border-white/10">
+                                        {% trans "Архив" %}
+                                    </span>
+                                {% endif %}
+                                <span class="px-3 py-1 bg-white/10 backdrop-blur-md text-white text-[10px] font-bold uppercase rounded-full tracking-widest border border-white/10 flex items-center gap-2">
+                                    <i class="fas fa-map-marker-alt text-[#8a1538]"></i> {{ conference.location }}
+                                </span>
+                            </div>
+
+                            <h1 class="text-2xl md:text-3xl lg:text-4xl font-serif font-bold text-white leading-tight mb-3 text-shadow-sm">
+                                {{ conference.title }}
+                            </h1>
+                            <p class="text-slate-300 text-sm md:text-base font-medium max-w-2xl leading-relaxed">
+                                {{ conference.short_title }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-[1.5rem] p-8 md:p-10 border border-slate-100">
+                    <div class="flex items-center gap-4 mb-8 border-b border-slate-100 pb-6">
+                        <div class="w-10 h-10 rounded-lg bg-[#8a1538]/5 text-[#8a1538] flex items-center justify-center">
+                            <i class="fas fa-align-left text-lg"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-serif font-bold text-slate-900">{% trans "Обзор события" %}</h3>
+                            <p class="text-[10px] text-slate-400 uppercase tracking-widest font-bold">{% trans "Детальная информация" %}</p>
+                        </div>
+                    </div>
+
+                    <div class="prose prose-slate prose-lg max-w-none
+                                prose-headings:font-serif prose-headings:font-bold prose-headings:text-slate-900
+                                prose-p:text-slate-600 prose-p:leading-relaxed prose-p:text-base
+                                prose-a:text-[#8a1538] prose-a:no-underline hover:prose-a:underline
+                                prose-blockquote:border-l-4 prose-blockquote:border-l-[#8a1538] prose-blockquote:bg-slate-50 prose-blockquote:py-2 prose-blockquote:px-4 prose-blockquote:not-italic
+                                prose-img:rounded-xl prose-img:shadow-md
+                                prose-li:marker:text-[#8a1538]">
+                        {{ conference.description|safe }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-4 space-y-6">
+
+                <div class="sticky top-24 space-y-6">
+
+                    <div class="bg-white rounded-[1.5rem] p-6 shadow-xl shadow-slate-200/40 border border-slate-100 relative overflow-hidden group hover:border-[#8a1538]/20 transition-colors">
+                        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#8a1538] to-[#500c20]"></div>
+
+                        <h4 id="timer-label" class="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 mb-6 text-center">
+                            {% trans "До начала события" %}
+                        </h4>
+
+                        <div id="timer-grid" class="grid grid-cols-4 gap-2 text-center">
+                            <div class="bg-slate-50 rounded-xl py-3 border border-slate-100">
+                                <span id="days" class="text-lg font-black block text-slate-800 tabular-nums">00</span>
+                                <p class="text-[9px] font-bold uppercase text-slate-400 mt-1">{% trans "Дней" %}</p>
+                            </div>
+                            <div class="bg-slate-50 rounded-xl py-3 border border-slate-100">
+                                <span id="hours" class="text-lg font-black block text-slate-800 tabular-nums">00</span>
+                                <p class="text-[9px] font-bold uppercase text-slate-400 mt-1">{% trans "Часов" %}</p>
+                            </div>
+                            <div class="bg-slate-50 rounded-xl py-3 border border-slate-100">
+                                <span id="minutes" class="text-lg font-black block text-slate-800 tabular-nums">00</span>
+                                <p class="text-[9px] font-bold uppercase text-slate-400 mt-1">{% trans "Мин" %}</p>
+                            </div>
+                            <div class="bg-[#8a1538]/5 rounded-xl py-3 border border-[#8a1538]/10">
+                                <span id="seconds" class="text-lg font-black block text-[#8a1538] tabular-nums">00</span>
+                                <p class="text-[9px] font-bold uppercase text-[#8a1538]/60 mt-1">{% trans "Сек" %}</p>
+                            </div>
+                        </div>
+
+                        <div id="event-started" class="hidden text-center py-6 bg-emerald-50 rounded-2xl border border-emerald-100">
+                            <span class="text-emerald-700 font-bold uppercase text-[10px] tracking-widest flex items-center justify-center gap-3">
+                                <span class="relative flex h-2.5 w-2.5">
+                                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                                    <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                                </span>
+                                {% trans "Событие началось" %}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-[1.5rem] p-6 md:p-8 border border-slate-100 shadow-xl shadow-slate-200/40">
+                        <h4 class="text-xs font-bold text-slate-900 uppercase tracking-widest mb-6 border-b border-slate-100 pb-4">
+                            {% trans "Ключевые даты" %}
+                        </h4>
+
+                        <div class="space-y-5">
+                            <div class="flex items-start gap-4 group">
+                                <div class="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400 border border-slate-100 group-hover:bg-[#8a1538] group-hover:text-white transition-colors duration-300 shrink-0">
+                                    <i class="fas fa-hourglass-half text-sm"></i>
+                                </div>
+                                <div>
+                                    <p class="text-[9px] text-slate-400 font-bold uppercase tracking-widest mb-0.5">{% trans "Дедлайн подачи" %}</p>
+                                    <p class="text-sm font-bold text-slate-800">
+                                        {{ conference.registration_deadline|date:"d E Y" }}
+                                        <span class="text-slate-400 font-normal text-xs ml-1">{{ conference.registration_deadline|date:"H:i" }}</span>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-4 group">
+                                <div class="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400 border border-slate-100 group-hover:bg-[#8a1538] group-hover:text-white transition-colors duration-300 shrink-0">
+                                    <i class="fas fa-check-circle text-sm"></i>
+                                </div>
+                                <div>
+                                    <p class="text-[9px] text-slate-400 font-bold uppercase tracking-widest mb-0.5">{% trans "Результаты отбора" %}</p>
+                                    <p class="text-sm font-bold text-slate-800">{{ conference.notification_date|date:"d E Y" }}</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-4 group">
+                                <div class="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400 border border-slate-100 group-hover:bg-[#8a1538] group-hover:text-white transition-colors duration-300 shrink-0">
+                                    <i class="fas fa-calendar-day text-sm"></i>
+                                </div>
+                                <div>
+                                    <p class="text-[9px] text-slate-400 font-bold uppercase tracking-widest mb-0.5">{% trans "Начало конференции" %}</p>
+                                    <p class="text-sm font-bold text-slate-800">{{ conference.start_date|date:"d E Y" }}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-8 pt-6 border-t border-slate-100">
+                            {% if user.is_authenticated %}
+                                {% if user_submission %}
+                                     <div class="w-full py-4 bg-emerald-50 border border-emerald-100 text-emerald-700 rounded-xl font-bold text-center text-xs uppercase tracking-widest flex flex-col items-center gap-2">
+                                        <span><i class="fas fa-check mb-1"></i> {% trans "Вы подали заявку" %}</span>
+                                        <a href="{% url 'conferences:profile' %}" class="underline text-[10px] hover:text-emerald-900">{% trans "Перейти в кабинет" %}</a>
+                                    </div>
+                                {% elif conference.registration_deadline < now %}
+                                    <div class="flex items-center justify-center w-full py-4 bg-slate-100 text-slate-400 rounded-xl font-bold cursor-not-allowed border border-slate-200 text-xs uppercase tracking-widest">
+                                        <i class="fas fa-lock mr-2"></i> {% trans "Прием заявок завершен" %}
+                                    </div>
+                                {% else %}
+                                    <a href="{% url 'conferences:submit' %}"
+                                    class="flex items-center justify-center w-full py-4 bg-[#8a1538] hover:bg-[#70102d] text-white rounded-xl font-bold shadow-lg shadow-[#8a1538]/30 hover:shadow-[#8a1538]/50 hover:-translate-y-0.5 transition-all duration-300 group text-xs uppercase tracking-widest">
+                                        {% trans "Подать работу" %}
+                                        <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                                    </a>
+                                {% endif %}
+                            {% else %}
+                                <a href="{% url 'conferences:login' %}?next={{ request.path }}" class="block w-full text-center bg-[#1a2332] text-white py-4 rounded-xl font-bold hover:bg-[#8a1538] hover:shadow-lg transition-all text-xs uppercase tracking-widest">
+                                    <i class="fas fa-sign-in-alt mr-2"></i> {% trans "Войти для участия" %}
+                                </a>
+                                <div class="text-center mt-3">
+                                    <a href="{% url 'conferences:register' %}" class="text-[10px] text-slate-400 hover:text-[#8a1538] font-bold uppercase tracking-widest border-b border-dashed border-slate-300 hover:border-[#8a1538] transition-colors">
+                                        {% trans "Нет аккаунта? Регистрация" %}
+                                    </a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="bg-[#1a2332] rounded-[1.5rem] p-8 text-white relative overflow-hidden">
+                        <div class="absolute top-0 right-0 -mr-6 -mt-6 w-24 h-24 bg-[#8a1538] rounded-full opacity-50 blur-2xl"></div>
+                        <h5 class="font-serif font-bold text-lg mb-2">{% trans "Есть вопросы?" %}</h5>
+                        <p class="text-slate-400 text-xs mb-4 leading-relaxed">{% trans "Свяжитесь с оргкомитетом для уточнения деталей." %}</p>
+                        <a href="{% url 'conferences:contacts' %}" class="inline-flex items-center text-[10px] font-bold uppercase tracking-widest text-[#8a1538] bg-white px-4 py-2.5 rounded-lg hover:bg-slate-100 transition-colors">
+                            {% trans "Контакты" %}
+                        </a>
                     </div>
                 </div>
             </div>
@@ -117,24 +202,30 @@
 
 <script>
     (function() {
-        const eventDate = new Date("{{ conference.start_date|date:'Y-m-d' }}T09:00:00").getTime();
-        
+        const eventDateStr = "{{ conference.start_date|date:'Y-m-d' }}T09:00:00";
+        const eventDate = new Date(eventDateStr).getTime();
+
         const label = document.getElementById("timer-label");
         const grid = document.getElementById("timer-grid");
         const startedMessage = document.getElementById("event-started");
+
+        const elDays = document.getElementById("days");
+        const elHours = document.getElementById("hours");
+        const elMinutes = document.getElementById("minutes");
+        const elSeconds = document.getElementById("seconds");
+
+        if (!elDays) return;
 
         const updateTimer = () => {
             const now = new Date().getTime();
             const distance = eventDate - now;
 
             if (distance < 0) {
-                // Прячем заголовок и сетку
-                label.classList.add('hidden');
-                grid.classList.add('hidden');
-                // Показываем сообщение о начале
-                startedMessage.classList.remove('hidden');
-                
-                clearInterval(timerInterval);
+                if (!label.classList.contains('hidden')) {
+                    label.classList.add('hidden');
+                    grid.classList.add('hidden');
+                    startedMessage.classList.remove('hidden');
+                }
                 return;
             }
 
@@ -143,14 +234,14 @@
             const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             const s = Math.floor((distance % (1000 * 60)) / 1000);
 
-            document.getElementById("days").innerText = String(d).padStart(2, '0');
-            document.getElementById("hours").innerText = String(h).padStart(2, '0');
-            document.getElementById("minutes").innerText = String(m).padStart(2, '0');
-            document.getElementById("seconds").innerText = String(s).padStart(2, '0');
+            elDays.innerText = String(d).padStart(2, '0');
+            elHours.innerText = String(h).padStart(2, '0');
+            elMinutes.innerText = String(m).padStart(2, '0');
+            elSeconds.innerText = String(s).padStart(2, '0');
         };
 
         updateTimer();
-        const timerInterval = setInterval(updateTimer, 1000);
+        setInterval(updateTimer, 1000);
     })();
 </script>
 {% endblock %}

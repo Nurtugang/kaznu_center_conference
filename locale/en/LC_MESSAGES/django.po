@@ -1,0 +1,978 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: KAZNU Conference\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-03 13:09+0500\n"
+"PO-Revision-Date: 2026-02-03 13:30+0500\n"
+"Last-Translator: Admin <admin@kaznu.kz>\n"
+"Language-Team: English\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\kaznu_center_conference\settings.py:90
+msgid "Russian"
+msgstr "Russian"
+
+#: .\kaznu_center_conference\settings.py:91
+msgid "English"
+msgstr "English"
+
+#: .\kaznu_center_conference\settings.py:92
+msgid "Kazakh"
+msgstr "Kazakh"
+
+#: .\templates\conferences\base_conf.html:8
+msgid "Конференции ЦУР КазНУ"
+msgstr "SDG KazNU Conferences"
+
+#: .\templates\conferences\base_conf.html:41
+msgid "Центр устойчивого развития КазНУ"
+msgstr "Center for Sustainable Development KazNU"
+
+#: .\templates\conferences\base_conf.html:43
+#: .\templates\conferences\base_conf.html:334
+msgid "ЦУР КазНУ"
+msgstr "SDG KazNU"
+
+#: .\templates\conferences\base_conf.html:47
+msgid "Казахский национальный университет им. аль-Фараби"
+msgstr "Al-Farabi Kazakh National University"
+
+#: .\templates\conferences\base_conf.html:72
+msgid "Научная конференция"
+msgstr "Scientific Conference"
+
+#: .\templates\conferences\base_conf.html:115
+#: .\templates\conferences\proceedings.html:5
+#: .\templates\conferences\proceedings.html:14
+#: .\templates\conferences\profile.html:5
+msgid "Личный кабинет"
+msgstr "Dashboard"
+
+#: .\templates\conferences\base_conf.html:120
+#: .\templates\conferences\base_conf.html:264
+msgid "Выход"
+msgstr "Logout"
+
+#: .\templates\conferences\base_conf.html:128
+#: .\templates\conferences\base_conf.html:295
+msgid "Вход"
+msgstr "Login"
+
+#: .\templates\conferences\base_conf.html:132
+#: .\templates\conferences\base_conf.html:298
+#: .\templates\conferences\register.html:5
+msgid "Регистрация"
+msgstr "Registration"
+
+#: .\templates\conferences\base_conf.html:149
+msgid "Обзор"
+msgstr "Overview"
+
+#: .\templates\conferences\base_conf.html:153
+#: .\templates\conferences\base_conf.html:276
+msgid "Программа"
+msgstr "Program"
+
+#: .\templates\conferences\base_conf.html:157
+#: .\templates\conferences\base_conf.html:277
+msgid "Комитет"
+msgstr "Committee"
+
+#: .\templates\conferences\base_conf.html:161
+msgid "Место"
+msgstr "Venue"
+
+#: .\templates\conferences\base_conf.html:165
+#: .\templates\conferences\gallery.html:2
+#: .\templates\conferences\gallery.html:18
+msgid "Галерея"
+msgstr "Gallery"
+
+#: .\templates\conferences\base_conf.html:169
+msgid "Документы"
+msgstr "Documents"
+
+#: .\templates\conferences\base_conf.html:173
+#: .\templates\conferences\base_conf.html:359
+#: .\templates\conferences\contacts.html:4
+#: .\templates\conferences\contacts.html:12
+#: .\templates\conferences\detail.html:194
+msgid "Контакты"
+msgstr "Contacts"
+
+#: .\templates\conferences\base_conf.html:177
+msgid "Материалы"
+msgstr "Proceedings"
+
+#: .\templates\conferences\base_conf.html:181
+#: .\templates\conferences\base_conf.html:288
+#: .\templates\conferences\participation_fee.html:2
+#: .\templates\conferences\participation_fee.html:10
+msgid "Плата за участие"
+msgstr "Participation Fee"
+
+#: .\templates\conferences\base_conf.html:185
+msgid "Формат"
+msgstr "Format"
+
+#: .\templates\conferences\base_conf.html:192
+#: .\templates\conferences\base_conf.html:286
+msgid "Отправить материал"
+msgstr "Submit Paper"
+
+#: .\templates\conferences\base_conf.html:193
+#: .\templates\conferences\proceedings.html:40
+msgid "Подать"
+msgstr "Submit"
+
+#: .\templates\conferences\base_conf.html:226
+msgid "Меню навигации"
+msgstr "Navigation Menu"
+
+#: .\templates\conferences\base_conf.html:234
+msgid "Язык"
+msgstr "Language"
+
+#: .\templates\conferences\base_conf.html:259
+msgid "Кабинет"
+msgstr "Cabinet"
+
+#: .\templates\conferences\base_conf.html:273
+msgid "Основное"
+msgstr "Main"
+
+#: .\templates\conferences\base_conf.html:275
+msgid "Обзор конференции"
+msgstr "Conference Overview"
+
+#: .\templates\conferences\base_conf.html:278
+#: .\templates\conferences\venue.html:2 .\templates\conferences\venue.html:10
+msgid "Место проведения"
+msgstr "Venue"
+
+#: .\templates\conferences\base_conf.html:283
+msgid "Авторам"
+msgstr "For Authors"
+
+#: .\templates\conferences\base_conf.html:289
+#: .\templates\conferences\submission_format.html:2
+#: .\templates\conferences\submission_format.html:10
+msgid "Формат работы"
+msgstr "Submission Format"
+
+#: .\templates\conferences\base_conf.html:336
+msgid "Научный хаб университета"
+msgstr "University Science Hub"
+
+#: .\templates\conferences\base_conf.html:341
+msgid ""
+"Координирующий центр международных исследований в области целей устойчивого "
+"развития. Объединяем науку, образование и инновации для будущего."
+msgstr ""
+"Coordinating center for international research on Sustainable Development Goals. "
+"Uniting science, education, and innovation for the future."
+
+#: .\templates\conferences\base_conf.html:347
+msgid "Навигация"
+msgstr "Navigation"
+
+#: .\templates\conferences\base_conf.html:351
+msgid "Сайт центра ЦУР"
+msgstr "SDG Center Website"
+
+#: .\templates\conferences\base_conf.html:352
+#: .\templates\conferences\base_conf.html:381
+msgid "КазНУ им. аль-Фараби"
+msgstr "Al-Farabi KazNU"
+
+#: .\templates\conferences\base_conf.html:353
+msgid "Вход для авторов"
+msgstr "Author Login"
+
+#: .\templates\conferences\base_conf.html:365
+msgid "г. Алматы, пр. аль-Фараби 71"
+msgstr "Almaty, Al-Farabi ave. 71"
+
+#: .\templates\conferences\base_conf.html:385
+msgid "Конфиденциальность"
+msgstr "Privacy Policy"
+
+#: .\templates\conferences\base_conf.html:388
+msgid "Условия"
+msgstr "Terms of Use"
+
+#: .\templates\conferences\committee.html:5
+#: .\templates\conferences\committee.html:13
+msgid "Организационный комитет"
+msgstr "Organizing Committee"
+
+#: .\templates\conferences\committee.html:16
+msgid "Научный и организационный состав"
+msgstr "Scientific and Organizing Team"
+
+#: .\templates\conferences\committee.html:26
+msgid "Руководство"
+msgstr "Leadership"
+
+#: .\templates\conferences\committee.html:51
+msgid "Председатель"
+msgstr "Chair"
+
+#: .\templates\conferences\committee.html:53
+msgid "Зам. председателя"
+msgstr "Vice-Chair"
+
+#: .\templates\conferences\committee.html:87
+msgid "Члены комитета"
+msgstr "Committee Members"
+
+#: .\templates\conferences\committee.html:108
+msgid "Секретарь"
+msgstr "Secretary"
+
+#: .\templates\conferences\committee.html:136
+#: .\templates\conferences\participation_fee.html:38
+#: .\templates\conferences\submission_format.html:38
+#: .\templates\conferences\venue.html:36
+msgid "Информация обновляется"
+msgstr "Information is being updated"
+
+#: .\templates\conferences\contacts.html:15
+msgid "Связь с организаторами"
+msgstr "Contact Organizers"
+
+#: .\templates\conferences\contacts.html:65
+msgid "Список контактных лиц будет опубликован позже."
+msgstr "The list of contact persons will be published later."
+
+#: .\templates\conferences\contacts.html:78
+msgid "Адрес оргкомитета"
+msgstr "Organizing Committee Address"
+
+#: .\templates\conferences\contacts.html:82
+msgid "Республика Казахстан, 050040"
+msgstr "Republic of Kazakhstan, 050040"
+
+#: .\templates\conferences\contacts.html:83
+msgid "г. Алматы, пр. аль-Фараби, 71"
+msgstr "Almaty, Al-Farabi Ave, 71"
+
+#: .\templates\conferences\contacts.html:84
+msgid "Казахский национальный университет имени аль-Фараби"
+msgstr "Al-Farabi Kazakh National University"
+
+#: .\templates\conferences\contacts.html:88
+msgid "Показать на карте"
+msgstr "Show on map"
+
+#: .\templates\conferences\contacts.html:98
+msgid "Общие контакты"
+msgstr "General Contacts"
+
+#: .\templates\conferences\contacts.html:104
+msgid "Телефон"
+msgstr "Phone"
+
+#: .\templates\conferences\contacts.html:112
+msgid "Email"
+msgstr "Email"
+
+#: .\templates\conferences\contacts.html:120
+msgid "Веб-сайт"
+msgstr "Website"
+
+#: .\templates\conferences\detail.html:32
+msgid "Активное событие"
+msgstr "Active Event"
+
+#: .\templates\conferences\detail.html:36
+msgid "Архив"
+msgstr "Archive"
+
+#: .\templates\conferences\detail.html:60
+msgid "Обзор события"
+msgstr "Event Overview"
+
+#: .\templates\conferences\detail.html:61
+msgid "Детальная информация"
+msgstr "Detailed Information"
+
+#: .\templates\conferences\detail.html:85
+msgid "До начала события"
+msgstr "Time until event"
+
+#: .\templates\conferences\detail.html:91
+msgid "Дней"
+msgstr "Days"
+
+#: .\templates\conferences\detail.html:95
+msgid "Часов"
+msgstr "Hours"
+
+#: .\templates\conferences\detail.html:99
+msgid "Мин"
+msgstr "Min"
+
+#: .\templates\conferences\detail.html:103
+msgid "Сек"
+msgstr "Sec"
+
+#: .\templates\conferences\detail.html:113
+msgid "Событие началось"
+msgstr "Event Started"
+
+#: .\templates\conferences\detail.html:120
+msgid "Ключевые даты"
+msgstr "Key Dates"
+
+#: .\templates\conferences\detail.html:129
+msgid "Дедлайн подачи"
+msgstr "Submission Deadline"
+
+#: .\templates\conferences\detail.html:142
+msgid "Результаты отбора"
+msgstr "Selection Results"
+
+#: .\templates\conferences\detail.html:152
+msgid "Начало конференции"
+msgstr "Conference Start"
+
+#: .\templates\conferences\detail.html:162
+msgid "Вы подали заявку"
+msgstr "Submission Received"
+
+#: .\templates\conferences\detail.html:163
+msgid "Перейти в кабинет"
+msgstr "Go to Dashboard"
+
+#: .\templates\conferences\detail.html:167
+msgid "Прием заявок завершен"
+msgstr "Submissions Closed"
+
+#: .\templates\conferences\detail.html:172
+msgid "Подать работу"
+msgstr "Submit Paper"
+
+#: .\templates\conferences\detail.html:178
+msgid "Войти для участия"
+msgstr "Login to Participate"
+
+#: .\templates\conferences\detail.html:182
+msgid "Нет аккаунта? Регистрация"
+msgstr "No account? Register"
+
+#: .\templates\conferences\detail.html:191
+msgid "Есть вопросы?"
+msgstr "Have questions?"
+
+#: .\templates\conferences\detail.html:192
+msgid "Свяжитесь с оргкомитетом для уточнения деталей."
+msgstr "Contact the organizing committee for details."
+
+#: .\templates\conferences\documentation.html:4
+#: .\templates\conferences\documentation.html:12
+#: .\templates\conferences\submission_format.html:55
+msgid "Документация"
+msgstr "Documentation"
+
+#: .\templates\conferences\documentation.html:15
+msgid "Файлы, шаблоны и ресурсы"
+msgstr "Files, Templates, and Resources"
+
+#: .\templates\conferences\documentation.html:53
+msgid "Скачать"
+msgstr "Download"
+
+#: .\templates\conferences\documentation.html:63
+msgid "Документы отсутствуют"
+msgstr "No documents found"
+
+#: .\templates\conferences\documentation.html:66
+msgid "Организаторы еще не загрузили материалы для этой конференции."
+msgstr "Organizers haven't uploaded materials for this conference yet."
+
+#: .\templates\conferences\documentation.html:76
+msgid "Примечание для участников"
+msgstr "Note for Participants"
+
+#: .\templates\conferences\documentation.html:78
+msgid ""
+"Все документы предоставляются в официальных форматах (PDF, DOCX). Если у вас "
+"возникли проблемы со скачиванием или отображением файлов, пожалуйста, "
+"свяжитесь с технической поддержкой."
+msgstr ""
+"All documents are provided in official formats (PDF, DOCX). If you have any "
+"problems downloading or viewing files, please contact technical support."
+
+#: .\templates\conferences\gallery.html:21
+msgid "Фотоотчет и видеоматериалы"
+msgstr "Photo Report and Video Materials"
+
+#: .\templates\conferences\gallery.html:63
+msgid "Галерея пуста"
+msgstr "Gallery is empty"
+
+#: .\templates\conferences\gallery.html:64
+msgid "Фотографии будут добавлены после начала мероприятия."
+msgstr "Photos will be added after the event starts."
+
+#: .\templates\conferences\login.html:2
+msgid "Вход в систему"
+msgstr "System Login"
+
+#: .\templates\conferences\login.html:13
+msgid "С возвращением"
+msgstr "Welcome Back"
+
+#: .\templates\conferences\login.html:16
+msgid "Войдите в личный кабинет участника"
+msgstr "Log in to your participant dashboard"
+
+#: .\templates\conferences\login.html:27
+msgid "Ошибка входа"
+msgstr "Login Error"
+
+#: .\templates\conferences\login.html:28
+msgid "Пожалуйста, проверьте правильность логина и пароля."
+msgstr "Please check your login and password."
+
+#: .\templates\conferences\login.html:38
+msgid "Логин или Email"
+msgstr "Username or Email"
+
+#: .\templates\conferences\login.html:48
+msgid "Пароль"
+msgstr "Password"
+
+#: .\templates\conferences\login.html:58
+msgid "Войти"
+msgstr "Log In"
+
+#: .\templates\conferences\login.html:70
+msgid "Нет аккаунта?"
+msgstr "No account?"
+
+#: .\templates\conferences\login.html:77
+#: .\templates\conferences\register.html:119
+msgid "Зарегистрироваться"
+msgstr "Register"
+
+#: .\templates\conferences\participation_fee.html:13
+msgid "Стоимость и порядок оплаты"
+msgstr "Fee and Payment Procedure"
+
+#: .\templates\conferences\participation_fee.html:41
+msgid ""
+"Организационный взнос и реквизиты для оплаты будут опубликованы в ближайшее "
+"время."
+msgstr ""
+"The registration fee and payment details will be published shortly."
+
+#: .\templates\conferences\participation_fee.html:52
+msgid "Важно"
+msgstr "Important"
+
+#: .\templates\conferences\participation_fee.html:54
+msgid ""
+"Пожалуйста, сохраняйте квитанцию об оплате. Копию квитанции может "
+"потребоваться загрузить при подаче окончательной версии материалов или "
+"отправить секретарю конференции."
+msgstr ""
+"Please keep your payment receipt. You may need to upload a copy when submitting "
+"the final version of your paper or send it to the conference secretary."
+
+#: .\templates\conferences\privacy.html:4
+#: .\templates\conferences\privacy.html:11
+msgid "Политика конфиденциальности"
+msgstr "Privacy Policy"
+
+#: .\templates\conferences\privacy.html:14
+msgid "Последнее обновление:"
+msgstr "Last updated:"
+
+#: .\templates\conferences\privacy.html:20
+msgid ""
+"Администрация сайта конференции ЦУР КазНУ (далее — «Сайт») с уважением "
+"относится к правам посетителей Сайта. Мы безоговорочно признаем важность "
+"конфиденциальности личной информации посетителей нашего Сайта."
+msgstr ""
+"The administration of the SDG KazNU Conference website (hereinafter referred to as the \"Website\") respects the rights of Website visitors. We unconditionally recognize the importance of the privacy of our visitors' personal information."
+
+#: .\templates\conferences\privacy.html:23
+msgid "Сбор информации"
+msgstr "Information Collection"
+
+#: .\templates\conferences\privacy.html:24
+msgid "Мы собираем следующие типы информации:"
+msgstr "We collect the following types of information:"
+
+#: .\templates\conferences\privacy.html:26
+msgid "Личные данные:"
+msgstr "Personal Data:"
+
+#: .\templates\conferences\privacy.html:26
+msgid ""
+"ФИО, адрес электронной почты, место работы/учебы, должность, которые вы "
+"предоставляете при регистрации."
+msgstr ""
+"Full name, email address, place of work/study, position, which you provide during registration."
+
+#: .\templates\conferences\privacy.html:27
+msgid "Технические данные:"
+msgstr "Technical Data:"
+
+#: .\templates\conferences\privacy.html:27
+msgid ""
+"IP-адрес, тип браузера, время доступа (для обеспечения безопасности и "
+"аналитики)."
+msgstr ""
+"IP address, browser type, access time (for security and analytics purposes)."
+
+#: .\templates\conferences\privacy.html:30
+msgid "Использование информации"
+msgstr "Use of Information"
+
+#: .\templates\conferences\privacy.html:31
+msgid "Собранные данные используются исключительно для:"
+msgstr "Collected data is used solely for:"
+
+#: .\templates\conferences\privacy.html:33
+msgid "Организации участия в конференции (пропуска, сертификаты, бейджи)."
+msgstr "Organizing participation in the conference (passes, certificates, badges)."
+
+#: .\templates\conferences\privacy.html:34
+msgid "Связи с участниками (рассылка программы, уведомления о статусе заявок)."
+msgstr "Communication with participants (sending the program, notifications about submission status)."
+
+#: .\templates\conferences\privacy.html:35
+msgid "Формирования сборника материалов конференции."
+msgstr "Compiling the conference proceedings."
+
+#: .\templates\conferences\privacy.html:38
+msgid "Защита данных"
+msgstr "Data Protection"
+
+#: .\templates\conferences\privacy.html:40
+msgid ""
+"Мы принимаем необходимые организационные и технические меры для защиты "
+"персональных данных от неправомерного доступа, уничтожения, изменения, "
+"блокирования, копирования, распространения."
+msgstr ""
+"We take necessary organizational and technical measures to protect personal data from unauthorized access, destruction, modification, blocking, copying, and distribution."
+
+#: .\templates\conferences\privacy.html:43
+msgid "Раскрытие информации третьим лицам"
+msgstr "Disclosure to Third Parties"
+
+#: .\templates\conferences\privacy.html:45
+msgid ""
+"Мы не передаем вашу личную информацию третьим лицам, за исключением случаев, "
+"предусмотренных законодательством Республики Казахстан, или с вашего явного "
+"согласия (например, публикация статьи в открытом доступе)."
+msgstr ""
+"We do not transfer your personal information to third parties, except as provided by the legislation of the Republic of Kazakhstan, or with your explicit consent (e.g., publishing an article in open access)."
+
+#: .\templates\conferences\privacy.html:48
+msgid "Контактная информация"
+msgstr "Contact Information"
+
+#: .\templates\conferences\privacy.html:50
+msgid ""
+"Если у вас есть вопросы касательно данной политики, вы можете связаться с "
+"нами по адресу:"
+msgstr ""
+"If you have any questions regarding this policy, you can contact us at:"
+
+#: .\templates\conferences\proceedings.html:26
+msgid "Выйти"
+msgstr "Logout"
+
+#: .\templates\conferences\proceedings.html:34
+msgid "Мои заявки"
+msgstr "My Submissions"
+
+#: .\templates\conferences\proceedings.html:39
+msgid "Подать новую заявку"
+msgstr "New Submission"
+
+#: .\templates\conferences\proceedings.html:54
+#: .\templates\conferences\profile.html:80
+msgid "На проверке"
+msgstr "Under Review"
+
+#: .\templates\conferences\proceedings.html:59
+#: .\templates\conferences\profile.html:68
+msgid "Принято"
+msgstr "Accepted"
+
+#: .\templates\conferences\proceedings.html:64
+#: .\templates\conferences\profile.html:76
+msgid "Отклонено"
+msgstr "Rejected"
+
+#: .\templates\conferences\proceedings.html:69
+msgid "Требует доработки"
+msgstr "Revision Required"
+
+#: .\templates\conferences\proceedings.html:92
+msgid "Скачать версию"
+msgstr "Download Version"
+
+#: .\templates\conferences\proceedings.html:100
+msgid "Всего версий:"
+msgstr "Total Versions:"
+
+#: .\templates\conferences\proceedings.html:106
+msgid "Комментарий рецензента:"
+msgstr "Reviewer Comment:"
+
+#: .\templates\conferences\proceedings.html:115
+msgid "Доработать"
+msgstr "Resubmit"
+
+#: .\templates\conferences\proceedings.html:119
+msgid "Действий нет"
+msgstr "No actions"
+
+#: .\templates\conferences\proceedings.html:133
+msgid "У вас пока нет заявок"
+msgstr "You have no submissions yet"
+
+#: .\templates\conferences\proceedings.html:136
+msgid "Вы можете подать научную работу на активную конференцию."
+msgstr "You can submit a paper to an active conference."
+
+#: .\templates\conferences\proceedings.html:139
+#: .\templates\conferences\profile.html:176
+msgid "Подать первую заявку"
+msgstr "Submit First Paper"
+
+#: .\templates\conferences\profile.html:21
+msgid "Участник"
+msgstr "Participant"
+
+#: .\templates\conferences\profile.html:28
+msgid "Организация"
+msgstr "Organization"
+
+#: .\templates\conferences\profile.html:42
+msgid "Выйти из системы"
+msgstr "Log out"
+
+#: .\templates\conferences\profile.html:51
+msgid "Мои публикации"
+msgstr "My Publications"
+
+#: .\templates\conferences\profile.html:54
+msgid "Подать заявку"
+msgstr "Submit Paper"
+
+#: .\templates\conferences\profile.html:72
+msgid "Требуется доработка"
+msgstr "Revision Required"
+
+#: .\templates\conferences\profile.html:98
+msgid "Авторы:"
+msgstr "Authors:"
+
+#: .\templates\conferences\profile.html:113
+msgid "Загрузить исправленную версию"
+msgstr "Upload Revised Version"
+
+#: .\templates\conferences\profile.html:120
+msgid "История версий"
+msgstr "Version History"
+
+#: .\templates\conferences\profile.html:135
+msgid "Рецензия:"
+msgstr "Review:"
+
+#: .\templates\conferences\profile.html:142
+msgid "Ваш коммент:"
+msgstr "Your Comment:"
+
+#: .\templates\conferences\profile.html:170
+msgid "Нет активных заявок"
+msgstr "No active submissions"
+
+#: .\templates\conferences\profile.html:173
+msgid "Вы еще не подали ни одной работы. Начните с подачи заявки на участие."
+msgstr "You haven't submitted any papers yet. Start by submitting an application."
+
+#: .\templates\conferences\program.html:2
+#: .\templates\conferences\program.html:11
+msgid "Программа конференции"
+msgstr "Conference Program"
+
+#: .\templates\conferences\program.html:14
+msgid "Расписание мероприятий"
+msgstr "Event Schedule"
+
+#: .\templates\conferences\program.html:21
+msgid "Распечатать PDF"
+msgstr "Print PDF"
+
+#: .\templates\conferences\program.html:46
+msgid "Программа формируется"
+msgstr "Program is being finalized"
+
+#: .\templates\conferences\program.html:49
+msgid ""
+"Оргкомитет еще не опубликовал финальное расписание. Информация появится "
+"здесь в ближайшее время."
+msgstr ""
+"The organizing committee has not published the final schedule yet. Information "
+"will appear here shortly."
+
+#: .\templates\conferences\program.html:59
+msgid "В программе возможны изменения."
+msgstr "The program is subject to change."
+
+#: .\templates\conferences\register.html:16
+msgid "Регистрация участника"
+msgstr "Participant Registration"
+
+#: .\templates\conferences\register.html:19
+msgid "Создайте аккаунт для подачи заявок"
+msgstr "Create an account to submit papers"
+
+#: .\templates\conferences\register.html:31
+msgid "Пожалуйста, исправьте ошибки:"
+msgstr "Please correct the errors:"
+
+#: .\templates\conferences\register.html:109
+msgid "Подтвердите, что вы не робот."
+msgstr "Confirm that you are not a robot."
+
+#: .\templates\conferences\register.html:131
+msgid "Уже есть аккаунт?"
+msgstr "Already have an account?"
+
+#: .\templates\conferences\register.html:138
+msgid "Войти в систему"
+msgstr "Log in"
+
+#: .\templates\conferences\resubmit.html:5
+msgid "Доработка заявки"
+msgstr "Submission Revision"
+
+#: .\templates\conferences\resubmit.html:16
+msgid "Загрузка новой версии"
+msgstr "Upload New Version"
+
+#: .\templates\conferences\resubmit.html:34
+msgid "Замечания к версии"
+msgstr "Version Remarks"
+
+#: .\templates\conferences\resubmit.html:45
+msgid ""
+"Пожалуйста, загрузите исправленный файл вашей работы, учитывая общие "
+"требования к оформлению."
+msgstr ""
+"Please upload the corrected file of your work, taking into account general "
+"formatting requirements."
+
+#: .\templates\conferences\resubmit.html:52
+msgid "Новый файл (PDF, DOCX)"
+msgstr "New File (PDF, DOCX)"
+
+#: .\templates\conferences\resubmit.html:61
+msgid "Нажмите для выбора файла"
+msgstr "Click to select file"
+
+#: .\templates\conferences\resubmit.html:64
+msgid "Заменит предыдущую версию"
+msgstr "Will replace the previous version"
+
+#: .\templates\conferences\resubmit.html:76
+msgid "Ваш комментарий (Ответ на рецензию)"
+msgstr "Your Comment (Reply to Review)"
+
+#: .\templates\conferences\resubmit.html:80
+msgid "Опишите, какие изменения были внесены в работу..."
+msgstr "Describe what changes were made..."
+
+#: .\templates\conferences\resubmit.html:82
+msgid "Это поможет рецензенту быстрее проверить исправления"
+msgstr "This will help the reviewer check corrections faster"
+
+#: .\templates\conferences\resubmit.html:88
+msgid "Отправить на повторную проверку"
+msgstr "Submit for Re-review"
+
+#: .\templates\conferences\resubmit.html:92
+msgid "Отмена"
+msgstr "Cancel"
+
+#: .\templates\conferences\submission_format.html:13
+msgid "Требования к оформлению публикаций"
+msgstr "Publication Formatting Requirements"
+
+#: .\templates\conferences\submission_format.html:41
+msgid ""
+"Технические требования к оформлению статей будут опубликованы в ближайшее "
+"время."
+msgstr ""
+"Technical requirements for article formatting will be published shortly."
+
+#: .\templates\conferences\submission_format.html:52
+msgid "Нужен пример?"
+msgstr "Need an example?"
+
+#: .\templates\conferences\submission_format.html:54
+msgid ""
+"Готовые шаблоны оформления (DOCX) и образцы статей вы можете найти и скачать "
+"в разделе"
+msgstr ""
+"Ready-made templates (DOCX) and article samples can be found and downloaded "
+"in the section"
+
+#: .\templates\conferences\submit.html:5 .\templates\conferences\submit.html:16
+msgid "Подача материала"
+msgstr "Paper Submission"
+
+#: .\templates\conferences\submit.html:36
+msgid "Внимание"
+msgstr "Attention"
+
+#: .\templates\conferences\submit.html:70
+msgid "Пример: Иванов И.И. (КазНУ), Смит Дж. (Oxford)"
+msgstr "Example: Ivanov I.I. (KazNU), Smith J. (Oxford)"
+
+#: .\templates\conferences\submit.html:82
+msgid "Краткое описание вашей работы"
+msgstr "Brief description of your work"
+
+#: .\templates\conferences\submit.html:92
+msgid "Разделяйте запятыми (например: экономика, цифровизация, AI)"
+msgstr "Separate with commas (e.g., economics, digitalization, AI)"
+
+#: .\templates\conferences\submit.html:108
+msgid "Нажмите, чтобы выбрать файл"
+msgstr "Click to select file"
+
+#: .\templates\conferences\submit.html:111
+msgid "макс. 10MB"
+msgstr "max 10MB"
+
+#: .\templates\conferences\submit.html:123
+msgid "Добавить комментарий для рецензента"
+msgstr "Add comment for reviewer"
+
+#: .\templates\conferences\submit.html:135
+msgid "Отправить работу на проверку"
+msgstr "Submit Paper for Review"
+
+#: .\templates\conferences\submit.html:138
+msgid ""
+"Нажимая кнопку, вы соглашаетесь с условиями обработки персональных данных и "
+"подтверждаете авторство работы."
+msgstr ""
+"By clicking the button, you agree to the personal data processing terms and "
+"confirm authorship of the work."
+
+#: .\templates\conferences\terms.html:4
+msgid "Условия использования"
+msgstr "Terms of Use"
+
+#: .\templates\conferences\terms.html:11
+msgid "Условия участия и использования"
+msgstr "Participation and Usage Terms"
+
+#: .\templates\conferences\terms.html:14
+msgid "Правила проведения конференции"
+msgstr "Conference Rules"
+
+#: .\templates\conferences\terms.html:19
+msgid "Общие положения"
+msgstr "General Provisions"
+
+#: .\templates\conferences\terms.html:21
+msgid ""
+"Регистрируясь на Сайте, Пользователь подтверждает свое согласие с данными "
+"Условиями. Оргкомитет оставляет за собой право вносить изменения в правила "
+"проведения конференции."
+msgstr ""
+"By registering on the Website, the User confirms their agreement with these Terms. The Organizing Committee reserves the right to make changes to the conference rules."
+
+#: .\templates\conferences\terms.html:24
+msgid "Регистрация и подача материалов"
+msgstr "Registration and Material Submission"
+
+#: .\templates\conferences\terms.html:26
+msgid ""
+"Пользователь несет ответственность за достоверность предоставленной "
+"информации."
+msgstr ""
+"The user is responsible for the accuracy of the provided information."
+
+#: .\templates\conferences\terms.html:27
+msgid ""
+"Все загружаемые материалы должны быть авторскими. Плагиат не допускается."
+msgstr ""
+"All uploaded materials must be original. Plagiarism is not allowed."
+
+#: .\templates\conferences\terms.html:28
+msgid ""
+"Оргкомитет имеет право отклонить заявку, если она не соответствует тематике "
+"или требованиям конференции."
+msgstr ""
+"The Organizing Committee has the right to reject an application if it does not match the theme or requirements of the conference."
+
+#: .\templates\conferences\terms.html:31
+msgid "Авторские права"
+msgstr "Copyrights"
+
+#: .\templates\conferences\terms.html:33
+msgid ""
+"Авторские права на материалы сохраняются за авторами. При этом авторы "
+"предоставляют Оргкомитету право на публикацию материалов в сборнике "
+"конференции и размещение их на сайте."
+msgstr ""
+"Copyrights to materials remain with the authors. However, authors grant the Organizing Committee the right to publish materials in the conference proceedings and post them on the website."
+
+#: .\templates\conferences\terms.html:36
+msgid "Этика и поведение"
+msgstr "Ethics and Conduct"
+
+#: .\templates\conferences\terms.html:38
+msgid ""
+"Участники обязаны соблюдать нормы научной этики и уважительно относиться к "
+"другим участникам. Оскорбления, дискриминация и нарушение порядка во время "
+"мероприятия недопустимы."
+msgstr ""
+"Participants are required to observe scientific ethics and treat other participants with respect. Insults, discrimination, and disruption of order during the event are unacceptable."
+
+#: .\templates\conferences\terms.html:41
+msgid "Оплата участия"
+msgstr "Payment of Participation"
+
+#: .\templates\conferences\terms.html:43
+msgid ""
+"Регистрационный взнос (если предусмотрен) не подлежит возврату, если "
+"участник отменил свое участие менее чем за 5 дней до начала мероприятия."
+msgstr ""
+"The registration fee (if applicable) is non-refundable if the participant cancels their participation less than 5 days before the event starts."
+
+#: .\templates\conferences\venue.html:13
+msgid "Локация и схема проезда"
+msgstr "Location and Map"
+
+#: .\templates\conferences\venue.html:39
+msgid ""
+"Оргкомитет скоро добавит подробную информацию о месте проведения и карту "
+"проезда."
+msgstr ""
+"The organizing committee will soon add detailed venue information and a map."
+
+#: .\templates\conferences\venue.html:50
+msgid ""
+"Для участников, нуждающихся в визовой поддержке или помощи с размещением, "
+"просьба связаться с оргкомитетом заранее."
+msgstr ""
+"Participants requiring visa support or accommodation assistance are requested "
+"to contact the organizing committee in advance."

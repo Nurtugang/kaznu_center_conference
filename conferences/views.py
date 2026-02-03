@@ -6,9 +6,12 @@ from django.contrib.auth import login
 from .forms import RegistrationForm, SubmissionForm
 from django.contrib import messages
 from django.db.models import Prefetch
+from django.contrib.auth.views import LoginView
 
 
 def register(request):
+    conference = Conference.get_current()
+
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():
@@ -19,7 +22,10 @@ def register(request):
             return redirect('conferences:profile')
     else:
         form = RegistrationForm()
-    return render(request, 'conferences/register.html', {'form': form})
+    return render(request, 'conferences/register.html', {
+        'form': form,
+        'conference': conference
+    })
 
 @login_required
 def submit_work(request):
@@ -172,6 +178,7 @@ def submission_format(request):
 
 @login_required
 def profile_view(request):
+    conference = Conference.get_current()
     
     submissions = Submission.objects.filter(user=request.user)\
         .select_related('conference')\
@@ -181,4 +188,25 @@ def profile_view(request):
     
     return render(request, 'conferences/profile.html', {
         'submissions': submissions,
+        'conference': conference,
+    })
+
+class UserLoginView(LoginView):
+    template_name = 'conferences/login.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['conference'] = Conference.get_current()
+        return context
+
+def privacy_policy(request):
+    conference = Conference.get_current()
+    return render(request, 'conferences/privacy.html', {
+        'conference': conference
+    })
+
+def terms(request):
+    conference = Conference.get_current()
+    return render(request, 'conferences/terms.html', {
+        'conference': conference
     })

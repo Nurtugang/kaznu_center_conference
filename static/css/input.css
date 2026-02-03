@@ -1,0 +1,11 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* @theme {
+   --color-brand: #8a1538;
+   --color-brand-dark: #70102d;
+   --color-dark: #0f172a;
+} */
+/* Если вы используете tailwind.config.js, блок @theme можно не писать,
+   но для v4 рекомендуется переносить настройки сюда.
+   Пока оставим как есть, так как у вас есть конфиг. */

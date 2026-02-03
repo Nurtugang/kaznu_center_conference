@@ -1,19 +1,63 @@
 {% extends "conferences/base_conf.html" %}
-
-{% block title %}Программа | {{ conference.title }}{% endblock %}
+{% load i18n %} {% block title %}{% trans "Формат работы" %} | {{ conference.title }}{% endblock %}
 
 {% block content %}
-<section class="py-12">
-    <div class="container mx-auto px-6 max-w-4xl">
-        <div class="text-center mb-10">
-            <h1 class="text-3xl font-black text-dark uppercase tracking-tighter">Формат работы</h1>
+<div class="bg-white min-h-screen py-10 md:py-16">
+    <div class="container mx-auto px-4 sm:px-6 max-w-5xl">
+
+        <div class="mb-12 border-b border-gray-200 pb-6">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-900 tracking-tight mb-2">
+                {% trans "Формат работы" %}
+            </h1>
+            <p class="text-gray-500 text-sm uppercase tracking-wider font-medium">
+                {{ conference.short_title }} &mdash; {% trans "Требования к оформлению публикаций" %}
+            </p>
         </div>
 
-        <div class="bg-white rounded-[2rem] p-8 md:p-12 shadow-xl shadow-gray-200/50 border border-gray-100">
-            <div class="prose max-w-none prose-headings:text-dark prose-a:text-brand prose-strong:text-dark">
+        <article class="prose prose-slate max-w-none prose-lg
+                        prose-headings:font-bold prose-headings:text-gray-900 prose-headings:mt-8 prose-headings:mb-4
+                        prose-p:text-gray-700 prose-p:leading-relaxed
+                        prose-a:text-[#8a1538] prose-a:font-semibold prose-a:no-underline hover:prose-a:underline
+                        prose-strong:text-gray-900
+
+                        /* Стили для списков (важно для требований) */
+                        prose-ul:list-disc prose-ul:pl-6 prose-li:marker:text-[#8a1538]/50 prose-li:pl-2
+                        prose-ol:list-decimal prose-ol:pl-6
+
+                        /* Стили для примеров кода или цитат */
+                        prose-blockquote:border-l-4 prose-blockquote:border-[#8a1538] prose-blockquote:bg-gray-50 prose-blockquote:py-2 prose-blockquote:px-4 prose-blockquote:italic">
+
+            {% if conference.submission_format %}
                 {{ conference.submission_format|safe }}
+            {% else %}
+                <div class="py-16 text-center bg-gray-50 rounded-xl border border-dashed border-gray-300">
+                    <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-white text-gray-300 mb-4 shadow-sm">
+                        <i class="fas fa-align-left text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-1">
+                        {% trans "Информация обновляется" %}
+                    </h3>
+                    <p class="text-gray-500 text-sm max-w-md mx-auto">
+                        {% trans "Технические требования к оформлению статей будут опубликованы в ближайшее время." %}
+                    </p>
+                </div>
+            {% endif %}
+
+        </article>
+
+        {% if conference.submission_format %}
+        <div class="mt-16 flex items-start gap-4 p-6 bg-gray-50 rounded-xl border border-gray-100 text-sm text-gray-600">
+            <i class="fas fa-file-download mt-0.5 text-lg text-[#8a1538]"></i>
+            <div>
+                <p class="font-bold text-gray-900 mb-1">{% trans "Нужен пример?" %}</p>
+                <p class="leading-relaxed">
+                    {% trans "Готовые шаблоны оформления (DOCX) и образцы статей вы можете найти и скачать в разделе" %}
+                    <a href="{% url 'conferences:documentation' %}" class="text-[#8a1538] font-bold hover:underline">{% trans "Документация" %}</a>.
+                </p>
             </div>
         </div>
+        {% endif %}
+
     </div>
-</section>
+</div>
 {% endblock %}

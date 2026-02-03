@@ -1,19 +1,57 @@
 {% extends "conferences/base_conf.html" %}
-
-{% block title %}Программа | {{ conference.title }}{% endblock %}
+{% load i18n %} {% block title %}{% trans "Место проведения" %} | {{ conference.title }}{% endblock %}
 
 {% block content %}
-<section class="py-12">
-    <div class="container mx-auto px-6 max-w-4xl">
-        <div class="text-center mb-10">
-            <h1 class="text-3xl font-black text-dark uppercase tracking-tighter">Место проведения</h1>
+<div class="bg-white min-h-screen py-10 md:py-16">
+    <div class="container mx-auto px-4 sm:px-6 max-w-5xl">
+
+        <div class="mb-12 border-b border-gray-200 pb-6">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-900 tracking-tight mb-2">
+                {% trans "Место проведения" %}
+            </h1>
+            <p class="text-gray-500 text-sm uppercase tracking-wider font-medium">
+                {{ conference.short_title }} &mdash; {% trans "Локация и схема проезда" %}
+            </p>
         </div>
 
-        <div class="bg-white rounded-[2rem] p-8 md:p-12 shadow-xl shadow-gray-200/50 border border-gray-100">
-            <div class="prose max-w-none prose-headings:text-dark prose-a:text-brand prose-strong:text-dark">
+        <article class="prose prose-slate max-w-none prose-lg
+                        prose-headings:font-bold prose-headings:text-gray-900 prose-headings:mt-8 prose-headings:mb-4
+                        prose-p:text-gray-700 prose-p:leading-relaxed
+                        prose-a:text-[#8a1538] prose-a:font-semibold prose-a:no-underline hover:prose-a:underline
+                        prose-strong:text-gray-900
+                        prose-li:marker:text-gray-400
+
+                        /* Стили для изображений и карт */
+                        prose-img:rounded-xl prose-img:shadow-sm prose-img:border prose-img:border-gray-100 prose-img:my-8
+                        prose-iframe:w-full prose-iframe:rounded-xl prose-iframe:shadow-sm prose-iframe:border prose-iframe:border-gray-100 prose-iframe:aspect-video">
+
+            {% if conference.venue %}
                 {{ conference.venue|safe }}
+            {% else %}
+                <div class="py-16 text-center bg-gray-50 rounded-xl border border-dashed border-gray-300">
+                    <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-white text-gray-300 mb-4 shadow-sm">
+                        <i class="fas fa-map-marked-alt text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-1">
+                        {% trans "Информация обновляется" %}
+                    </h3>
+                    <p class="text-gray-500 max-w-md mx-auto text-sm">
+                        {% trans "Оргкомитет скоро добавит подробную информацию о месте проведения и карту проезда." %}
+                    </p>
+                </div>
+            {% endif %}
+
+        </article>
+
+        {% if conference.venue %}
+        <div class="mt-16 pt-8 border-t border-gray-100 flex flex-col sm:flex-row gap-6 text-sm text-gray-600">
+            <div class="flex items-start gap-3">
+                <i class="fas fa-info-circle mt-1 text-[#8a1538]"></i>
+                <p>{% trans "Для участников, нуждающихся в визовой поддержке или помощи с размещением, просьба связаться с оргкомитетом заранее." %}</p>
             </div>
         </div>
+        {% endif %}
+
     </div>
-</section>
+</div>
 {% endblock %}

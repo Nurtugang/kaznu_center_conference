@@ -1,148 +1,303 @@
 {% load static %}
+{% load i18n %}
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}{% endblock %} | Конференции ЦУР КазНУ</title>
-    
+    <title>{% block title %}{% endblock %} | {% trans "Конференции ЦУР КазНУ" %}</title>
+
     <link rel="stylesheet" href="{% static 'css/style.css' %}?v={% now 'U' %}">
     <link rel="stylesheet" href="{% static 'css/ckeditor-style.css' %}">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-</head>
-<body class="font-sans text-gray-800 bg-gray-50 flex flex-col min-h-screen" x-data="{ mobileMenuOpen: false }">
 
-    <!-- Верхняя полоса -->
-    <div class="bg-gradient-to-r from-[#8a1538] to-[#5a0d23] text-white py-2.5">
-        <div class="container mx-auto px-6 flex justify-between items-center text-[9px] font-bold uppercase tracking-[0.15em]">
-            <a href="{{ BASE_SITE }}" target="_blank" class="hover:opacity-80 transition-opacity flex items-center gap-2">
-                <i class="fas fa-external-link-alt text-[8px]"></i>
-                <span class="hidden sm:inline">Центр устойчивого развития КазНУ</span>
-                <span class="sm:hidden">ЦУР КазНУ</span>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+
+    <style>
+        /* Скрываем скроллбар, но оставляем функционал скролла */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        /* Шрифт с засечками для заголовков */
+        .font-serif {
+            font-family: 'Merriweather', serif;
+        }
+    </style>
+</head>
+<body class="font-sans text-slate-600 bg-slate-50 flex flex-col min-h-screen selection:bg-[#8a1538] selection:text-white" x-data="{ mobileMenuOpen: false }">
+
+    <div class="bg-[#8a1538] text-white py-2 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-black/10 to-transparent"></div>
+
+        <div class="container mx-auto px-4 sm:px-6 flex justify-between items-center relative z-10 text-[10px] font-bold uppercase tracking-[0.15em]">
+            <a href="{{ BASE_SITE }}" target="_blank" class="hover:text-white/80 transition-colors flex items-center gap-2 group">
+                <div class="w-1.5 h-1.5 bg-white rounded-full group-hover:scale-125 transition-transform"></div>
+                <span class="hidden sm:inline border-b border-transparent group-hover:border-white/50 transition-all">
+                    {% trans "Центр устойчивого развития КазНУ" %}
+                </span>
+                <span class="sm:hidden">{% trans "ЦУР КазНУ" %}</span>
             </a>
-            <span class="hidden md:block opacity-90">Казахский национальный университет им. аль-Фараби</span>
+            <div class="flex items-center gap-4">
+                <span class="hidden md:block opacity-80">
+                    {% trans "Казахский национальный университет им. аль-Фараби" %}
+                </span>
+                <div class="h-3 w-px bg-white/20 hidden md:block"></div>
+                <span class="opacity-80">{% now "d.m.Y" %}</span>
+            </div>
         </div>
     </div>
 
-    <!-- Главная навигация -->
-    <nav class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-sm">
-        <div class="container mx-auto px-6 h-20 flex justify-between items-center">
-            {% if current_conf %}
-                <a href="{% url 'conferences:detail' %}" class="flex items-center gap-4 group">
-                    <div class="w-12 h-12 bg-gradient-to-br from-[#8a1538] to-[#5a0d23] rounded-2xl flex items-center justify-center text-white shadow-lg group-hover:scale-105 transition-transform">
-                        <i class="fas fa-university text-xl"></i>
-                    </div>
-                    <div class="flex flex-col">
-                        <span class="text-lg font-black tracking-tighter text-dark uppercase leading-none">
-                            {{ current_conf.short_title }}
-                        </span>
-                        <span class="text-[8px] text-gray-400 uppercase tracking-wider mt-0.5">Conference</span>
-                    </div>
-                </a>
-            {% endif %}
-            
-            <!-- Desktop Menu -->
-            <div class="hidden lg:flex items-center gap-6">
-                {% if user.is_authenticated %}
-                    <a href="{% url 'conferences:profile' %}" class="flex items-center gap-3 bg-gray-50 hover:bg-gray-100 p-1.5 pr-4 rounded-full border border-gray-200 transition-all group">
-                        <div class="w-8 h-8 bg-dark rounded-full flex items-center justify-center text-white text-xs">
-                            <i class="fas fa-user"></i>
+    <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-slate-200/60 shadow-sm transition-all duration-300">
+        <div class="container mx-auto px-4 sm:px-6">
+            <div class="h-20 flex justify-between items-center">
+
+                {% if conference %}
+                    <a href="{% url 'conferences:detail' %}" class="flex items-center gap-4 group">
+                        <div class="relative">
+                            <div class="absolute inset-0 bg-[#8a1538] blur rounded-full opacity-20 group-hover:opacity-40 transition-opacity"></div>
+                            <div class="relative w-12 h-12 bg-gradient-to-br from-[#8a1538] to-[#600e26] rounded-xl flex items-center justify-center text-white shadow-lg shadow-[#8a1538]/20 group-hover:scale-105 transition-transform duration-300">
+                                <i class="fas fa-university text-xl"></i>
+                            </div>
                         </div>
-                        <span class="text-[10px] font-bold text-gray-600 uppercase tracking-widest group-hover:text-[#8a1538]">
-                            {{ user.last_name }} {{ user.first_name }}
-                        </span>
+                        <div class="flex flex-col">
+                            <span class="text-lg font-serif font-black tracking-tight text-slate-900 leading-none group-hover:text-[#8a1538] transition-colors">
+                                {{ conference.short_title }}
+                            </span>
+                            <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest mt-1">
+                                {% trans "Научная конференция" %}
+                            </span>
+                        </div>
                     </a>
-                    <form action="{% url 'conferences:logout' %}" method="post" class="inline">
+                {% else %}
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-slate-200 rounded-lg animate-pulse"></div>
+                        <div class="h-4 w-32 bg-slate-200 rounded animate-pulse"></div>
+                    </div>
+                {% endif %}
+
+                <div class="hidden lg:flex items-center gap-6">
+
+                    <form action="{% url 'set_language' %}" method="post" class="flex items-center bg-slate-100 rounded-lg p-1">
                         {% csrf_token %}
-                        <button type="submit" class="text-gray-400 hover:text-[#8a1538] transition-colors">
-                            <i class="fas fa-power-off"></i>
+                        <input name="next" type="hidden" value="{{ redirect_to }}">
+
+                        {% get_current_language as LANGUAGE_CODE %}
+
+                        <button type="submit" name="language" value="ru"
+                            class="px-3 py-1 text-[10px] font-bold rounded-md transition-all uppercase tracking-wider {% if LANGUAGE_CODE == 'ru' %}bg-white text-[#8a1538] shadow-sm{% else %}text-slate-400 hover:text-slate-600{% endif %}">
+                            RU
+                        </button>
+
+                        <button type="submit" name="language" value="en"
+                            class="px-3 py-1 text-[10px] font-bold rounded-md transition-all uppercase tracking-wider {% if LANGUAGE_CODE == 'en' %}bg-white text-[#8a1538] shadow-sm{% else %}text-slate-400 hover:text-slate-600{% endif %}">
+                            EN
+                        </button>
+
+                        <button type="submit" name="language" value="kk"
+                            class="px-3 py-1 text-[10px] font-bold rounded-md transition-all uppercase tracking-wider {% if LANGUAGE_CODE == 'kk' %}bg-white text-[#8a1538] shadow-sm{% else %}text-slate-400 hover:text-slate-600{% endif %}">
+                            KK
                         </button>
                     </form>
-                {% else %}
-                    <a href="{% url 'conferences:login' %}" class="text-xs font-bold text-gray-500 hover:text-[#8a1538] transition-colors uppercase tracking-widest">Вход</a>
-                    <a href="{% url 'conferences:register' %}" class="bg-gradient-to-r from-[#8a1538] to-[#5a0d23] text-white px-6 py-2.5 rounded-full text-xs font-bold shadow-md hover:-translate-y-0.5 transition-all uppercase tracking-widest">
-                        Регистрация
+
+                    <div class="h-8 w-px bg-slate-200"></div>
+
+                    {% if user.is_authenticated %}
+                        <div class="flex items-center gap-3">
+                            <div class="text-right hidden xl:block">
+                                <div class="text-xs font-bold text-slate-900">{{ user.last_name }} {{ user.first_name }}</div>
+                                <div class="text-[10px] text-slate-400 truncate max-w-[150px]">{{ user.email }}</div>
+                            </div>
+                            <a href="{% url 'conferences:profile' %}" class="w-9 h-9 bg-slate-100 hover:bg-[#8a1538] text-slate-600 hover:text-white rounded-full flex items-center justify-center transition-all duration-300 shadow-sm group" title="{% trans 'Личный кабинет' %}">
+                                <i class="fas fa-user text-xs"></i>
+                            </a>
+                            <form action="{% url 'conferences:logout' %}" method="post" class="inline">
+                                {% csrf_token %}
+                                <button type="submit" class="w-9 h-9 border border-slate-200 hover:border-red-200 hover:bg-red-50 text-slate-400 hover:text-red-600 rounded-full flex items-center justify-center transition-all duration-300" title="{% trans 'Выход' %}">
+                                    <i class="fas fa-power-off text-xs"></i>
+                                </button>
+                            </form>
+                        </div>
+                    {% else %}
+                        <div class="flex items-center gap-3">
+                            <a href="{% url 'conferences:login' %}" class="text-xs font-bold text-slate-500 hover:text-[#8a1538] transition-colors uppercase tracking-widest px-2">
+                                {% trans "Вход" %}
+                            </a>
+                            <a href="{% url 'conferences:register' %}" class="bg-[#8a1538] hover:bg-[#70102d] text-white px-5 py-2.5 rounded-full text-xs font-bold shadow-lg shadow-[#8a1538]/20 hover:shadow-[#8a1538]/40 hover:-translate-y-0.5 transition-all uppercase tracking-widest flex items-center gap-2">
+                                <i class="fas fa-user-plus text-[10px]"></i>
+                                <span>{% trans "Регистрация" %}</span>
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <button @click="mobileMenuOpen = !mobileMenuOpen" class="lg:hidden w-10 h-10 flex items-center justify-center text-slate-700 hover:text-[#8a1538] transition-colors">
+                    <i class="fas" :class="mobileMenuOpen ? 'fa-times' : 'fa-bars'" class="text-xl"></i>
+                </button>
+            </div>
+
+            {% if conference %}
+            <div class="hidden lg:block border-t border-slate-100">
+                <div class="flex space-x-1 overflow-x-auto py-1 no-scrollbar text-[11px] font-bold uppercase tracking-wider text-slate-500">
+                    {% with request.resolver_match.url_name as url_name %}
+
+                    <a href="{% url 'conferences:detail' %}" class="px-4 py-3 border-b-2 hover:text-[#8a1538] hover:border-[#8a1538]/30 transition-all whitespace-nowrap {% if url_name == 'detail' %}border-[#8a1538] text-[#8a1538]{% else %}border-transparent{% endif %}">
+                        {% trans "Обзор" %}
                     </a>
-                {% endif %}
-            </div>
 
-            <!-- Mobile Menu Button -->
-            <button @click="mobileMenuOpen = !mobileMenuOpen" class="lg:hidden text-dark">
-                <i class="fas" :class="mobileMenuOpen ? 'fa-times' : 'fa-bars'" class="text-2xl"></i>
-            </button>
-        </div>
+                    <a href="{% url 'conferences:program' %}" class="px-4 py-3 border-b-2 hover:text-[#8a1538] hover:border-[#8a1538]/30 transition-all whitespace-nowrap {% if url_name == 'program' %}border-[#8a1538] text-[#8a1538]{% else %}border-transparent{% endif %}">
+                        {% trans "Программа" %}
+                    </a>
 
-        <!-- Navigation Links -->
-        {% if current_conf %}
-        <div class="bg-gradient-to-r from-gray-50 to-white border-t border-gray-100">
-            <div class="container mx-auto px-6 hidden lg:flex space-x-8 overflow-x-auto py-3 no-scrollbar text-[10px] font-bold uppercase tracking-widest text-gray-500">
-                <a href="{% url 'conferences:detail' %}" class="hover:text-[#8a1538] whitespace-nowrap transition-colors">Обзор</a>
-                <a href="{% url 'conferences:program' %}" class="hover:text-[#8a1538] whitespace-nowrap transition-colors">Программа</a>
-                <a href="{% url 'conferences:committee' %}" class="hover:text-[#8a1538] whitespace-nowrap transition-colors">Комитет</a>
-                <a href="{% url 'conferences:venue' %}" class="hover:text-[#8a1538] whitespace-nowrap transition-colors">Место проведения</a>
-                <a href="{% url 'conferences:gallery' %}" class="hover:text-[#8a1538] whitespace-nowrap transition-colors">Галерея</a>
-                <a href="{% url 'conferences:documentation' %}" class="hover:text-[#8a1538] whitespace-nowrap transition-colors">Документация</a>
-                <a href="{% url 'conferences:contacts' %}" class="hover:text-[#8a1538] whitespace-nowrap transition-colors">Контакты</a>
-                <a href="{% url 'conferences:proceedings' %}" class="hover:text-[#8a1538] whitespace-nowrap transition-colors">Материалы</a>
-                <a href="{% url 'conferences:participation_fee' %}" class="hover:text-[#8a1538] whitespace-nowrap transition-colors">Плата за участие</a>
-                <a href="{% url 'conferences:submission_format' %}" class="hover:text-[#8a1538] whitespace-nowrap transition-colors">Формат работы</a>
-                <a href="{% url 'conferences:submit' %}" class="hover:text-[#8a1538] whitespace-nowrap transition-colors">Отправить материал</a>
+                    <a href="{% url 'conferences:committee' %}" class="px-4 py-3 border-b-2 hover:text-[#8a1538] hover:border-[#8a1538]/30 transition-all whitespace-nowrap {% if url_name == 'committee' %}border-[#8a1538] text-[#8a1538]{% else %}border-transparent{% endif %}">
+                        {% trans "Комитет" %}
+                    </a>
+
+                    <a href="{% url 'conferences:venue' %}" class="px-4 py-3 border-b-2 hover:text-[#8a1538] hover:border-[#8a1538]/30 transition-all whitespace-nowrap {% if url_name == 'venue' %}border-[#8a1538] text-[#8a1538]{% else %}border-transparent{% endif %}">
+                        {% trans "Место" %}
+                    </a>
+
+                    <a href="{% url 'conferences:gallery' %}" class="px-4 py-3 border-b-2 hover:text-[#8a1538] hover:border-[#8a1538]/30 transition-all whitespace-nowrap {% if url_name == 'gallery' %}border-[#8a1538] text-[#8a1538]{% else %}border-transparent{% endif %}">
+                        {% trans "Галерея" %}
+                    </a>
+
+                    <a href="{% url 'conferences:documentation' %}" class="px-4 py-3 border-b-2 hover:text-[#8a1538] hover:border-[#8a1538]/30 transition-all whitespace-nowrap {% if url_name == 'documentation' %}border-[#8a1538] text-[#8a1538]{% else %}border-transparent{% endif %}">
+                        {% trans "Документы" %}
+                    </a>
+
+                    <a href="{% url 'conferences:contacts' %}" class="px-4 py-3 border-b-2 hover:text-[#8a1538] hover:border-[#8a1538]/30 transition-all whitespace-nowrap {% if url_name == 'contacts' %}border-[#8a1538] text-[#8a1538]{% else %}border-transparent{% endif %}">
+                        {% trans "Контакты" %}
+                    </a>
+
+                    <a href="{% url 'conferences:proceedings' %}" class="px-4 py-3 border-b-2 hover:text-[#8a1538] hover:border-[#8a1538]/30 transition-all whitespace-nowrap {% if url_name == 'proceedings' %}border-[#8a1538] text-[#8a1538]{% else %}border-transparent{% endif %}">
+                        {% trans "Материалы" %}
+                    </a>
+
+                    <a href="{% url 'conferences:participation_fee' %}" class="px-4 py-3 border-b-2 hover:text-[#8a1538] hover:border-[#8a1538]/30 transition-all whitespace-nowrap {% if url_name == 'participation_fee' %}border-[#8a1538] text-[#8a1538]{% else %}border-transparent{% endif %}">
+                        {% trans "Плата за участие" %}
+                    </a>
+
+                    <a href="{% url 'conferences:submission_format' %}" class="px-4 py-3 border-b-2 hover:text-[#8a1538] hover:border-[#8a1538]/30 transition-all whitespace-nowrap {% if url_name == 'submission_format' %}border-[#8a1538] text-[#8a1538]{% else %}border-transparent{% endif %}">
+                        {% trans "Формат" %}
+                    </a>
+                    <div class="flex-grow"></div>
+
+                    <div class="flex items-center pl-4 space-x-1 border-l border-slate-200 my-2">
+                        <a href="{% url 'conferences:submit' %}" class="px-4 py-1.5 rounded-md bg-slate-50 hover:bg-[#8a1538] hover:text-white text-slate-600 transition-all whitespace-nowrap flex items-center gap-2 group">
+                            <i class="fas fa-paper-plane text-xs opacity-70"></i>
+                            <span class="hidden xl:inline">{% trans "Отправить материал" %}</span>
+                            <span class="xl:hidden">{% trans "Подать" %}</span>
+                        </a>
+                    </div>
+                    {% endwith %}
+                </div>
             </div>
+            {% endif %}
         </div>
-        {% endif %}
     </nav>
 
-    <!-- Mobile Menu -->
-    <div x-show="mobileMenuOpen" 
+    <div x-show="mobileMenuOpen" style="display: none;"
          x-transition:enter="transition ease-out duration-200"
-         x-transition:enter-start="opacity-0 transform -translate-y-2"
-         x-transition:enter-end="opacity-100 transform translate-y-0"
+         x-transition:enter-start="opacity-0"
+         x-transition:enter-end="opacity-100"
          x-transition:leave="transition ease-in duration-150"
-         x-transition:leave-start="opacity-100 transform translate-y-0"
-         x-transition:leave-end="opacity-0 transform -translate-y-2"
-         class="lg:hidden fixed inset-0 z-40 bg-black/50 backdrop-blur-sm"
+         x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0"
+         class="lg:hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm"
          @click="mobileMenuOpen = false">
-        <div class="bg-white h-full max-w-sm w-full shadow-2xl overflow-y-auto" @click.stop>
-            <div class="p-6 space-y-4">
+
+        <div x-show="mobileMenuOpen"
+             x-transition:enter="transition ease-out duration-300"
+             x-transition:enter-start="translate-x-full"
+             x-transition:enter-end="translate-x-0"
+             x-transition:leave="transition ease-in duration-200"
+             x-transition:leave-start="translate-x-0"
+             x-transition:leave-end="translate-x-full"
+             class="absolute right-0 top-0 h-full w-[85%] max-w-sm bg-white shadow-2xl overflow-y-auto"
+             @click.stop>
+
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-8">
+                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">
+                        {% trans "Меню навигации" %}
+                    </span>
+                    <button @click="mobileMenuOpen = false" class="w-8 h-8 flex items-center justify-center bg-slate-100 rounded-full text-slate-500">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+
+                <div class="mb-6">
+                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">{% trans "Язык" %}</p>
+                    <form action="{% url 'set_language' %}" method="post" class="flex bg-slate-100 p-1 rounded-lg">
+                        {% csrf_token %}
+                        <input name="next" type="hidden" value="{{ redirect_to }}">
+                        {% get_current_language as LANGUAGE_CODE %}
+
+                        <button type="submit" name="language" value="ru" class="flex-1 py-2 text-xs font-bold rounded-md uppercase {% if LANGUAGE_CODE == 'ru' %}bg-white text-[#8a1538] shadow-sm{% else %}text-slate-500{% endif %}">RU</button>
+                        <button type="submit" name="language" value="en" class="flex-1 py-2 text-xs font-bold rounded-md uppercase {% if LANGUAGE_CODE == 'en' %}bg-white text-[#8a1538] shadow-sm{% else %}text-slate-500{% endif %}">EN</button>
+                        <button type="submit" name="language" value="kk" class="flex-1 py-2 text-xs font-bold rounded-md uppercase {% if LANGUAGE_CODE == 'kk' %}bg-white text-[#8a1538] shadow-sm{% else %}text-slate-500{% endif %}">KK</button>
+                    </form>
+                </div>
+
                 {% if user.is_authenticated %}
-                    <div class="pb-4 border-b border-gray-100">
-                        <p class="text-sm font-bold text-dark">{{ user.last_name }} {{ user.first_name }}</p>
-                        <p class="text-xs text-gray-400">{{ user.email }}</p>
+                    <div class="mb-8 p-4 bg-slate-50 rounded-2xl border border-slate-100">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-10 h-10 bg-[#8a1538] text-white rounded-full flex items-center justify-center text-sm font-bold">
+                                {{ user.first_name|first }}{{ user.last_name|first }}
+                            </div>
+                            <div>
+                                <p class="text-sm font-bold text-slate-900">{{ user.last_name }} {{ user.first_name }}</p>
+                                <p class="text-xs text-slate-400 truncate w-32">{{ user.email }}</p>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2">
+                            <a href="{% url 'conferences:profile' %}" class="text-xs text-center py-2 bg-white border border-slate-200 rounded-lg hover:border-[#8a1538] transition-colors">
+                                {% trans "Кабинет" %}
+                            </a>
+                            <form action="{% url 'conferences:logout' %}" method="post" class="w-full">
+                                {% csrf_token %}
+                                <button type="submit" class="w-full text-xs text-center py-2 bg-white border border-slate-200 text-red-500 rounded-lg hover:bg-red-50 transition-colors">
+                                    {% trans "Выход" %}
+                                </button>
+                            </form>
+                        </div>
                     </div>
                 {% endif %}
-                
-                <a href="{% url 'conferences:detail' %}" class="block py-2 text-sm font-bold text-gray-700 hover:text-[#8a1538]">Обзор</a>
-                <a href="{% url 'conferences:program' %}" class="block py-2 text-sm font-bold text-gray-700 hover:text-[#8a1538]">Программа</a>
-                <a href="{% url 'conferences:committee' %}" class="block py-2 text-sm font-bold text-gray-700 hover:text-[#8a1538]">Комитет</a>
-                <a href="{% url 'conferences:venue' %}" class="block py-2 text-sm font-bold text-gray-700 hover:text-[#8a1538]">Место проведения</a>
-                <a href="{% url 'conferences:gallery' %}" class="block py-2 text-sm font-bold text-gray-700 hover:text-[#8a1538]">Галерея</a>
-                <a href="{% url 'conferences:documentation' %}" class="block py-2 text-sm font-bold text-gray-700 hover:text-[#8a1538]">Документация</a>
-                <a href="{% url 'conferences:contacts' %}" class="block py-2 text-sm font-bold text-gray-700 hover:text-[#8a1538]">Контакты</a>
-                <a href="{% url 'conferences:proceedings' %}" class="block py-2 text-sm font-bold text-gray-700 hover:text-[#8a1538]">Материалы</a>
-                
-                <div class="pt-4 border-t border-gray-100">
-                    <p class="text-xs font-bold text-gray-400 uppercase mb-2">Для авторов</p>
-                    <a href="{% url 'conferences:submit' %}" class="block py-2 pl-3 text-sm text-gray-700 hover:text-[#8a1538]">Отправить материал</a>
-                    <a href="{% url 'conferences:participation_fee' %}" class="block py-2 pl-3 text-sm text-gray-700 hover:text-[#8a1538]">Плата за участие</a>
-                    <a href="{% url 'conferences:submission_format' %}" class="block py-2 pl-3 text-sm text-gray-700 hover:text-[#8a1538]">Формат работы</a>
+
+                <div class="space-y-1">
+                    <p class="px-4 text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">
+                        {% trans "Основное" %}
+                    </p>
+                    <a href="{% url 'conferences:detail' %}" class="block px-4 py-3 rounded-xl hover:bg-slate-50 text-sm font-medium text-slate-700 hover:text-[#8a1538]">{% trans "Обзор конференции" %}</a>
+                    <a href="{% url 'conferences:program' %}" class="block px-4 py-3 rounded-xl hover:bg-slate-50 text-sm font-medium text-slate-700 hover:text-[#8a1538]">{% trans "Программа" %}</a>
+                    <a href="{% url 'conferences:committee' %}" class="block px-4 py-3 rounded-xl hover:bg-slate-50 text-sm font-medium text-slate-700 hover:text-[#8a1538]">{% trans "Комитет" %}</a>
+                    <a href="{% url 'conferences:venue' %}" class="block px-4 py-3 rounded-xl hover:bg-slate-50 text-sm font-medium text-slate-700 hover:text-[#8a1538]">{% trans "Место проведения" %}</a>
+
+                    <div class="my-4 border-t border-slate-100"></div>
+
+                    <p class="px-4 text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">
+                        {% trans "Авторам" %}
+                    </p>
+                    <a href="{% url 'conferences:submit' %}" class="block px-4 py-3 rounded-xl bg-[#8a1538]/5 text-[#8a1538] text-sm font-bold mb-2">
+                        <i class="fas fa-paper-plane mr-2"></i> {% trans "Отправить материал" %}
+                    </a>
+                    <a href="{% url 'conferences:participation_fee' %}" class="block px-4 py-2 rounded-xl hover:bg-slate-50 text-sm text-slate-600">{% trans "Плата за участие" %}</a>
+                    <a href="{% url 'conferences:submission_format' %}" class="block px-4 py-2 rounded-xl hover:bg-slate-50 text-sm text-slate-600">{% trans "Формат работы" %}</a>
                 </div>
-                
-                {% if user.is_authenticated %}
-                    <div class="pt-4 border-t border-gray-100">
-                        <a href="{% url 'conferences:profile' %}" class="block py-2 text-sm font-bold text-gray-700 hover:text-[#8a1538]">Личный кабинет</a>
-                        <form action="{% url 'conferences:logout' %}" method="post">
-                            {% csrf_token %}
-                            <button type="submit" class="w-full text-left py-2 text-sm font-bold text-red-500 hover:text-red-600">Выход</button>
-                        </form>
-                    </div>
-                {% else %}
-                    <div class="pt-4 space-y-2">
-                        <a href="{% url 'conferences:login' %}" class="block w-full text-center py-3 border border-gray-200 rounded-xl text-sm font-bold">Вход</a>
-                        <a href="{% url 'conferences:register' %}" class="block w-full text-center py-3 bg-gradient-to-r from-[#8a1538] to-[#5a0d23] text-white rounded-xl text-sm font-bold">Регистрация</a>
-                    </div>
+
+                {% if not user.is_authenticated %}
+                <div class="mt-8 space-y-3">
+                    <a href="{% url 'conferences:login' %}" class="block w-full text-center py-3 border border-slate-200 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50">
+                        {% trans "Вход" %}
+                    </a>
+                    <a href="{% url 'conferences:register' %}" class="block w-full text-center py-3 bg-[#8a1538] text-white rounded-xl text-sm font-bold shadow-lg shadow-[#8a1538]/20">
+                        {% trans "Регистрация" %}
+                    </a>
+                </div>
                 {% endif %}
             </div>
         </div>
@@ -150,50 +305,89 @@
 
     <main class="flex-grow">
         {% if messages %}
-            <div class="container mx-auto px-6 mt-4">
+            <div class="container mx-auto px-4 sm:px-6 mt-6">
                 {% for message in messages %}
-                <div class="p-4 rounded-2xl text-xs font-bold uppercase tracking-widest {% if message.tags == 'success' %}bg-green-100 text-green-700{% else %}bg-red-100 text-red-700{% endif %} mb-4 flex items-center gap-3">
-                    <i class="fas {% if message.tags == 'success' %}fa-check-circle{% else %}fa-exclamation-circle{% endif %}"></i>
-                    {{ message }}
+                <div class="p-4 rounded-xl border text-sm font-medium shadow-sm flex items-start gap-3 animate-fade-in-down {% if message.tags == 'success' %}bg-emerald-50 border-emerald-100 text-emerald-800{% else %}bg-rose-50 border-rose-100 text-rose-800{% endif %}">
+                    <i class="fas {% if message.tags == 'success' %}fa-check-circle text-emerald-500{% else %}fa-exclamation-circle text-rose-500{% endif %} mt-0.5"></i>
+                    <div>{{ message }}</div>
                 </div>
                 {% endfor %}
             </div>
         {% endif %}
+
         {% block content %}{% endblock %}
     </main>
 
-    <footer class="bg-gradient-to-br from-dark to-[#1a2332] text-white pt-16 pb-8 mt-auto">
-        <div class="container mx-auto px-6">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
-                <div>
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-10 h-10 bg-[#8a1538] rounded-xl flex items-center justify-center">
-                            <i class="fas fa-university"></i>
+    <footer class="bg-[#1a2332] text-white pt-20 pb-10 mt-auto relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-64 h-64 bg-[#8a1538] rounded-full mix-blend-multiply filter blur-[80px] opacity-20 -translate-x-1/2 -translate-y-1/2"></div>
+        <div class="absolute bottom-0 right-0 w-96 h-96 bg-blue-900 rounded-full mix-blend-multiply filter blur-[100px] opacity-20 translate-x-1/3 translate-y-1/3"></div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12 mb-16">
+
+                <div class="md:col-span-5">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-12 h-12 bg-gradient-to-br from-[#8a1538] to-[#600e26] rounded-xl flex items-center justify-center text-white shadow-lg shadow-[#8a1538]/20">
+                            <i class="fas fa-university text-xl"></i>
                         </div>
-                        <h4 class="text-white font-bold uppercase tracking-widest text-sm">ЦУР КазНУ</h4>
+                        <div>
+                            <h4 class="font-serif font-bold text-lg tracking-wide">{% trans "ЦУР КазНУ" %}</h4>
+                            <p class="text-[10px] text-slate-400 uppercase tracking-widest">
+                                {% trans "Научный хаб университета" %}
+                            </p>
+                        </div>
                     </div>
-                    <p class="text-gray-400 text-sm leading-relaxed">
-                        Центр устойчивого развития — научный хаб КазНУ им. аль-Фараби, координирующий международные исследования в области ЦУР.
+                    <p class="text-slate-400 text-sm leading-relaxed max-w-md">
+                        {% trans "Координирующий центр международных исследований в области целей устойчивого развития. Объединяем науку, образование и инновации для будущего." %}
                     </p>
                 </div>
-                <div>
-                    <h4 class="text-[#8a1538] font-bold uppercase tracking-widest text-xs mb-4">Быстрые ссылки</h4>
-                    <ul class="space-y-2 text-sm text-gray-400">
-                        <li><a href="{{ BASE_SITE }}" target="_blank" class="hover:text-white transition-colors">Сайт центра ЦУР</a></li>
-                        <li><a href="https://www.kaznu.kz" target="_blank" class="hover:text-white transition-colors">КазНУ им. аль-Фараби</a></li>
+
+                <div class="md:col-span-3 md:col-start-7">
+                    <h4 class="text-white font-serif font-bold text-sm mb-6 relative inline-block">
+                        {% trans "Навигация" %}
+                        <span class="absolute -bottom-2 left-0 w-8 h-0.5 bg-[#8a1538]"></span>
+                    </h4>
+                    <ul class="space-y-3 text-sm text-slate-400">
+                        <li><a href="{{ BASE_SITE }}" class="hover:text-white transition-colors flex items-center gap-2"><i class="fas fa-chevron-right text-[10px] opacity-50"></i> {% trans "Сайт центра ЦУР" %}</a></li>
+                        <li><a href="https://www.kaznu.kz" class="hover:text-white transition-colors flex items-center gap-2"><i class="fas fa-chevron-right text-[10px] opacity-50"></i> {% trans "КазНУ им. аль-Фараби" %}</a></li>
+                        <li><a href="{% url 'conferences:login' %}" class="hover:text-white transition-colors flex items-center gap-2"><i class="fas fa-chevron-right text-[10px] opacity-50"></i> {% trans "Вход для авторов" %}</a></li>
                     </ul>
                 </div>
-                <div class="md:text-right">
-                    <h4 class="text-[#8a1538] font-bold uppercase tracking-widest text-xs mb-4">Контакты</h4>
-                    <p class="text-gray-400 text-sm">info@kaznu.kz</p>
-                    <p class="text-gray-400 text-sm">Алматы, пр. аль-Фараби 71</p>
-                    <p class="text-gray-400 text-sm">+7 727 377 33 33</p>
+
+                <div class="md:col-span-3">
+                    <h4 class="text-white font-serif font-bold text-sm mb-6 relative inline-block">
+                        {% trans "Контакты" %}
+                        <span class="absolute -bottom-2 left-0 w-8 h-0.5 bg-[#8a1538]"></span>
+                    </h4>
+                    <div class="space-y-4 text-sm text-slate-400">
+                        <div class="flex items-start gap-3">
+                            <i class="fas fa-map-marker-alt mt-1 text-[#8a1538]"></i>
+                            <span>{% trans "г. Алматы, пр. аль-Фараби 71" %}</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <i class="fas fa-envelope text-[#8a1538]"></i>
+                            <a href="mailto:info@kaznu.kz" class="hover:text-white transition-colors">info@kaznu.kz</a>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <i class="fas fa-phone-alt text-[#8a1538]"></i>
+                            <span>+7 727 377 33 33</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="pt-8 border-t border-white/5 text-center">
-                <p class="text-[9px] text-gray-500 font-medium uppercase tracking-[0.3em]">
-                    © {% now "Y" %} КазНУ им. аль-Фараби. Все права защищены.
+
+            <div class="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-[10px] text-slate-500 font-bold uppercase tracking-widest">
+                    © {% now "Y" %} {% trans "КазНУ им. аль-Фараби" %}
                 </p>
+                <div class="flex gap-6 text-[10px] text-slate-500 font-bold uppercase tracking-widest">
+                    <a href="{% url 'conferences:privacy' %}" class="hover:text-white transition-colors">
+                        {% trans "Конфиденциальность" %}
+                    </a>
+                    <a href="{% url 'conferences:terms' %}" class="hover:text-white transition-colors">
+                        {% trans "Условия" %}
+                    </a>
+                </div>
             </div>
         </div>
     </footer>

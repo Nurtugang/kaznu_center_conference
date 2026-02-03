@@ -1,19 +1,40 @@
 {% extends "conferences/base_conf.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}{% trans "Регистрация" %}{% endblock %}
 
 {% block content %}
-<section class="py-12 flex justify-center">
-    <div class="w-full max-w-2xl">
-        <div class="bg-white rounded-[2rem] p-10 shadow-2xl shadow-brand/5 border border-gray-100">
-            <h2 class="text-3xl font-bold text-dark mb-2 text-center">Регистрация</h2>
-            <p class="text-gray-400 text-[10px] mb-8 font-bold text-center uppercase tracking-[0.3em]">Создайте аккаунт участника</p>
+<div class="min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8 bg-gray-50">
+
+    <div class="sm:mx-auto sm:w-full sm:max-w-md">
+        <div class="mx-auto h-16 w-16 bg-white border border-gray-200 rounded-2xl flex items-center justify-center text-[#8a1538] shadow-sm mb-6">
+            <i class="fas fa-user-plus text-3xl"></i>
+        </div>
+
+        <h2 class="text-center text-3xl font-serif font-bold text-gray-900 tracking-tight">
+            {% trans "Регистрация участника" %}
+        </h2>
+        <p class="mt-2 text-center text-sm text-gray-600">
+            {% trans "Создайте аккаунт для подачи заявок" %}
+        </p>
+    </div>
+
+    <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-2xl">
+        <div class="bg-white py-8 px-4 shadow-xl shadow-gray-200/50 border border-gray-100 sm:rounded-2xl sm:px-10">
 
             {% if form.errors %}
-            <div class="mb-8 p-5 bg-red-50 border border-red-100 rounded-2xl">
-                <p class="text-brand text-xs font-black uppercase mb-3">Пожалуйста, исправьте следующие ошибки:</p>
-                <ul class="list-disc list-inside text-[11px] text-red-600 font-medium space-y-1">
+            <div class="mb-8 p-4 bg-red-50 border border-red-100 rounded-xl">
+                <div class="flex items-center gap-2 mb-2">
+                    <i class="fas fa-exclamation-triangle text-red-500"></i>
+                    <h3 class="text-sm font-bold text-red-800 uppercase tracking-wide">
+                        {% trans "Пожалуйста, исправьте ошибки:" %}
+                    </h3>
+                </div>
+                <ul class="list-disc list-inside text-xs text-red-600 font-medium space-y-1 ml-1">
                     {% for field in form %}
                         {% for error in field.errors %}
-                            <li>{{ field.label }}: {{ error }}</li>
+                            <li><span class="font-bold text-red-700">{{ field.label }}:</span> {{ error }}</li>
                         {% endfor %}
                     {% endfor %}
                     {% for error in form.non_field_errors %}
@@ -23,51 +44,103 @@
             </div>
             {% endif %}
 
-            <form method="post" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <form method="post" class="space-y-6">
                 {% csrf_token %}
-                
-                <div class="md:col-span-2">
-                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Логин (Username)</label>
-                    {{ form.username }}
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                    <div class="md:col-span-2">
+                        <label for="{{ form.username.id_for_label }}" class="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2 ml-1">
+                            {{ form.username.label }}
+                        </label>
+                        {{ form.username }}
+                        {% if form.username.help_text %}
+                            <p class="mt-1 text-xs text-gray-400">{{ form.username.help_text }}</p>
+                        {% endif %}
+                    </div>
+
+                    <div>
+                        <label for="{{ form.last_name.id_for_label }}" class="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2 ml-1">
+                            {{ form.last_name.label }}
+                        </label>
+                        {{ form.last_name }}
+                    </div>
+
+                    <div>
+                        <label for="{{ form.first_name.id_for_label }}" class="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2 ml-1">
+                            {{ form.first_name.label }}
+                        </label>
+                        {{ form.first_name }}
+                    </div>
+
+                    <div class="md:col-span-2">
+                        <label for="{{ form.email.id_for_label }}" class="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2 ml-1">
+                            {{ form.email.label }}
+                        </label>
+                        {{ form.email }}
+                    </div>
+
+                    <div class="md:col-span-2">
+                        <label for="{{ form.organization.id_for_label }}" class="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2 ml-1">
+                            {{ form.organization.label }}
+                        </label>
+                        {{ form.organization }}
+                    </div>
+
+                    <div>
+                        <label for="{{ form.password.id_for_label }}" class="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2 ml-1">
+                            {{ form.password.label }}
+                        </label>
+                        {{ form.password }}
+                    </div>
+
+                    <div>
+                        <label for="{{ form.password_confirm.id_for_label }}" class="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2 ml-1">
+                            {{ form.password_confirm.label }}
+                        </label>
+                        {{ form.password_confirm }}
+                    </div>
+
+                    <div class="md:col-span-2 flex justify-center py-2">
+                        <div class="transform scale-90 sm:scale-100">
+                            {{ form.captcha }}
+                            {% if form.captcha.errors %}
+                                <p class="text-red-500 text-xs font-bold mt-1 text-center">
+                                    {% trans "Подтвердите, что вы не робот." %}
+                                </p>
+                            {% endif %}
+                        </div>
+                    </div>
+
                 </div>
 
-                <div>
-                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Фамилия</label>
-                    {{ form.last_name }}
-                </div>
-
-                <div>
-                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Имя</label>
-                    {{ form.first_name }}
-                </div>
-
-                <div class="md:col-span-2">
-                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Электронная почта</label>
-                    {{ form.email }}
-                </div>
-
-                <div class="md:col-span-2">
-                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Организация / ВУЗ</label>
-                    {{ form.organization }}
-                </div>
-
-                <div>
-                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Пароль</label>
-                    {{ form.password }}
-                </div>
-
-                <div>
-                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Подтверждение</label>
-                    {{ form.password_confirm }}
-                </div>
-
-                <div class="md:col-span-2 pt-4">
-                    <button type="submit" class="w-full bg-brand text-white py-4 rounded-2xl font-bold shadow-lg shadow-brand/20 hover:shadow-brand/40 hover:-translate-y-1 transition-all uppercase tracking-widest text-xs">
-                        Зарегистрироваться
+                <div class="pt-2">
+                    <button type="submit" class="w-full flex justify-center py-4 px-4 border border-transparent rounded-xl shadow-lg shadow-[#8a1538]/20 text-xs font-bold text-white bg-[#8a1538] hover:bg-[#70102d] hover:shadow-[#8a1538]/40 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#8a1538] uppercase tracking-widest transition-all duration-300 transform hover:-translate-y-0.5">
+                        {% trans "Зарегистрироваться" %}
                     </button>
                 </div>
             </form>
+
+            <div class="mt-8">
+                <div class="relative">
+                    <div class="absolute inset-0 flex items-center">
+                        <div class="w-full border-t border-gray-200"></div>
+                    </div>
+                    <div class="relative flex justify-center text-sm">
+                        <span class="px-2 bg-white text-gray-500 font-medium">
+                            {% trans "Уже есть аккаунт?" %}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="mt-6 text-center">
+                    <a href="{% url 'conferences:login' %}" class="inline-flex items-center text-[#8a1538] font-bold hover:text-[#70102d] transition-colors uppercase tracking-wider text-xs border-b border-[#8a1538]/30 hover:border-[#8a1538] pb-0.5">
+                        <i class="fas fa-sign-in-alt mr-2"></i> {% trans "Войти в систему" %}
+                    </a>
+                </div>
+            </div>
+
         </div>
     </div>
-</section>
+</div>
 {% endblock %}

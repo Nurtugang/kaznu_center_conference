@@ -1,19 +1,62 @@
 {% extends "conferences/base_conf.html" %}
-
-{% block title %}Программа | {{ conference.title }}{% endblock %}
+{% load i18n %} {% block title %}{% trans "Плата за участие" %} | {{ conference.title }}{% endblock %}
 
 {% block content %}
-<section class="py-12">
-    <div class="container mx-auto px-6 max-w-4xl">
-        <div class="text-center mb-10">
-            <h1 class="text-3xl font-black text-dark uppercase tracking-tighter">Плата за участие</h1>
+<div class="bg-white min-h-screen py-10 md:py-16">
+    <div class="container mx-auto px-4 sm:px-6 max-w-5xl">
+
+        <div class="mb-12 border-b border-gray-200 pb-6">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-900 tracking-tight mb-2">
+                {% trans "Плата за участие" %}
+            </h1>
+            <p class="text-gray-500 text-sm uppercase tracking-wider font-medium">
+                {{ conference.short_title }} &mdash; {% trans "Стоимость и порядок оплаты" %}
+            </p>
         </div>
 
-        <div class="bg-white rounded-[2rem] p-8 md:p-12 shadow-xl shadow-gray-200/50 border border-gray-100">
-            <div class="prose max-w-none prose-headings:text-dark prose-a:text-brand prose-strong:text-dark">
-                {{ conference.venue|safe }}
+        <article class="prose prose-slate max-w-none prose-lg
+                        prose-headings:font-bold prose-headings:text-gray-900 prose-headings:mt-8 prose-headings:mb-4
+                        prose-p:text-gray-700 prose-p:leading-relaxed
+                        prose-a:text-[#8a1538] prose-a:font-semibold prose-a:no-underline hover:prose-a:underline
+                        prose-li:marker:text-gray-400
+                        prose-strong:text-gray-900
+
+                        /* Стили для таблиц (цены часто в таблицах) */
+                        prose-table:w-full prose-table:text-left prose-table:border-collapse prose-table:my-8
+                        prose-th:font-bold prose-th:text-gray-900 prose-th:bg-gray-50 prose-th:border-b-2 prose-th:border-gray-200 prose-th:py-3 prose-th:px-4 prose-th:uppercase prose-th:text-xs prose-th:tracking-wider
+                        prose-td:border-b prose-td:border-gray-100 prose-td:py-4 prose-td:px-4 prose-td:align-top
+                        prose-tr:hover:bg-gray-50/50 prose-tr:transition-colors">
+
+            {% if conference.participation_fee %}
+                {{ conference.participation_fee|safe }}
+            {% else %}
+                <div class="py-16 text-center bg-gray-50 rounded-xl border border-dashed border-gray-300">
+                    <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-white text-gray-300 mb-4 shadow-sm">
+                        <i class="fas fa-coins text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-1">
+                        {% trans "Информация обновляется" %}
+                    </h3>
+                    <p class="text-gray-500 text-sm max-w-md mx-auto">
+                        {% trans "Организационный взнос и реквизиты для оплаты будут опубликованы в ближайшее время." %}
+                    </p>
+                </div>
+            {% endif %}
+
+        </article>
+
+        {% if conference.participation_fee %}
+        <div class="mt-16 flex items-start gap-4 p-6 bg-blue-50 rounded-xl border border-blue-100 text-sm text-blue-900">
+            <i class="fas fa-info-circle mt-0.5 text-lg text-blue-600"></i>
+            <div>
+                <p class="font-bold mb-1">{% trans "Важно" %}</p>
+                <p class="leading-relaxed opacity-80">
+                    {% trans "Пожалуйста, сохраняйте квитанцию об оплате. Копию квитанции может потребоваться загрузить при подаче окончательной версии материалов или отправить секретарю конференции." %}
+                </p>
             </div>
         </div>
+        {% endif %}
+
     </div>
-</section>
+</div>
 {% endblock %}

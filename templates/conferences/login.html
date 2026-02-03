@@ -1,35 +1,84 @@
 {% extends "conferences/base_conf.html" %}
+{% load i18n %} {% block title %}{% trans "Вход в систему" %}{% endblock %}
 
 {% block content %}
-<section class="min-h-[80vh] flex items-center justify-center px-6">
-    <div class="w-full max-w-md">
-        <div class="bg-white rounded-[2rem] p-10 shadow-2xl shadow-brand/5 border border-gray-100 relative overflow-hidden">
-            <div class="relative z-10">
-                <h2 class="text-3xl font-bold text-dark mb-2">С возвращением</h2>
-                <p class="text-gray-400 text-sm mb-8 font-medium uppercase tracking-widest">Авторизация участника</p>
-                
-                {% if form.errors %}
-                <div class="mb-6 p-4 bg-red-50 border-l-4 border-brand text-brand text-xs font-bold rounded-r-xl uppercase tracking-wider">
-                    Неверный логин или пароль. Попробуйте еще раз.
-                </div>
-                {% endif %}
+<div class="min-h-[80vh] flex flex-col justify-center py-12 sm:px-6 lg:px-8 bg-gray-50">
 
-                <form method="post" class="space-y-5">
-                    {% csrf_token %}
-                    <div>
-                        <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-2 ml-1">Логин или Email</label>
-                        <input type="text" name="username" required class="w-full px-5 py-4 bg-gray-50 border border-gray-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-brand/20 focus:bg-white transition-all text-sm font-medium">
+    <div class="sm:mx-auto sm:w-full sm:max-w-md">
+        <div class="mx-auto h-16 w-16 bg-white border border-gray-200 rounded-2xl flex items-center justify-center text-[#8a1538] shadow-sm mb-6">
+            <i class="fas fa-user-shield text-3xl"></i>
+        </div>
+
+        <h2 class="text-center text-3xl font-serif font-bold text-gray-900 tracking-tight">
+            {% trans "С возвращением" %}
+        </h2>
+        <p class="mt-2 text-center text-sm text-gray-600">
+            {% trans "Войдите в личный кабинет участника" %}
+        </p>
+    </div>
+
+    <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+        <div class="bg-white py-8 px-4 shadow-xl shadow-gray-200/50 border border-gray-100 sm:rounded-2xl sm:px-10">
+
+            {% if form.errors %}
+                <div class="mb-6 p-4 rounded-xl bg-red-50 border border-red-100 flex items-start gap-3">
+                    <i class="fas fa-exclamation-circle text-red-500 mt-0.5 shrink-0"></i>
+                    <div class="text-xs text-red-800">
+                        <p class="font-bold uppercase tracking-wider mb-1">{% trans "Ошибка входа" %}</p>
+                        <p>{% trans "Пожалуйста, проверьте правильность логина и пароля." %}</p>
                     </div>
-                    <div>
-                        <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-2 ml-1">Пароль</label>
-                        <input type="password" name="password" required class="w-full px-5 py-4 bg-gray-50 border border-gray-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-brand/20 focus:bg-white transition-all text-sm font-medium">
+                </div>
+            {% endif %}
+
+            <form class="space-y-6" method="post">
+                {% csrf_token %}
+
+                <div>
+                    <label for="id_username" class="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2 ml-1">
+                        {% trans "Логин или Email" %}
+                    </label>
+                    <div class="mt-1">
+                        <input id="id_username" name="username" type="text" autocomplete="username" required
+                               class="appearance-none block w-full px-4 py-3 border border-gray-300 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:border-[#8a1538] focus:ring-1 focus:ring-[#8a1538] sm:text-sm transition-all">
                     </div>
-                    <button type="submit" class="w-full bg-brand text-white py-4 rounded-2xl font-bold shadow-lg shadow-brand/20 hover:shadow-brand/40 hover:-translate-y-1 transition-all duration-300">
-                        Войти в кабинет
+                </div>
+
+                <div>
+                    <label for="id_password" class="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2 ml-1">
+                        {% trans "Пароль" %}
+                    </label>
+                    <div class="mt-1">
+                        <input id="id_password" name="password" type="password" autocomplete="current-password" required
+                               class="appearance-none block w-full px-4 py-3 border border-gray-300 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:border-[#8a1538] focus:ring-1 focus:ring-[#8a1538] sm:text-sm transition-all">
+                    </div>
+                </div>
+
+                <div>
+                    <button type="submit" class="w-full flex justify-center py-3.5 px-4 border border-transparent rounded-xl shadow-lg shadow-[#8a1538]/20 text-xs font-bold text-white bg-[#8a1538] hover:bg-[#70102d] hover:shadow-[#8a1538]/40 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#8a1538] uppercase tracking-widest transition-all duration-300">
+                        {% trans "Войти" %}
                     </button>
-                </form>
+                </div>
+            </form>
+
+            <div class="mt-8">
+                <div class="relative">
+                    <div class="absolute inset-0 flex items-center">
+                        <div class="w-full border-t border-gray-200"></div>
+                    </div>
+                    <div class="relative flex justify-center text-sm">
+                        <span class="px-2 bg-white text-gray-500 font-medium">
+                            {% trans "Нет аккаунта?" %}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="mt-6 text-center">
+                    <a href="{% url 'conferences:register' %}" class="inline-flex items-center text-[#8a1538] font-bold hover:text-[#70102d] transition-colors uppercase tracking-wider text-xs border-b border-[#8a1538]/30 hover:border-[#8a1538] pb-0.5">
+                        <i class="fas fa-user-plus mr-2"></i> {% trans "Зарегистрироваться" %}
+                    </a>
+                </div>
             </div>
         </div>
     </div>
-</section>
+</div>
 {% endblock %}

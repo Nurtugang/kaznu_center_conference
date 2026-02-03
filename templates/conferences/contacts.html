@@ -1,106 +1,130 @@
 {% extends "conferences/base_conf.html" %}
+{% load i18n %} {% load static %}
 
-{% block title %}Контакты | {{ conference.title }}{% endblock %}
+{% block title %}{% trans "Контакты" %} | {{ conference.title }}{% endblock %}
 
 {% block content %}
-<section class="py-16 bg-gradient-to-b from-gray-50 to-white">
-    <div class="container mx-auto px-6 max-w-7xl">
-        <div class="text-center mb-16">
-            <span class="text-[#8a1538] font-bold uppercase tracking-[0.2em] text-[10px]">Get in Touch</span>
-            <h1 class="text-4xl font-black text-dark mt-2 mb-4 uppercase tracking-tighter">Контактные лица</h1>
-            <div class="w-20 h-1.5 bg-[#8a1538] mx-auto rounded-full"></div>
+<div class="bg-white min-h-screen py-10 md:py-16">
+    <div class="container mx-auto px-4 sm:px-6 max-w-6xl">
+
+        <div class="mb-12 border-b border-gray-200 pb-6">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-900 tracking-tight mb-2">
+                {% trans "Контакты" %}
+            </h1>
+            <p class="text-gray-500 text-sm uppercase tracking-wider font-medium">
+                {{ conference.short_title }} &mdash; {% trans "Связь с организаторами" %}
+            </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 mb-16">
             {% for contact in contacts %}
-            <div class="bg-white rounded-[2.5rem] overflow-hidden shadow-lg border border-gray-100 hover:shadow-2xl transition-all duration-500 group">
-                <div class="relative h-64 bg-gradient-to-br from-[#8a1538]/10 to-[#5a0d23]/5 overflow-hidden">
-                    {% if contact.photo %}
-                        <img src="{{ contact.photo.url }}" alt="{{ contact.full_name }}" 
-                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                    {% else %}
-                        <div class="w-full h-full flex items-center justify-center">
-                            <div class="w-32 h-32 bg-[#8a1538]/10 rounded-full flex items-center justify-center">
-                                <i class="fas fa-user text-[#8a1538] text-5xl"></i>
+            <div class="group flex flex-col sm:flex-row items-start gap-6 p-6 rounded-2xl border border-gray-100 hover:border-[#8a1538]/30 hover:shadow-sm transition-all duration-300 bg-white">
+
+                <div class="shrink-0">
+                    <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-xl overflow-hidden bg-gray-50 border border-gray-100">
+                        {% if contact.photo %}
+                            <img src="{{ contact.photo.url }}" alt="{{ contact.full_name }}"
+                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        {% else %}
+                            <div class="w-full h-full flex items-center justify-center text-gray-300">
+                                <i class="fas fa-user text-3xl"></i>
                             </div>
-                        </div>
-                    {% endif %}
-                    <div class="absolute inset-0 bg-gradient-to-t from-dark/60 via-transparent to-transparent"></div>
+                        {% endif %}
+                    </div>
                 </div>
-                
-                <div class="p-8">
-                    <h3 class="text-xl font-bold text-dark mb-2 leading-tight">{{ contact.full_name }}</h3>
-                    <p class="text-[#8a1538] text-sm font-bold uppercase tracking-wide mb-4">{{ contact.position }}</p>
-                    
-                    <div class="space-y-3 pt-4 border-t border-gray-100">
-                        <a href="mailto:{{ contact.email }}" class="flex items-center gap-3 text-sm text-gray-600 hover:text-[#8a1538] transition-colors group/link">
-                            <div class="w-8 h-8 bg-gray-50 rounded-lg flex items-center justify-center group-hover/link:bg-[#8a1538]/10 transition-colors">
-                                <i class="fas fa-envelope text-[#8a1538] text-xs"></i>
-                            </div>
-                            <span class="text-xs break-all">{{ contact.email }}</span>
+
+                <div class="flex-grow min-w-0">
+                    <h3 class="text-xl font-serif font-bold text-gray-900 mb-1 leading-tight group-hover:text-[#8a1538] transition-colors">
+                        {{ contact.full_name }}
+                    </h3>
+                    <p class="text-xs font-bold text-gray-400 uppercase tracking-wide mb-4">
+                        {{ contact.position }}
+                    </p>
+
+                    <div class="space-y-2">
+                        <a href="mailto:{{ contact.email }}" class="flex items-center gap-2 text-sm text-gray-600 hover:text-[#8a1538] transition-colors group/link w-fit">
+                            <i class="fas fa-envelope text-[#8a1538] w-4"></i>
+                            <span class="font-medium border-b border-transparent group-hover/link:border-[#8a1538]/30">{{ contact.email }}</span>
                         </a>
-                        
+
                         {% if contact.phone %}
-                        <a href="tel:{{ contact.phone }}" class="flex items-center gap-3 text-sm text-gray-600 hover:text-[#8a1538] transition-colors group/link">
-                            <div class="w-8 h-8 bg-gray-50 rounded-lg flex items-center justify-center group-hover/link:bg-[#8a1538]/10 transition-colors">
-                                <i class="fas fa-phone text-[#8a1538] text-xs"></i>
-                            </div>
-                            <span class="text-xs">{{ contact.phone }}</span>
+                        <a href="tel:{{ contact.phone }}" class="flex items-center gap-2 text-sm text-gray-600 hover:text-[#8a1538] transition-colors group/link w-fit">
+                            <i class="fas fa-phone text-[#8a1538] w-4"></i>
+                            <span class="font-medium border-b border-transparent group-hover/link:border-[#8a1538]/30">{{ contact.phone }}</span>
                         </a>
                         {% endif %}
                     </div>
                 </div>
             </div>
             {% empty %}
-            <div class="col-span-full text-center py-20">
-                <div class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <i class="fas fa-address-book text-gray-300 text-3xl"></i>
+                <div class="col-span-full py-16 text-center bg-gray-50 rounded-xl border border-dashed border-gray-300">
+                    <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-white text-gray-300 mb-4 shadow-sm">
+                        <i class="far fa-address-book text-xl"></i>
+                    </div>
+                    <p class="text-gray-500 font-medium text-sm">
+                        {% trans "Список контактных лиц будет опубликован позже." %}
+                    </p>
                 </div>
-                <p class="text-gray-400 font-bold uppercase tracking-widest text-xs">Контакты будут добавлены позже</p>
-            </div>
             {% endfor %}
         </div>
 
-        <!-- Дополнительная информация -->
-        <div class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div class="bg-white rounded-[2rem] p-8 shadow-lg border border-gray-100">
-                <div class="flex items-center gap-3 mb-6">
-                    <div class="w-12 h-12 bg-[#8a1538]/10 rounded-xl flex items-center justify-center">
-                        <i class="fas fa-map-marker-alt text-[#8a1538] text-xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-dark">Адрес</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 border-t border-gray-100 pt-16">
+
+            <div>
+                <h4 class="text-lg font-serif font-bold text-gray-900 mb-6 flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center text-[#8a1538] text-sm">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </span>
+                    {% trans "Адрес оргкомитета" %}
+                </h4>
+                <div class="pl-11">
+                    <p class="text-gray-600 leading-relaxed text-sm">
+                        {% trans "Республика Казахстан, 050040" %}<br>
+                        {% trans "г. Алматы, пр. аль-Фараби, 71" %}<br>
+                        <span class="font-semibold text-gray-800">{% trans "Казахский национальный университет имени аль-Фараби" %}</span>
+                    </p>
+
+                    <a href="https://go.2gis.com/r8k3" target="_blank" class="inline-flex items-center gap-2 mt-4 text-xs font-bold text-[#8a1538] uppercase tracking-wider hover:underline">
+                        {% trans "Показать на карте" %} <i class="fas fa-external-link-alt"></i>
+                    </a>
                 </div>
-                <p class="text-gray-600 leading-relaxed">
-                    Республика Казахстан, 050040<br>
-                    г. Алматы, пр. аль-Фараби, 71/19<br>
-                    Казахский национальный университет имени аль-Фараби<br>
-                    Факультет географии и природопользования
-                </p>
             </div>
 
-            <div class="bg-white rounded-[2rem] p-8 shadow-lg border border-gray-100">
-                <div class="flex items-center gap-3 mb-6">
-                    <div class="w-12 h-12 bg-[#8a1538]/10 rounded-xl flex items-center justify-center">
-                        <i class="fas fa-info-circle text-[#8a1538] text-xl"></i>
+            <div>
+                <h4 class="text-lg font-serif font-bold text-gray-900 mb-6 flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center text-[#8a1538] text-sm">
+                        <i class="fas fa-info"></i>
+                    </span>
+                    {% trans "Общие контакты" %}
+                </h4>
+                <div class="pl-11 space-y-4">
+                    <div class="flex items-start gap-3">
+                        <i class="fas fa-phone-alt text-gray-300 mt-1 text-xs"></i>
+                        <div>
+                            <p class="text-xs text-gray-400 uppercase font-bold tracking-wider mb-0.5">{% trans "Телефон" %}</p>
+                            <a href="tel:+77273773333" class="text-gray-900 font-medium hover:text-[#8a1538] transition-colors">+7 (727) 377-33-33</a>
+                        </div>
                     </div>
-                    <h3 class="text-xl font-bold text-dark">Общая информация</h3>
-                </div>
-                <div class="space-y-3 text-gray-600">
-                    <p class="flex items-center gap-2">
-                        <i class="fas fa-phone text-[#8a1538] text-sm"></i>
-                        <span>+7 (727) 377-33-33 (вн. 12-28)</span>
-                    </p>
-                    <p class="flex items-center gap-2">
-                        <i class="fas fa-envelope text-[#8a1538] text-sm"></i>
-                        <span>info@kaznu.kz</span>
-                    </p>
-                    <p class="flex items-center gap-2">
-                        <i class="fas fa-globe text-[#8a1538] text-sm"></i>
-                        <a href="https://www.kaznu.kz" target="_blank" class="hover:text-[#8a1538] transition-colors">www.kaznu.kz</a>
-                    </p>
+
+                    <div class="flex items-start gap-3">
+                        <i class="fas fa-envelope text-gray-300 mt-1 text-xs"></i>
+                        <div>
+                            <p class="text-xs text-gray-400 uppercase font-bold tracking-wider mb-0.5">{% trans "Email" %}</p>
+                            <a href="mailto:info@kaznu.kz" class="text-gray-900 font-medium hover:text-[#8a1538] transition-colors">info@kaznu.kz</a>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-3">
+                        <i class="fas fa-globe text-gray-300 mt-1 text-xs"></i>
+                        <div>
+                            <p class="text-xs text-gray-400 uppercase font-bold tracking-wider mb-0.5">{% trans "Веб-сайт" %}</p>
+                            <a href="https://www.kaznu.kz" target="_blank" class="text-gray-900 font-medium hover:text-[#8a1538] transition-colors">www.kaznu.kz</a>
+                        </div>
+                    </div>
                 </div>
             </div>
+
         </div>
     </div>
-</section>
+</div>
 {% endblock %}

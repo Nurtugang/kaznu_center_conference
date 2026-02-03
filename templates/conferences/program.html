@@ -1,20 +1,73 @@
 {% extends "conferences/base_conf.html" %}
-
-{% block title %}Программа | {{ conference.title }}{% endblock %}
+{% load i18n %} {% block title %}{% trans "Программа конференции" %} | {{ conference.title }}{% endblock %}
 
 {% block content %}
-<section class="py-12">
-    <div class="container mx-auto px-6 max-w-4xl">
-        <div class="text-center mb-10">
-            <h1 class="text-3xl font-black text-dark uppercase tracking-tighter">Программа конференции</h1>
-            <p class="text-brand text-xs font-bold uppercase tracking-[0.3em] mt-2">Schedule of Events</p>
+<div class="bg-white min-h-screen py-10 md:py-16">
+    <div class="container mx-auto px-4 sm:px-6 max-w-6xl">
+
+        <div class="mb-12 border-b border-gray-200 pb-6 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+            <div>
+                <h1 class="text-3xl md:text-4xl font-bold text-gray-900 tracking-tight mb-2">
+                    {% trans "Программа конференции" %}
+                </h1>
+                <p class="text-gray-500 text-sm uppercase tracking-wider font-medium">
+                    {{ conference.short_title }} &mdash; {% trans "Расписание мероприятий" %}
+                </p>
+            </div>
+
+            {% if conference.program %}
+            <button onclick="window.print()" class="print:hidden group flex items-center gap-2 text-sm font-bold text-gray-400 hover:text-[#8a1538] transition-colors">
+                <i class="fas fa-print group-hover:scale-110 transition-transform"></i>
+                <span>{% trans "Распечатать PDF" %}</span>
+            </button>
+            {% endif %}
         </div>
 
-        <div class="bg-white rounded-[2rem] p-8 md:p-12 shadow-xl shadow-gray-200/50 border border-gray-100">
-            <div class="prose max-w-none prose-headings:text-dark prose-a:text-brand prose-strong:text-dark">
+        <article class="prose prose-slate max-w-none prose-lg
+                        prose-headings:font-bold prose-headings:text-gray-900 prose-headings:mt-10 prose-headings:mb-6
+                        prose-p:text-gray-700 prose-p:leading-relaxed
+                        prose-a:text-[#8a1538] prose-a:no-underline hover:prose-a:underline
+                        prose-li:marker:text-gray-400
+
+                        /* Настройка таблиц для идеального вида */
+                        prose-table:w-full prose-table:text-left prose-table:border-collapse prose-table:my-8
+                        prose-th:font-bold prose-th:text-gray-900 prose-th:bg-gray-50 prose-th:border-b-2 prose-th:border-gray-200 prose-th:py-4 prose-th:px-4 prose-th:uppercase prose-th:text-xs prose-th:tracking-wider
+                        prose-td:border-b prose-td:border-gray-100 prose-td:py-4 prose-td:px-4 prose-td:align-top prose-td:text-base prose-td:text-gray-600
+                        prose-tr:hover:bg-gray-50/50 prose-tr:transition-colors">
+
+            {% if conference.program %}
                 {{ conference.program|safe }}
-            </div>
+            {% else %}
+                <div class="py-20 text-center bg-gray-50 rounded-xl border border-dashed border-gray-300">
+                    <div class="text-gray-400 mb-4">
+                        <i class="far fa-calendar-alt text-4xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-1">
+                        {% trans "Программа формируется" %}
+                    </h3>
+                    <p class="text-gray-500 max-w-md mx-auto">
+                        {% trans "Оргкомитет еще не опубликовал финальное расписание. Информация появится здесь в ближайшее время." %}
+                    </p>
+                </div>
+            {% endif %}
+
+        </article>
+
+        {% if conference.program %}
+        <div class="mt-12 pt-6 border-t border-gray-100 text-center md:text-left print:hidden">
+            <p class="text-xs text-gray-400 italic">
+                * {% trans "В программе возможны изменения." %}
+            </p>
         </div>
+        {% endif %}
+
     </div>
-</section>
+</div>
+
+<style media="print">
+    @page { margin: 2cm; }
+    nav, footer, .print\:hidden { display: none !important; }
+    body { background: white !important; }
+    .prose { max-width: 100% !important; }
+</style>
 {% endblock %}

@@ -1,9 +1,11 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
+from modeltranslation.admin import TranslationAdmin, TranslationTabularInline
 from .models import (
-    User, Conference, Submission, GalleryMedia, 
+    User, Conference, Submission, GalleryMedia,
     SubmissionVersion, Document, ContactPerson, CommitteeMember
 )
+
 
 @admin.register(User)
 class CustomUserAdmin(UserAdmin):
@@ -15,24 +17,38 @@ class CustomUserAdmin(UserAdmin):
         ('Доп. информация', {'fields': ('organization',)}),
     )
 
+
 @admin.register(Conference)
-class ConferenceAdmin(admin.ModelAdmin):
+class ConferenceAdmin(TranslationAdmin):
     list_display = ('title', 'start_date', 'is_active', 'slug')
     list_filter = ('is_active', 'start_date')
     search_fields = ('title', 'description')
     prepopulated_fields = {'slug': ('title',)}
+
+    class Media:
+        js = (
+            'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',
+            'http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js',
+            'modeltranslation/js/tabbed_translation_fields.js',
+        )
+        css = {
+            'screen': ('modeltranslation/css/tabbed_translation_fields.css',),
+        }
+
     fieldsets = (
         ('Основная информация', {
-            'fields': ('title', 'short_title', 'slug', 'description', 'location', 'poster', 'is_active')
+            'fields': (
+            'title', 'short_title', 'slug', 'description', 'location', 'location_description', 'poster', 'is_active')
         }),
         ('Даты', {
             'fields': ('start_date', 'registration_deadline', 'notification_date')
         }),
         ('Контент страниц', {
-            'fields': ('program', 'committee', 'venue', 'participation_fee', 'submission_format'),
+            'fields': ('program', 'committee', 'participation_fee', 'submission_format'),
             'classes': ('collapse',)
         }),
     )
+
 
 class SubmissionVersionInline(admin.TabularInline):
     model = SubmissionVersion
@@ -41,13 +57,14 @@ class SubmissionVersionInline(admin.TabularInline):
     fields = ('version_number', 'file', 'author_comment', 'admin_comment', 'created_at')
     can_delete = False
 
+
 @admin.register(Submission)
 class SubmissionAdmin(admin.ModelAdmin):
     list_display = ('title', 'user', 'conference', 'status', 'get_version_count', 'updated_at')
     list_filter = ('status', 'conference')
     search_fields = ('title', 'user__last_name', 'user__email')
     list_editable = ('status',)
-    
+
     inlines = [SubmissionVersionInline]
     fieldsets = (
         ('Основная информация', {
@@ -60,28 +77,33 @@ class SubmissionAdmin(admin.ModelAdmin):
 
     def get_version_count(self, obj):
         return obj.versions.count()
+
     get_version_count.short_description = "Версий"
-    
+
+
 @admin.register(GalleryMedia)
-class GalleryMediaAdmin(admin.ModelAdmin):
+class GalleryMediaAdmin(TranslationAdmin):
     list_display = ('conference', 'caption', 'is_video', 'file')
     list_filter = ('conference', 'is_video')
 
+
 @admin.register(Document)
-class DocumentAdmin(admin.ModelAdmin):
+class DocumentAdmin(TranslationAdmin):
     list_display = ('title', 'conference', 'uploaded_at')
     list_filter = ('conference', 'uploaded_at')
     search_fields = ('title', 'description')
 
+
 @admin.register(ContactPerson)
-class ContactPersonAdmin(admin.ModelAdmin):
+class ContactPersonAdmin(TranslationAdmin):
     list_display = ('full_name', 'position', 'email', 'conference', 'order')
     list_filter = ('conference',)
     list_editable = ('order',)
     search_fields = ('full_name', 'email')
 
+
 @admin.register(CommitteeMember)
-class CommitteeMemberAdmin(admin.ModelAdmin):
+class CommitteeMemberAdmin(TranslationAdmin):
     list_display = ('full_name', 'role', 'position', 'conference', 'order')
     list_filter = ('conference', 'role')
     list_editable = ('order',)

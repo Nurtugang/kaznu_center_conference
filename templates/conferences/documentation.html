@@ -1,91 +1,86 @@
 {% extends "conferences/base_conf.html" %}
+{% load i18n %} {% load static %}
 
-{% block title %}Документация | {{ conference.title }}{% endblock %}
+{% block title %}{% trans "Документация" %} | {{ conference.title }}{% endblock %}
 
 {% block content %}
-<section class="py-16 bg-gradient-to-b from-gray-50 to-white min-h-screen">
-    <div class="container mx-auto px-6 max-w-5xl">
-        <div class="text-center mb-16">
-            <span class="text-[#8a1538] font-bold uppercase tracking-[0.2em] text-[10px]">Documents & Resources</span>
-            <h1 class="text-4xl font-black text-dark mt-2 mb-4 uppercase tracking-tighter">Документация</h1>
-            <div class="w-20 h-1.5 bg-[#8a1538] mx-auto rounded-full"></div>
-            <p class="text-gray-500 mt-6 text-sm max-w-2xl mx-auto">
-                Все необходимые документы, шаблоны и материалы для участников конференции
+<div class="bg-white min-h-screen py-10 md:py-16">
+    <div class="container mx-auto px-4 sm:px-6 max-w-5xl">
+
+        <div class="mb-12 border-b border-gray-200 pb-6">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-900 tracking-tight mb-2">
+                {% trans "Документация" %}
+            </h1>
+            <p class="text-gray-500 text-sm uppercase tracking-wider font-medium">
+                {{ conference.short_title }} &mdash; {% trans "Файлы, шаблоны и ресурсы" %}
             </p>
         </div>
 
-        <div class="space-y-6">
+        <div class="bg-white">
             {% for document in documents %}
-            <div class="bg-white rounded-[2rem] p-8 shadow-lg border border-gray-100 hover:shadow-2xl transition-all duration-500 group">
-                <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-                    <div class="flex-1">
-                        <div class="flex items-start gap-4">
-                            <div class="w-14 h-14 bg-gradient-to-br from-[#8a1538]/10 to-[#5a0d23]/5 rounded-2xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
-                                <i class="fas fa-file-pdf text-[#8a1538] text-2xl"></i>
-                            </div>
-                            <div class="flex-1">
-                                <h3 class="text-xl font-bold text-dark mb-2 group-hover:text-[#8a1538] transition-colors">
-                                    {{ document.title }}
-                                </h3>
-                                {% if document.description %}
-                                <p class="text-sm text-gray-500 leading-relaxed">
-                                    {{ document.description }}
-                                </p>
-                                {% endif %}
-                                <div class="flex items-center gap-4 mt-3 text-xs text-gray-400">
-                                    <span class="flex items-center gap-1">
-                                        <i class="far fa-calendar-alt"></i>
-                                        {{ document.uploaded_at|date:"d.m.Y" }}
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
+            <div class="group flex flex-col sm:flex-row sm:items-center gap-6 py-6 border-b border-gray-100 last:border-0 hover:bg-gray-50/50 transition-colors -mx-4 px-4 rounded-xl">
+
+                <div class="shrink-0">
+                    <div class="w-12 h-12 rounded-lg bg-gray-50 text-gray-400 flex items-center justify-center border border-gray-100 group-hover:bg-white group-hover:text-[#8a1538] group-hover:border-[#8a1538]/20 transition-all duration-300">
+                        <i class="fas fa-file-alt text-xl"></i>
                     </div>
-                    
-                    <a href="{{ document.file.url }}" 
+                </div>
+
+                <div class="flex-grow min-w-0">
+                    <h3 class="text-lg font-serif font-bold text-gray-900 mb-1 group-hover:text-[#8a1538] transition-colors truncate">
+                        {{ document.title }}
+                    </h3>
+
+                    {% if document.description %}
+                    <p class="text-sm text-gray-600 mb-2 leading-relaxed line-clamp-2">
+                        {{ document.description }}
+                    </p>
+                    {% endif %}
+
+                    <div class="flex items-center gap-4 text-xs text-gray-400 font-medium uppercase tracking-wider">
+                        <span class="flex items-center gap-1.5">
+                            <i class="far fa-calendar"></i>
+                            {{ document.uploaded_at|date:"d.m.Y" }}
+                        </span>
+                        </div>
+                </div>
+
+                <div class="shrink-0 mt-2 sm:mt-0">
+                    <a href="{{ document.file.url }}"
                        download
-                       class="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#8a1538] to-[#5a0d23] text-white rounded-2xl font-bold uppercase text-xs tracking-widest hover:shadow-lg hover:shadow-[#8a1538]/20 transition-all group/btn flex-shrink-0">
-                        <i class="fas fa-download group-hover/btn:animate-bounce"></i>
-                        Скачать
+                       class="inline-flex items-center gap-2 px-5 py-2.5 bg-white border border-gray-200 text-gray-700 rounded-lg text-xs font-bold uppercase tracking-widest hover:border-[#8a1538] hover:text-[#8a1538] hover:bg-[#8a1538]/5 transition-all duration-300">
+                        <i class="fas fa-download"></i>
+                        <span class="hidden sm:inline">{% trans "Скачать" %}</span>
                     </a>
                 </div>
             </div>
             {% empty %}
-            <div class="bg-white rounded-[3rem] border border-dashed border-gray-200 py-20 text-center">
-                <div class="w-24 h-24 bg-gray-50 rounded-full flex items-center justify-center text-gray-300 mb-6 mx-auto text-4xl">
-                    <i class="fas fa-folder-open"></i>
+                <div class="py-20 text-center bg-gray-50 rounded-xl border border-dashed border-gray-300">
+                    <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-white text-gray-300 mb-4 shadow-sm">
+                        <i class="fas fa-folder-open text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-1">
+                        {% trans "Документы отсутствуют" %}
+                    </h3>
+                    <p class="text-gray-500 text-sm max-w-sm mx-auto">
+                        {% trans "Организаторы еще не загрузили материалы для этой конференции." %}
+                    </p>
                 </div>
-                <h3 class="text-xl font-bold text-dark mb-2">Документы еще не добавлены</h3>
-                <p class="text-gray-400 text-sm">Материалы будут опубликованы позже</p>
-            </div>
             {% endfor %}
         </div>
 
-        <!-- Информационный блок -->
-        <div class="mt-16 bg-gradient-to-r from-[#8a1538]/5 to-[#5a0d23]/5 rounded-[2.5rem] p-10 border border-[#8a1538]/10">
-            <div class="flex items-start gap-4">
-                <div class="w-12 h-12 bg-[#8a1538] rounded-xl flex items-center justify-center flex-shrink-0">
-                    <i class="fas fa-info-circle text-white text-xl"></i>
-                </div>
-                <div>
-                    <h3 class="text-lg font-bold text-dark mb-3">Важная информация</h3>
-                    <ul class="space-y-2 text-sm text-gray-600">
-                        <li class="flex items-start gap-2">
-                            <i class="fas fa-check text-[#8a1538] mt-1"></i>
-                            <span>Все документы предоставлены в формате PDF для удобства просмотра</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <i class="fas fa-check text-[#8a1538] mt-1"></i>
-                            <span>Для корректного отображения убедитесь, что у вас установлен PDF-ридер</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <i class="fas fa-check text-[#8a1538] mt-1"></i>
-                            <span>При возникновении вопросов обращайтесь к организаторам</span>
-                        </li>
-                    </ul>
-                </div>
+        {% if documents %}
+        <div class="mt-16 flex items-start gap-4 p-6 bg-gray-50 rounded-xl border border-gray-100 text-sm text-gray-600">
+            <i class="fas fa-info-circle text-[#8a1538] mt-0.5 text-lg"></i>
+            <div>
+                <p class="font-bold text-gray-900 mb-1">{% trans "Примечание для участников" %}</p>
+                <p class="leading-relaxed">
+                    {% trans "Все документы предоставляются в официальных форматах (PDF, DOCX). Если у вас возникли проблемы со скачиванием или отображением файлов, пожалуйста, свяжитесь с технической поддержкой." %}
+                </p>
             </div>
         </div>
+        {% endif %}
+
     </div>
-</section>
+</div>
 {% endblock %}
