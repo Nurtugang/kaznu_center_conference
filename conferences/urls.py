@@ -2,6 +2,7 @@ from django.urls import path
 from django.contrib.auth import views as auth_views
 from . import views
 from .views import UserLoginView
+from .api import active_conferences_api
 
 app_name = 'conferences'
 
@@ -27,4 +28,6 @@ urlpatterns = [
     path('submission-format/', views.submission_format, name='submission_format'),
     path('privacy/', views.privacy_policy, name='privacy'),
     path('terms/', views.terms, name='terms'),
+    
+    path('api/conferences/', active_conferences_api, name='api_conferences'),
 ]
