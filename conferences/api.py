@@ -11,6 +11,7 @@ def active_conferences_api(request):
             "short_title": conf.short_title,
             "description": conf.description,
             "poster": request.build_absolute_uri(conf.poster.url) if conf.poster else None,
+	    "url": request.build_absolute_uri('/')
         })
     
     return JsonResponse(data, safe=False, json_dumps_params={'ensure_ascii': False})
