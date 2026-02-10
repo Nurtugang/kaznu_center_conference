@@ -305,7 +305,7 @@
 
     <main class="flex-grow">
         {% if messages %}
-            <div class="container mx-auto px-4 sm:px-6 mt-6">
+            <div class="container mx-auto px-4 sm:px-4 m-4">
                 {% for message in messages %}
                 <div class="p-4 rounded-xl border text-sm font-medium shadow-sm flex items-start gap-3 animate-fade-in-down {% if message.tags == 'success' %}bg-emerald-50 border-emerald-100 text-emerald-800{% else %}bg-rose-50 border-rose-100 text-rose-800{% endif %}">
                     <i class="fas {% if message.tags == 'success' %}fa-check-circle text-emerald-500{% else %}fa-exclamation-circle text-rose-500{% endif %} mt-0.5"></i>

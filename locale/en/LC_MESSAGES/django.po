@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KAZNU Conference\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-03 13:09+0500\n"
+"POT-Creation-Date: 2026-02-10 12:28+0500\n"
 "PO-Revision-Date: 2026-02-03 13:30+0500\n"
 "Last-Translator: Admin <admin@kaznu.kz>\n"
 "Language-Team: English\n"
@@ -12,15 +12,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: .\kaznu_center_conference\settings.py:90
+#: .\kaznu_center_conference\settings.py:91
 msgid "Russian"
 msgstr "Russian"
 
-#: .\kaznu_center_conference\settings.py:91
+#: .\kaznu_center_conference\settings.py:92
 msgid "English"
 msgstr "English"
 
-#: .\kaznu_center_conference\settings.py:92
+#: .\kaznu_center_conference\settings.py:93
 msgid "Kazakh"
 msgstr "Kazakh"
 
@@ -46,8 +46,6 @@ msgid "Научная конференция"
 msgstr "Scientific Conference"
 
 #: .\templates\conferences\base_conf.html:115
-#: .\templates\conferences\proceedings.html:5
-#: .\templates\conferences\proceedings.html:14
 #: .\templates\conferences\profile.html:5
 msgid "Личный кабинет"
 msgstr "Dashboard"
@@ -125,7 +123,6 @@ msgid "Отправить материал"
 msgstr "Submit Paper"
 
 #: .\templates\conferences\base_conf.html:193
-#: .\templates\conferences\proceedings.html:40
 msgid "Подать"
 msgstr "Submit"
 
@@ -173,8 +170,8 @@ msgid ""
 "Координирующий центр международных исследований в области целей устойчивого "
 "развития. Объединяем науку, образование и инновации для будущего."
 msgstr ""
-"Coordinating center for international research on Sustainable Development Goals. "
-"Uniting science, education, and innovation for the future."
+"Coordinating center for international research on Sustainable Development "
+"Goals. Uniting science, education, and innovation for the future."
 
 #: .\templates\conferences\base_conf.html:347
 msgid "Навигация"
@@ -469,8 +466,7 @@ msgstr "Fee and Payment Procedure"
 msgid ""
 "Организационный взнос и реквизиты для оплаты будут опубликованы в ближайшее "
 "время."
-msgstr ""
-"The registration fee and payment details will be published shortly."
+msgstr "The registration fee and payment details will be published shortly."
 
 #: .\templates\conferences\participation_fee.html:52
 msgid "Важно"
@@ -482,8 +478,9 @@ msgid ""
 "потребоваться загрузить при подаче окончательной версии материалов или "
 "отправить секретарю конференции."
 msgstr ""
-"Please keep your payment receipt. You may need to upload a copy when submitting "
-"the final version of your paper or send it to the conference secretary."
+"Please keep your payment receipt. You may need to upload a copy when "
+"submitting the final version of your paper or send it to the conference "
+"secretary."
 
 #: .\templates\conferences\privacy.html:4
 #: .\templates\conferences\privacy.html:11
@@ -500,7 +497,10 @@ msgid ""
 "относится к правам посетителей Сайта. Мы безоговорочно признаем важность "
 "конфиденциальности личной информации посетителей нашего Сайта."
 msgstr ""
-"The administration of the SDG KazNU Conference website (hereinafter referred to as the \"Website\") respects the rights of Website visitors. We unconditionally recognize the importance of the privacy of our visitors' personal information."
+"The administration of the SDG KazNU Conference website (hereinafter referred "
+"to as the \"Website\") respects the rights of Website visitors. We "
+"unconditionally recognize the importance of the privacy of our visitors' "
+"personal information."
 
 #: .\templates\conferences\privacy.html:23
 msgid "Сбор информации"
@@ -519,7 +519,8 @@ msgid ""
 "ФИО, адрес электронной почты, место работы/учебы, должность, которые вы "
 "предоставляете при регистрации."
 msgstr ""
-"Full name, email address, place of work/study, position, which you provide during registration."
+"Full name, email address, place of work/study, position, which you provide "
+"during registration."
 
 #: .\templates\conferences\privacy.html:27
 msgid "Технические данные:"
@@ -542,11 +543,14 @@ msgstr "Collected data is used solely for:"
 
 #: .\templates\conferences\privacy.html:33
 msgid "Организации участия в конференции (пропуска, сертификаты, бейджи)."
-msgstr "Organizing participation in the conference (passes, certificates, badges)."
+msgstr ""
+"Organizing participation in the conference (passes, certificates, badges)."
 
 #: .\templates\conferences\privacy.html:34
 msgid "Связи с участниками (рассылка программы, уведомления о статусе заявок)."
-msgstr "Communication with participants (sending the program, notifications about submission status)."
+msgstr ""
+"Communication with participants (sending the program, notifications about "
+"submission status)."
 
 #: .\templates\conferences\privacy.html:35
 msgid "Формирования сборника материалов конференции."
@@ -562,7 +566,9 @@ msgid ""
 "персональных данных от неправомерного доступа, уничтожения, изменения, "
 "блокирования, копирования, распространения."
 msgstr ""
-"We take necessary organizational and technical measures to protect personal data from unauthorized access, destruction, modification, blocking, copying, and distribution."
+"We take necessary organizational and technical measures to protect personal "
+"data from unauthorized access, destruction, modification, blocking, copying, "
+"and distribution."
 
 #: .\templates\conferences\privacy.html:43
 msgid "Раскрытие информации третьим лицам"
@@ -574,7 +580,9 @@ msgid ""
 "предусмотренных законодательством Республики Казахстан, или с вашего явного "
 "согласия (например, публикация статьи в открытом доступе)."
 msgstr ""
-"We do not transfer your personal information to third parties, except as provided by the legislation of the Republic of Kazakhstan, or with your explicit consent (e.g., publishing an article in open access)."
+"We do not transfer your personal information to third parties, except as "
+"provided by the legislation of the Republic of Kazakhstan, or with your "
+"explicit consent (e.g., publishing an article in open access)."
 
 #: .\templates\conferences\privacy.html:48
 msgid "Контактная информация"
@@ -587,69 +595,48 @@ msgid ""
 msgstr ""
 "If you have any questions regarding this policy, you can contact us at:"
 
-#: .\templates\conferences\proceedings.html:26
-msgid "Выйти"
-msgstr "Logout"
+#: .\templates\conferences\proceedings.html:4
+#: .\templates\conferences\proceedings.html:12
+msgid "Материалы конференции"
+msgstr "Conference Materials"
 
-#: .\templates\conferences\proceedings.html:34
-msgid "Мои заявки"
-msgstr "My Submissions"
+#: .\templates\conferences\proceedings.html:15
+msgid "Сборник принятых докладов"
+msgstr "List of accepted materials"
 
-#: .\templates\conferences\proceedings.html:39
-msgid "Подать новую заявку"
-msgstr "New Submission"
+#: .\templates\conferences\proceedings.html:46
+msgid "Скрыть"
+msgstr "Hide"
 
-#: .\templates\conferences\proceedings.html:54
-#: .\templates\conferences\profile.html:80
-msgid "На проверке"
-msgstr "Under Review"
+#: .\templates\conferences\proceedings.html:46
+msgid "Подробнее"
+msgstr "More"
 
-#: .\templates\conferences\proceedings.html:59
-#: .\templates\conferences\profile.html:68
-msgid "Принято"
-msgstr "Accepted"
+#: .\templates\conferences\proceedings.html:65
+msgid "Скачать PDF"
+msgstr "PDF жүктеп алу"
 
-#: .\templates\conferences\proceedings.html:64
-#: .\templates\conferences\profile.html:76
-msgid "Отклонено"
-msgstr "Rejected"
+#: .\templates\conferences\proceedings.html:79
+msgid "Работы пока не добавлены"
+msgstr "Жұмыстар әлі қосылмаған"
 
-#: .\templates\conferences\proceedings.html:69
-msgid "Требует доработки"
-msgstr "Revision Required"
+#: .\templates\conferences\proceedings.html:82
+msgid "Список принятых докладов формируется организационным комитетом."
+msgstr "The list of accepted papers is formed by the organizing committee."
 
-#: .\templates\conferences\proceedings.html:92
-msgid "Скачать версию"
-msgstr "Download Version"
+#: .\templates\conferences\proceedings.html:93
+msgid "Материалы еще не опубликованы"
+msgstr "Materials are not published yet"
 
-#: .\templates\conferences\proceedings.html:100
-msgid "Всего версий:"
-msgstr "Total Versions:"
+#: .\templates\conferences\proceedings.html:95
+msgid ""
+"Публикация сборника трудов состоится после завершения этапа рецензирования "
+"всех работ."
+msgstr "The publication of the collected papers will take place after the review stage of all papers has been completed."
 
-#: .\templates\conferences\proceedings.html:106
-msgid "Комментарий рецензента:"
-msgstr "Reviewer Comment:"
-
-#: .\templates\conferences\proceedings.html:115
-msgid "Доработать"
-msgstr "Resubmit"
-
-#: .\templates\conferences\proceedings.html:119
-msgid "Действий нет"
-msgstr "No actions"
-
-#: .\templates\conferences\proceedings.html:133
-msgid "У вас пока нет заявок"
-msgstr "You have no submissions yet"
-
-#: .\templates\conferences\proceedings.html:136
-msgid "Вы можете подать научную работу на активную конференцию."
-msgstr "You can submit a paper to an active conference."
-
-#: .\templates\conferences\proceedings.html:139
-#: .\templates\conferences\profile.html:176
-msgid "Подать первую заявку"
-msgstr "Submit First Paper"
+#: .\templates\conferences\proceedings.html:98
+msgid "Ожидаемая дата"
+msgstr "Expected date"
 
 #: .\templates\conferences\profile.html:21
 msgid "Участник"
@@ -671,9 +658,21 @@ msgstr "My Publications"
 msgid "Подать заявку"
 msgstr "Submit Paper"
 
+#: .\templates\conferences\profile.html:68
+msgid "Принято"
+msgstr "Accepted"
+
 #: .\templates\conferences\profile.html:72
 msgid "Требуется доработка"
 msgstr "Revision Required"
+
+#: .\templates\conferences\profile.html:76
+msgid "Отклонено"
+msgstr "Rejected"
+
+#: .\templates\conferences\profile.html:80
+msgid "На проверке"
+msgstr "Under Review"
 
 #: .\templates\conferences\profile.html:98
 msgid "Авторы:"
@@ -701,7 +700,12 @@ msgstr "No active submissions"
 
 #: .\templates\conferences\profile.html:173
 msgid "Вы еще не подали ни одной работы. Начните с подачи заявки на участие."
-msgstr "You haven't submitted any papers yet. Start by submitting an application."
+msgstr ""
+"You haven't submitted any papers yet. Start by submitting an application."
+
+#: .\templates\conferences\profile.html:176
+msgid "Подать первую заявку"
+msgstr "Submit First Paper"
 
 #: .\templates\conferences\program.html:2
 #: .\templates\conferences\program.html:11
@@ -725,8 +729,8 @@ msgid ""
 "Оргкомитет еще не опубликовал финальное расписание. Информация появится "
 "здесь в ближайшее время."
 msgstr ""
-"The organizing committee has not published the final schedule yet. Information "
-"will appear here shortly."
+"The organizing committee has not published the final schedule yet. "
+"Information will appear here shortly."
 
 #: .\templates\conferences\program.html:59
 msgid "В программе возможны изменения."
@@ -897,7 +901,9 @@ msgid ""
 "Условиями. Оргкомитет оставляет за собой право вносить изменения в правила "
 "проведения конференции."
 msgstr ""
-"By registering on the Website, the User confirms their agreement with these Terms. The Organizing Committee reserves the right to make changes to the conference rules."
+"By registering on the Website, the User confirms their agreement with these "
+"Terms. The Organizing Committee reserves the right to make changes to the "
+"conference rules."
 
 #: .\templates\conferences\terms.html:24
 msgid "Регистрация и подача материалов"
@@ -907,21 +913,20 @@ msgstr "Registration and Material Submission"
 msgid ""
 "Пользователь несет ответственность за достоверность предоставленной "
 "информации."
-msgstr ""
-"The user is responsible for the accuracy of the provided information."
+msgstr "The user is responsible for the accuracy of the provided information."
 
 #: .\templates\conferences\terms.html:27
 msgid ""
 "Все загружаемые материалы должны быть авторскими. Плагиат не допускается."
-msgstr ""
-"All uploaded materials must be original. Plagiarism is not allowed."
+msgstr "All uploaded materials must be original. Plagiarism is not allowed."
 
 #: .\templates\conferences\terms.html:28
 msgid ""
 "Оргкомитет имеет право отклонить заявку, если она не соответствует тематике "
 "или требованиям конференции."
 msgstr ""
-"The Organizing Committee has the right to reject an application if it does not match the theme or requirements of the conference."
+"The Organizing Committee has the right to reject an application if it does "
+"not match the theme or requirements of the conference."
 
 #: .\templates\conferences\terms.html:31
 msgid "Авторские права"
@@ -933,7 +938,9 @@ msgid ""
 "предоставляют Оргкомитету право на публикацию материалов в сборнике "
 "конференции и размещение их на сайте."
 msgstr ""
-"Copyrights to materials remain with the authors. However, authors grant the Organizing Committee the right to publish materials in the conference proceedings and post them on the website."
+"Copyrights to materials remain with the authors. However, authors grant the "
+"Organizing Committee the right to publish materials in the conference "
+"proceedings and post them on the website."
 
 #: .\templates\conferences\terms.html:36
 msgid "Этика и поведение"
@@ -945,7 +952,9 @@ msgid ""
 "другим участникам. Оскорбления, дискриминация и нарушение порядка во время "
 "мероприятия недопустимы."
 msgstr ""
-"Participants are required to observe scientific ethics and treat other participants with respect. Insults, discrimination, and disruption of order during the event are unacceptable."
+"Participants are required to observe scientific ethics and treat other "
+"participants with respect. Insults, discrimination, and disruption of order "
+"during the event are unacceptable."
 
 #: .\templates\conferences\terms.html:41
 msgid "Оплата участия"
@@ -956,7 +965,8 @@ msgid ""
 "Регистрационный взнос (если предусмотрен) не подлежит возврату, если "
 "участник отменил свое участие менее чем за 5 дней до начала мероприятия."
 msgstr ""
-"The registration fee (if applicable) is non-refundable if the participant cancels their participation less than 5 days before the event starts."
+"The registration fee (if applicable) is non-refundable if the participant "
+"cancels their participation less than 5 days before the event starts."
 
 #: .\templates\conferences\venue.html:13
 msgid "Локация и схема проезда"
@@ -974,5 +984,35 @@ msgid ""
 "Для участников, нуждающихся в визовой поддержке или помощи с размещением, "
 "просьба связаться с оргкомитетом заранее."
 msgstr ""
-"Participants requiring visa support or accommodation assistance are requested "
-"to contact the organizing committee in advance."
+"Participants requiring visa support or accommodation assistance are "
+"requested to contact the organizing committee in advance."
+
+#~ msgid "Выйти"
+#~ msgstr "Logout"
+
+#~ msgid "Мои заявки"
+#~ msgstr "My Submissions"
+
+#~ msgid "Подать новую заявку"
+#~ msgstr "New Submission"
+
+#~ msgid "Требует доработки"
+#~ msgstr "Revision Required"
+
+#~ msgid "Скачать версию"
+#~ msgstr "Download Version"
+
+#~ msgid "Всего версий:"
+#~ msgstr "Total Versions:"
+
+#~ msgid "Комментарий рецензента:"
+#~ msgstr "Reviewer Comment:"
+
+#~ msgid "Доработать"
+#~ msgstr "Resubmit"
+
+#~ msgid "Действий нет"
+#~ msgstr "No actions"
+
+#~ msgid "Вы можете подать научную работу на активную конференцию."
+#~ msgstr "You can submit a paper to an active conference."
