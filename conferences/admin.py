@@ -2,19 +2,20 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from modeltranslation.admin import TranslationAdmin, TranslationTabularInline
 from .models import (
-    User, Conference, Submission, GalleryMedia,
+    Proceedings, User, Conference, Submission, GalleryMedia,
     SubmissionVersion, Document, ContactPerson, CommitteeMember
 )
+from .services import create_conference_proceedings
 
 
 @admin.register(User)
 class CustomUserAdmin(UserAdmin):
-    list_display = ('username', 'email', 'last_name', 'first_name', 'organization', 'is_staff')
+    list_display = ('username', 'email', 'last_name', 'first_name', 'organization', 'role')
     fieldsets = UserAdmin.fieldsets + (
-        ('Доп. информация', {'fields': ('organization',)}),
+        ('Доп. информация', {'fields': ('organization', 'role')}),
     )
     add_fieldsets = UserAdmin.add_fieldsets + (
-        ('Доп. информация', {'fields': ('organization',)}),
+        ('Доп. информация', {'fields': ('organization', 'role')}),
     )
 
 
@@ -24,6 +25,7 @@ class ConferenceAdmin(TranslationAdmin):
     list_filter = ('is_active', 'start_date')
     search_fields = ('title', 'description')
     prepopulated_fields = {'slug': ('title',)}
+    actions = ['make_proceedings']
 
     class Media:
         js = (
@@ -48,6 +50,15 @@ class ConferenceAdmin(TranslationAdmin):
             'classes': ('collapse',)
         }),
     )
+    
+    @admin.action(description="Сформировать сборник трудов")
+    def make_proceedings(modeladmin, request, queryset):
+        for conf in queryset:
+            proc = create_conference_proceedings(conf.id)
+            if proc:
+                modeladmin.message_user(request, f"Сборник для {conf.short_title} успешно создан.")
+            else:
+                modeladmin.message_user(request, f"Нет готовых материалов для {conf.short_title}.", level='warning')
 
 
 class SubmissionVersionInline(admin.TabularInline):
@@ -68,10 +79,10 @@ class SubmissionAdmin(admin.ModelAdmin):
     inlines = [SubmissionVersionInline]
     fieldsets = (
         ('Основная информация', {
-            'fields': ('user', 'conference', 'status', 'title', 'authors_list')
+            'fields': ('user', 'conference', 'status', 'title', 'authors_list', 'abstract_text', 'keywords')
         }),
-        ('Контент', {
-            'fields': ('abstract_text', 'keywords')
+        ('Файл для печати (PDF)', {
+            'fields': ('final_file',)
         }),
     )
 
@@ -80,6 +91,11 @@ class SubmissionAdmin(admin.ModelAdmin):
 
     get_version_count.short_description = "Версий"
 
+@admin.register(Proceedings)
+class ProceedingsAdmin(admin.ModelAdmin):
+    list_display = ('conference', 'file', 'created_at')
+    list_filter = ('conference',)
+    readonly_fields = ('created_at',)
 
 @admin.register(GalleryMedia)
 class GalleryMediaAdmin(TranslationAdmin):

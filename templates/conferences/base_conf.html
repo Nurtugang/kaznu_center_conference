@@ -28,6 +28,9 @@
             font-family: 'Merriweather', serif;
         }
     </style>
+
+    {% block extra_head %}{% endblock %}
+
 </head>
 <body class="font-sans text-slate-600 bg-slate-50 flex flex-col min-h-screen selection:bg-[#8a1538] selection:text-white" x-data="{ mobileMenuOpen: false }">
 
@@ -187,11 +190,17 @@
                     <div class="flex-grow"></div>
 
                     <div class="flex items-center pl-4 space-x-1 border-l border-slate-200 my-2">
+                        {% if user.role == 'organizer' or user.is_staff %}
+                        <a href="/admin/conferences/submission/" target="_blank" class="px-4 py-1.5 rounded-md bg-slate-50 hover:bg-[#8a1538] hover:text-white text-slate-600 transition-all whitespace-nowrap flex items-center gap-2 group">
+                            <i class="fas fa-paper-plane text-xs opacity-70"></i>
+                            <span class="hidden xl:inline">{% trans "Управление заявками" %}</span>
+                        </a>
+                        {% else %}
                         <a href="{% url 'conferences:submit' %}" class="px-4 py-1.5 rounded-md bg-slate-50 hover:bg-[#8a1538] hover:text-white text-slate-600 transition-all whitespace-nowrap flex items-center gap-2 group">
                             <i class="fas fa-paper-plane text-xs opacity-70"></i>
                             <span class="hidden xl:inline">{% trans "Отправить материал" %}</span>
-                            <span class="xl:hidden">{% trans "Подать" %}</span>
                         </a>
+                        {% endif %}
                     </div>
                     {% endwith %}
                 </div>
@@ -350,7 +359,13 @@
                     <ul class="space-y-3 text-sm text-slate-400">
                         <li><a href="{{ BASE_SITE }}" class="hover:text-white transition-colors flex items-center gap-2"><i class="fas fa-chevron-right text-[10px] opacity-50"></i> {% trans "Сайт центра ЦУР" %}</a></li>
                         <li><a href="https://www.kaznu.kz" class="hover:text-white transition-colors flex items-center gap-2"><i class="fas fa-chevron-right text-[10px] opacity-50"></i> {% trans "КазНУ им. аль-Фараби" %}</a></li>
-                        <li><a href="{% url 'conferences:login' %}" class="hover:text-white transition-colors flex items-center gap-2"><i class="fas fa-chevron-right text-[10px] opacity-50"></i> {% trans "Вход для авторов" %}</a></li>
+                        <li>
+                            {% if user.is_authenticated %}
+                                <a href="{% url 'conferences:profile' %}" class="hover:text-white transition-colors flex items-center gap-2"><i class="fas fa-chevron-right text-[10px] opacity-50"></i> {% trans "Профиль" %}</a>
+                            {% else %}
+                                <a href="{% url 'conferences:login' %}" class="hover:text-white transition-colors flex items-center gap-2"><i class="fas fa-chevron-right text-[10px] opacity-50"></i> {% trans "Вход для авторов" %}</a>
+                            {% endif %}
+                        </li>
                     </ul>
                 </div>
 

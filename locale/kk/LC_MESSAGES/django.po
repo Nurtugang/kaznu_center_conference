@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KAZNU Conference\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-10 12:31+0500\n"
+"POT-Creation-Date: 2026-02-17 17:42+0500\n"
 "PO-Revision-Date: 2026-02-03 13:30+0500\n"
 "Last-Translator: Admin <admin@kaznu.kz>\n"
 "Language-Team: Kazakh\n"
@@ -28,144 +28,145 @@ msgstr "Қазақша"
 msgid "Конференции ЦУР КазНУ"
 msgstr "ҚазҰУ ТДМ Конференциялары"
 
-#: .\templates\conferences\base_conf.html:41
+#: .\templates\conferences\base_conf.html:44
 msgid "Центр устойчивого развития КазНУ"
 msgstr "ҚазҰУ Тұрақты даму орталығы"
 
-#: .\templates\conferences\base_conf.html:43
-#: .\templates\conferences\base_conf.html:334
+#: .\templates\conferences\base_conf.html:46
+#: .\templates\conferences\base_conf.html:343
 msgid "ЦУР КазНУ"
 msgstr "ТДМ ҚазҰУ"
 
-#: .\templates\conferences\base_conf.html:47
+#: .\templates\conferences\base_conf.html:50
 msgid "Казахский национальный университет им. аль-Фараби"
 msgstr "Әл-Фараби атындағы Қазақ ұлттық университеті"
 
-#: .\templates\conferences\base_conf.html:72
+#: .\templates\conferences\base_conf.html:75
 msgid "Научная конференция"
 msgstr "Ғылыми конференция"
 
-#: .\templates\conferences\base_conf.html:115
+#: .\templates\conferences\base_conf.html:118
 #: .\templates\conferences\profile.html:5
 msgid "Личный кабинет"
 msgstr "Жеке кабинет"
 
-#: .\templates\conferences\base_conf.html:120
-#: .\templates\conferences\base_conf.html:264
+#: .\templates\conferences\base_conf.html:123
+#: .\templates\conferences\base_conf.html:273
 msgid "Выход"
 msgstr "Шығу"
 
-#: .\templates\conferences\base_conf.html:128
-#: .\templates\conferences\base_conf.html:295
+#: .\templates\conferences\base_conf.html:131
+#: .\templates\conferences\base_conf.html:304
 msgid "Вход"
 msgstr "Кіру"
 
-#: .\templates\conferences\base_conf.html:132
-#: .\templates\conferences\base_conf.html:298
+#: .\templates\conferences\base_conf.html:135
+#: .\templates\conferences\base_conf.html:307
 #: .\templates\conferences\register.html:5
 msgid "Регистрация"
 msgstr "Тіркелу"
 
-#: .\templates\conferences\base_conf.html:149
+#: .\templates\conferences\base_conf.html:152
 msgid "Обзор"
 msgstr "Шолу"
 
-#: .\templates\conferences\base_conf.html:153
-#: .\templates\conferences\base_conf.html:276
+#: .\templates\conferences\base_conf.html:156
+#: .\templates\conferences\base_conf.html:285
 msgid "Программа"
 msgstr "Бағдарлама"
 
-#: .\templates\conferences\base_conf.html:157
-#: .\templates\conferences\base_conf.html:277
+#: .\templates\conferences\base_conf.html:160
+#: .\templates\conferences\base_conf.html:286
 msgid "Комитет"
 msgstr "Комитет"
 
-#: .\templates\conferences\base_conf.html:161
+#: .\templates\conferences\base_conf.html:164
 msgid "Место"
 msgstr "Орын"
 
-#: .\templates\conferences\base_conf.html:165
+#: .\templates\conferences\base_conf.html:168
 #: .\templates\conferences\gallery.html:2
 #: .\templates\conferences\gallery.html:18
 msgid "Галерея"
 msgstr "Галерея"
 
-#: .\templates\conferences\base_conf.html:169
+#: .\templates\conferences\base_conf.html:172
 msgid "Документы"
 msgstr "Құжаттар"
 
-#: .\templates\conferences\base_conf.html:173
-#: .\templates\conferences\base_conf.html:359
+#: .\templates\conferences\base_conf.html:176
+#: .\templates\conferences\base_conf.html:374
 #: .\templates\conferences\contacts.html:4
 #: .\templates\conferences\contacts.html:12
 #: .\templates\conferences\detail.html:194
 msgid "Контакты"
 msgstr "Байланыс"
 
-#: .\templates\conferences\base_conf.html:177
+#: .\templates\conferences\base_conf.html:180
 msgid "Материалы"
 msgstr "Материалдар"
 
-#: .\templates\conferences\base_conf.html:181
-#: .\templates\conferences\base_conf.html:288
+#: .\templates\conferences\base_conf.html:184
+#: .\templates\conferences\base_conf.html:297
 #: .\templates\conferences\participation_fee.html:2
 #: .\templates\conferences\participation_fee.html:10
 msgid "Плата за участие"
 msgstr "Қатысу жарнасы"
 
-#: .\templates\conferences\base_conf.html:185
+#: .\templates\conferences\base_conf.html:188
 msgid "Формат"
 msgstr "Формат"
 
-#: .\templates\conferences\base_conf.html:192
-#: .\templates\conferences\base_conf.html:286
+#: .\templates\conferences\base_conf.html:196
+#: .\templates\conferences\profile.html:55
+msgid "Управление заявками"
+msgstr "Өтінімдермен жұмыс жасау"
+
+#: .\templates\conferences\base_conf.html:201
+#: .\templates\conferences\base_conf.html:295
 msgid "Отправить материал"
 msgstr "Мақаланы жіберу"
 
-#: .\templates\conferences\base_conf.html:193
-msgid "Подать"
-msgstr "Жіберу"
-
-#: .\templates\conferences\base_conf.html:226
+#: .\templates\conferences\base_conf.html:235
 msgid "Меню навигации"
 msgstr "Навигация мәзірі"
 
-#: .\templates\conferences\base_conf.html:234
+#: .\templates\conferences\base_conf.html:243
 msgid "Язык"
 msgstr "Тіл"
 
-#: .\templates\conferences\base_conf.html:259
+#: .\templates\conferences\base_conf.html:268
 msgid "Кабинет"
 msgstr "Кабинет"
 
-#: .\templates\conferences\base_conf.html:273
+#: .\templates\conferences\base_conf.html:282
 msgid "Основное"
 msgstr "Негізгі"
 
-#: .\templates\conferences\base_conf.html:275
+#: .\templates\conferences\base_conf.html:284
 msgid "Обзор конференции"
 msgstr "Конференцияға шолу"
 
-#: .\templates\conferences\base_conf.html:278
+#: .\templates\conferences\base_conf.html:287
 #: .\templates\conferences\venue.html:2 .\templates\conferences\venue.html:10
 msgid "Место проведения"
 msgstr "Өтетін орны"
 
-#: .\templates\conferences\base_conf.html:283
+#: .\templates\conferences\base_conf.html:292
 msgid "Авторам"
 msgstr "Авторларға"
 
-#: .\templates\conferences\base_conf.html:289
+#: .\templates\conferences\base_conf.html:298
 #: .\templates\conferences\submission_format.html:2
 #: .\templates\conferences\submission_format.html:10
 msgid "Формат работы"
 msgstr "Жұмыс форматы"
 
-#: .\templates\conferences\base_conf.html:336
+#: .\templates\conferences\base_conf.html:345
 msgid "Научный хаб университета"
 msgstr "Университет ғылыми хабы"
 
-#: .\templates\conferences\base_conf.html:341
+#: .\templates\conferences\base_conf.html:350
 msgid ""
 "Координирующий центр международных исследований в области целей устойчивого "
 "развития. Объединяем науку, образование и инновации для будущего."
@@ -173,32 +174,36 @@ msgstr ""
 "Тұрақты даму мақсаттары саласындағы халықаралық зерттеулерді үйлестіру "
 "орталығы. Болашақ үшін ғылым, білім және инновацияларды біріктіреміз."
 
-#: .\templates\conferences\base_conf.html:347
+#: .\templates\conferences\base_conf.html:356
 msgid "Навигация"
 msgstr "Навигация"
 
-#: .\templates\conferences\base_conf.html:351
+#: .\templates\conferences\base_conf.html:360
 msgid "Сайт центра ЦУР"
 msgstr "ТДМ орталығының сайты"
 
-#: .\templates\conferences\base_conf.html:352
-#: .\templates\conferences\base_conf.html:381
+#: .\templates\conferences\base_conf.html:361
+#: .\templates\conferences\base_conf.html:396
 msgid "КазНУ им. аль-Фараби"
 msgstr "Әл-Фараби атындағы ҚазҰУ"
 
-#: .\templates\conferences\base_conf.html:353
+#: .\templates\conferences\base_conf.html:364
+msgid "Профиль"
+msgstr "Профиль"
+
+#: .\templates\conferences\base_conf.html:366
 msgid "Вход для авторов"
 msgstr "Авторларға кіру"
 
-#: .\templates\conferences\base_conf.html:365
+#: .\templates\conferences\base_conf.html:380
 msgid "г. Алматы, пр. аль-Фараби 71"
 msgstr "Алматы қ., әл-Фараби даңғылы 71"
 
-#: .\templates\conferences\base_conf.html:385
+#: .\templates\conferences\base_conf.html:400
 msgid "Конфиденциальность"
 msgstr "Құпиялылық саясаты"
 
-#: .\templates\conferences\base_conf.html:388
+#: .\templates\conferences\base_conf.html:403
 msgid "Условия"
 msgstr "Пайдалану шарттары"
 
@@ -381,6 +386,7 @@ msgid "Файлы, шаблоны и ресурсы"
 msgstr "Файлдар, үлгілер және ресурстар"
 
 #: .\templates\conferences\documentation.html:53
+#: .\templates\conferences\profile.html:160
 msgid "Скачать"
 msgstr "Жүктеу"
 
@@ -398,11 +404,11 @@ msgstr "Қатысушыларға ескерту"
 
 #: .\templates\conferences\documentation.html:78
 msgid ""
-"Все документы предоставляются в официальных форматах (PDF, DOCX). Если у вас "
+"Все документы предоставляются в официальных форматах (DOC/DOCX). Если у вас "
 "возникли проблемы со скачиванием или отображением файлов, пожалуйста, "
 "свяжитесь с технической поддержкой."
 msgstr ""
-"Барлық құжаттар ресми форматтарда (PDF, DOCX) ұсынылады. Егер файлдарды "
+"Барлық құжаттар ресми форматтарда (DOC/DOCX) ұсынылады. Егер файлдарды "
 "жүктеу немесе ашу кезінде қиындықтар туындаса, техникалық қолдау қызметіне "
 "хабарласыңыз."
 
@@ -632,15 +638,12 @@ msgid ""
 "Публикация сборника трудов состоится после завершения этапа рецензирования "
 "всех работ."
 msgstr ""
-"Еңбектер жинағы барлық жұмыстарды рецензиялау кезеңі аяқталғаннан кейін жарияланады."
+"Еңбектер жинағы барлық жұмыстарды рецензиялау кезеңі аяқталғаннан кейін "
+"жарияланады."
 
 #: .\templates\conferences\proceedings.html:98
 msgid "Ожидаемая дата"
 msgstr "Күтілетін күн"
-
-#: .\templates\conferences\profile.html:21
-msgid "Участник"
-msgstr "Қатысушы"
 
 #: .\templates\conferences\profile.html:28
 msgid "Организация"
@@ -650,59 +653,63 @@ msgstr "Ұйым"
 msgid "Выйти из системы"
 msgstr "Жүйеден шығу"
 
-#: .\templates\conferences\profile.html:51
+#: .\templates\conferences\profile.html:52
+msgid "Мои заявки"
+msgstr "Менің өтінімдерім"
+
+#: .\templates\conferences\profile.html:61
 msgid "Мои публикации"
 msgstr "Менің жарияланымдарым"
 
-#: .\templates\conferences\profile.html:54
-msgid "Подать заявку"
-msgstr "Өтінім беру"
-
-#: .\templates\conferences\profile.html:68
+#: .\templates\conferences\profile.html:75
 msgid "Принято"
 msgstr "Қабылданды"
 
-#: .\templates\conferences\profile.html:72
+#: .\templates\conferences\profile.html:79
 msgid "Требуется доработка"
 msgstr "Өңдеу қажет"
 
-#: .\templates\conferences\profile.html:76
+#: .\templates\conferences\profile.html:83
 msgid "Отклонено"
 msgstr "Қабылданбады"
 
-#: .\templates\conferences\profile.html:80
+#: .\templates\conferences\profile.html:87
+msgid "Готово к печати"
+msgstr "Басып шығаруға дайын"
+
+#: .\templates\conferences\profile.html:91
 msgid "На проверке"
 msgstr "Тексерілуде"
 
-#: .\templates\conferences\profile.html:98
+#: .\templates\conferences\profile.html:109
 msgid "Авторы:"
 msgstr "Авторлар:"
 
-#: .\templates\conferences\profile.html:113
+#: .\templates\conferences\profile.html:124
 msgid "Загрузить исправленную версию"
 msgstr "Түзетілген нұсқаны жүктеу"
 
-#: .\templates\conferences\profile.html:120
+#: .\templates\conferences\profile.html:131
 msgid "История версий"
 msgstr "Нұсқалар тарихы"
 
-#: .\templates\conferences\profile.html:135
+#: .\templates\conferences\profile.html:146
 msgid "Рецензия:"
 msgstr "Рецензия:"
 
-#: .\templates\conferences\profile.html:142
+#: .\templates\conferences\profile.html:153
 msgid "Ваш коммент:"
 msgstr "Сіздің пікіріңіз:"
 
-#: .\templates\conferences\profile.html:170
+#: .\templates\conferences\profile.html:181
 msgid "Нет активных заявок"
 msgstr "Белсенді өтінімдер жоқ"
 
-#: .\templates\conferences\profile.html:173
+#: .\templates\conferences\profile.html:184
 msgid "Вы еще не подали ни одной работы. Начните с подачи заявки на участие."
 msgstr "Сіз әлі жұмыс тапсырмадыңыз. Қатысуға өтінім беруден бастаңыз."
 
-#: .\templates\conferences\profile.html:176
+#: .\templates\conferences\profile.html:187
 msgid "Подать первую заявку"
 msgstr "Алғашқы өтінімді беру"
 
@@ -780,34 +787,35 @@ msgstr ""
 "жүктеңіз."
 
 #: .\templates\conferences\resubmit.html:52
-msgid "Новый файл (PDF, DOCX)"
-msgstr "Жаңа файл (PDF, DOCX)"
+msgid "Новый файл (DOC/DOCX)"
+msgstr "Жаңа файл (DOC/DOCX)"
 
-#: .\templates\conferences\resubmit.html:61
+#: .\templates\conferences\resubmit.html:62
+#: .\templates\conferences\resubmit.html:105
 msgid "Нажмите для выбора файла"
 msgstr "Файлды таңдау үшін басыңыз"
 
-#: .\templates\conferences\resubmit.html:64
+#: .\templates\conferences\resubmit.html:66
 msgid "Заменит предыдущую версию"
 msgstr "Алдыңғы нұсқаны алмастырады"
 
-#: .\templates\conferences\resubmit.html:76
+#: .\templates\conferences\resubmit.html:78
 msgid "Ваш комментарий (Ответ на рецензию)"
 msgstr "Сіздің пікіріңіз (Рецензияға жауап)"
 
-#: .\templates\conferences\resubmit.html:80
+#: .\templates\conferences\resubmit.html:82
 msgid "Опишите, какие изменения были внесены в работу..."
 msgstr "Жұмысқа қандай өзгерістер енгізілгенін сипаттаңыз..."
 
-#: .\templates\conferences\resubmit.html:82
+#: .\templates\conferences\resubmit.html:84
 msgid "Это поможет рецензенту быстрее проверить исправления"
 msgstr "Бұл рецензентке түзетулерді тезірек тексеруге көмектеседі"
 
-#: .\templates\conferences\resubmit.html:88
+#: .\templates\conferences\resubmit.html:90
 msgid "Отправить на повторную проверку"
 msgstr "Қайта тексеруге жіберу"
 
-#: .\templates\conferences\resubmit.html:92
+#: .\templates\conferences\resubmit.html:94
 msgid "Отмена"
 msgstr "Болдырмау"
 
@@ -980,7 +988,7 @@ msgstr ""
 "Ұйымдастыру комитеті жақында өтетін орны және жүру картасы туралы толық "
 "ақпарат қосады."
 
-#: .\templates\conferences\venue.html:50
+#: .\templates\conferences\venue.html:49
 msgid ""
 "Для участников, нуждающихся в визовой поддержке или помощи с размещением, "
 "просьба связаться с оргкомитетом заранее."
@@ -988,11 +996,17 @@ msgstr ""
 "Визалық қолдау немесе орналасу бойынша көмек қажет ететін қатысушылардың "
 "ұйымдастыру комитетімен алдын ала хабарласуын сұраймыз."
 
+#~ msgid "Подать"
+#~ msgstr "Жіберу"
+
+#~ msgid "Участник"
+#~ msgstr "Қатысушы"
+
+#~ msgid "Подать заявку"
+#~ msgstr "Өтінім беру"
+
 #~ msgid "Выйти"
 #~ msgstr "Шығу"
-
-#~ msgid "Мои заявки"
-#~ msgstr "Менің өтінімдерім"
 
 #~ msgid "Подать новую заявку"
 #~ msgstr "Жаңа өтінім беру"

@@ -49,24 +49,26 @@
 
                     <div>
                         <label class="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-3 ml-1">
-                            {% trans "Новый файл (PDF, DOCX)" %} <span class="text-red-500">*</span>
+                            {% trans "Новый файл (DOC/DOCX)" %} <span class="text-red-500">*</span>
                         </label>
 
                         <div class="relative group">
                             <label class="flex flex-col items-center justify-center w-full px-6 py-8 border-2 border-gray-300 border-dashed rounded-xl bg-gray-50 hover:bg-white hover:border-[#8a1538] transition-all duration-300 cursor-pointer group-hover:shadow-md">
-                                <div class="mb-3 text-gray-400 group-hover:text-[#8a1538] transition-colors">
+                                <div id="upload-icon" class="mb-3 text-gray-400 group-hover:text-[#8a1538] transition-colors">
                                     <i class="fas fa-cloud-upload-alt text-3xl"></i>
                                 </div>
-                                <p class="mb-1 text-sm font-bold text-gray-700">
+                                
+                                <p id="file-name-display" class="mb-1 text-sm font-bold text-gray-700">
                                     {% trans "Нажмите для выбора файла" %}
                                 </p>
+                                
                                 <p class="text-xs text-gray-400">
                                     {% trans "Заменит предыдущую версию" %}
                                 </p>
 
-                                <input type="file" name="file" required
-                                       accept=".pdf,.doc,.docx"
-                                       class="opacity-0 absolute inset-0 cursor-pointer w-full h-full">
+                                <input type="file" name="file" id="file-input" required
+                                    accept=".doc,.docx"
+                                    class="opacity-0 absolute inset-0 cursor-pointer w-full h-full">
                             </label>
                         </div>
                     </div>
@@ -97,4 +99,19 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.getElementById('file-input').addEventListener('change', function(e) {
+        const fileName = e.target.files[0] ? e.target.files[0].name : "{% trans 'Нажмите для выбора файла' %}";
+        const display = document.getElementById('file-name-display');
+        const icon = document.getElementById('upload-icon');
+
+        display.innerText = fileName;
+        
+        if (e.target.files[0]) {
+            display.classList.add('text-[#8a1538]');
+            icon.classList.replace('text-gray-400', 'text-[#8a1538]');
+        }
+    });
+</script>
 {% endblock %}

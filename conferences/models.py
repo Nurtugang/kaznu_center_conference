@@ -1,19 +1,35 @@
 import re
 import os
+import logging
+import subprocess
+
 from PIL import Image
 from io import BytesIO
 from django.db import models
 from django.conf import settings
-from django.contrib.auth.models import AbstractUser
-from django.core.validators import FileExtensionValidator
+from django.forms import ValidationError
 from django.core.files.base import ContentFile
+from django.contrib.auth.models import AbstractUser
 from django_ckeditor_5.fields import CKEditor5Field
+from django.core.validators import FileExtensionValidator
+
+logger = logging.getLogger(__name__)
 
 
 class User(AbstractUser):
+    ROLE_CHOICES = [
+        ('author', 'Автор (Участник)'),
+        ('organizer', 'Организатор (Админ/Редактор)'),
+    ]
+    
+    role = models.CharField("Роль", max_length=20, choices=ROLE_CHOICES, default='author')
     organization = models.CharField("Организация", max_length=255, blank=True)
     email = models.EmailField("Электронная почта", unique=True)
 
+    @property
+    def is_organizer(self):
+        return self.role == 'organizer' or self.is_staff
+    
     def __str__(self):
         full_name = f"{self.last_name} {self.first_name}".strip()
         return full_name if full_name else self.username
@@ -42,6 +58,10 @@ class Conference(models.Model):
     poster = models.ImageField("Постер (широкоугольный)", upload_to='conf/posters/')
     is_active = models.BooleanField("Активна", default=True)
 
+    class Meta:
+        verbose_name = "Kонференция"
+        verbose_name_plural = "Kонференции"
+
     @classmethod
     def get_current(cls):
         return cls.objects.order_by('-id').first()
@@ -67,6 +87,13 @@ class Conference(models.Model):
     def __str__(self):
         return self.title
 
+def get_conference_pdf_path(instance, filename):
+    return f'submissions/{instance.id}/{filename}'
+
+def get_submission_file_path(instance, filename):
+    ext = filename.split('.')[-1]
+    new_filename = f"{instance.version_number}.{ext}"
+    return os.path.join('submissions', str(instance.submission.id), new_filename)
 
 class Submission(models.Model):
     STATUS_CHOICES = [
@@ -74,38 +101,76 @@ class Submission(models.Model):
         ('revision', 'Требуется доработка'),
         ('accepted', 'Принято'),
         ('rejected', 'Отклонено'),
+        ('ready_for_print', 'Готово к печати (верстка)'),
     ]
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='submissions')
     conference = models.ForeignKey(Conference, on_delete=models.CASCADE, related_name='submissions')
 
     title = models.CharField("Название работы", max_length=500)
-    authors_list = models.TextField(
-        "Список соавторов",
-        help_text="ФИО, ученая степень, организация (каждый соавтор с новой строки или через запятую)",
-        blank=True
-    )
-    abstract_text = models.TextField(
-        "Аннотация",
-        help_text="Краткое описание работы (200-500 слов)",
-        blank=True
-    )
-    keywords = models.CharField(
-        "Ключевые слова",
-        max_length=255,
-        help_text="Введите 3-5 слов через запятую",
-        blank=True
-    )
-
+    authors_list = models.TextField("Список соавторов", help_text="ФИО, ученая степень, организация (каждый соавтор с новой строки или через запятую)", blank=True)
+    abstract_text = models.TextField("Аннотация", help_text="Краткое описание работы (200-500 слов)", blank=True)
+    keywords = models.CharField("Ключевые слова", max_length=255, help_text="Введите 3-5 слов через запятую", blank=True)
+    
     status = models.CharField("Статус", max_length=20, choices=STATUS_CHOICES, default='under_review')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    final_file = models.FileField(
+        "Финальный файл (PDF)", 
+        upload_to=get_conference_pdf_path, 
+        blank=True, 
+        null=True, 
+        validators=[FileExtensionValidator(allowed_extensions=['pdf'])]
+    )
+    
     class Meta:
         unique_together = ('user', 'conference')
         verbose_name = "Заявка"
         verbose_name_plural = "Заявки"
 
+    def save(self, *args, **kwargs):
+        if self.pk:
+            old_instance = Submission.objects.get(pk=self.pk)
+            if old_instance.status != 'ready_for_print' and self.status == 'ready_for_print':
+                self.convert_to_pdf()
+        super().save(*args, **kwargs)
+    
+    def convert_to_pdf(self):
+        """Конвертирует последний docx в pdf и сохраняет в папку заявки"""
+        last_version = self.versions.order_by('-created_at').first()
+        if not last_version or not last_version.file:
+            return
+
+        input_path = last_version.file.path
+        output_dir = os.path.join(settings.MEDIA_ROOT, 'submissions', str(self.id))
+        
+        if not os.path.exists(output_dir):
+            os.makedirs(output_dir, exist_ok=True)
+
+        try:
+            # Вызов LibreOffice
+            subprocess.run([
+                'soffice',
+                '--headless',
+                '--convert-to', 'pdf',
+                '--outdir', output_dir,
+                input_path
+            ], check=True, capture_output=True)
+
+            filename_docx = os.path.basename(input_path)
+            filename_pdf = os.path.splitext(filename_docx)[0] + '.pdf'
+            
+            relative_path = os.path.join('submissions', str(self.id), filename_pdf)
+            self.final_file = relative_path.replace('\\', '/')
+            
+            logger.info(f"Успешная конвертация: {filename_pdf} для ID {self.id}")
+            
+        except subprocess.CalledProcessError as e:
+            logger.error(f"Ошибка LibreOffice (ID {self.id}): {e.stderr}")
+        except Exception as e:
+            logger.exception(f"Ошибка при конвертации заявки ID {self.id}: {e}")
+        
     def __str__(self):
         return f"{self.title[:50]}... ({self.user.last_name})"
 
@@ -116,9 +181,9 @@ class Submission(models.Model):
 class SubmissionVersion(models.Model):
     submission = models.ForeignKey(Submission, on_delete=models.CASCADE, related_name='versions')
     file = models.FileField(
-        "Файл версии",
-        upload_to='submissions/%Y/%m/',
-        validators=[FileExtensionValidator(allowed_extensions=['pdf', 'doc', 'docx'])]
+        "Файл версии (DOC/DOCX)",
+        upload_to=get_submission_file_path,
+        validators=[FileExtensionValidator(allowed_extensions=['doc', 'docx'])]
     )
     version_number = models.PositiveIntegerField("Номер версии", default=1)
     author_comment = models.TextField("Комментарий автора", blank=True)
@@ -129,6 +194,19 @@ class SubmissionVersion(models.Model):
         verbose_name = "Версия работы"
         verbose_name_plural = "Версии работы"
         ordering = ['-created_at']
+
+class Proceedings(models.Model):
+    conference = models.ForeignKey(Conference, on_delete=models.CASCADE, related_name='proceedings_archive')
+    file = models.FileField("Файл сборника", upload_to='conf/proceedings/')
+    created_at = models.DateTimeField("Дата создания", auto_now_add=True)
+    
+    class Meta:
+        verbose_name = "Сборник трудов"
+        verbose_name_plural = "Сборники трудов"
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"Сборник {self.conference.short_title}"
 
 
 class GalleryMedia(models.Model):

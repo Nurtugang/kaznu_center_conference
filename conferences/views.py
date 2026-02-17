@@ -1,7 +1,7 @@
 from django.utils import timezone
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
-from .models import Conference, Submission, SubmissionVersion, Document, ContactPerson, CommitteeMember
+from .models import Conference, Submission, SubmissionVersion, Proceedings
 from django.contrib.auth import login
 from .forms import RegistrationForm, SubmissionForm
 from django.contrib import messages
@@ -137,15 +137,17 @@ def conference_gallery(request):
 
 def conference_proceedings(request):
     conference = Conference.get_current()
+    proceeding_pdf = Proceedings.objects.filter(conference=conference).first().file.url
     is_released = timezone.now().date() >= conference.notification_date
     submissions = []
     if is_released:
-        submissions = Submission.objects.filter(conference=conference, status='accepted').prefetch_related('versions').order_by('title')
+        submissions = Submission.objects.filter(conference=conference, status='ready_for_print').prefetch_related('versions').order_by('title')
         
     return render(request, 'conferences/proceedings.html', {
         'conference': conference, 
         'is_released': is_released,
-        'submissions': submissions
+        'submissions': submissions,
+        'proceeding_pdf': proceeding_pdf
     })
     
 def conference_venue(request):
