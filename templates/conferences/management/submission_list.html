@@ -1,0 +1,88 @@
+{% extends "conferences/base_conf.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="container mx-auto py-12 px-4">
+    <h1 class="text-3xl font-serif font-bold mb-8">{% trans "Управление заявками" %}</h1>
+    <div class="flex items-center gap-4 mb-6 p-4 bg-gray-50 rounded-2xl border border-gray-100">
+    <form method="post">
+        {% csrf_token %}
+        {% if not proceedings %}
+            <button type="submit" name="create_proceedings" 
+                class="cursor-pointer px-6 py-3 bg-[#8a1538] text-white text-xs font-bold uppercase tracking-widest rounded-xl hover:bg-[#70102d] transition-all shadow-lg shadow-[#8a1538]/20">
+                <i class="fas fa-file-pdf mr-2"></i> {% trans "Сформировать сборник" %}
+            </button>
+        {% else %}
+            <button type="button" disabled 
+                class="px-6 py-3 bg-gray-300 text-gray-500 text-xs font-bold uppercase tracking-widest rounded-xl cursor-not-allowed">
+                <i class="fas fa-check mr-2"></i> {% trans "Сборник сформирован" %}
+            </button>
+        {% endif %}
+    </form>
+
+    {% if proceedings %}
+        <a href="{{ proceedings.file.url }}" target="_blank" 
+           class="text-sm font-bold text-brand hover:text-brand_dark flex items-center gap-2 transition-colors">
+            <i class="fas fa-external-link-alt"></i>
+            {% trans "Просмотреть сборник (PDF)" %}
+        </a>
+    {% endif %}
+</div>
+    <div class="mb-8 flex gap-4 flex-wrap">
+        <a href="?{% if current_conf %}&{% endif %}" 
+           class="px-4 py-2 rounded-full border relative {% if not current_status %}bg-[#8a1538] text-white{% else %}border-gray-300{% endif %}">
+            {% trans "Все" %}
+            <span class="absolute -top-2 -right-2 bg-gray-500 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center">
+                {{ total_submissions_count }}
+            </span>
+        </a>
+        {% for status_val, status_name, count in status_choices_with_counts %}
+            <a href="?status={{ status_val }}" 
+               class="px-4 py-2 rounded-full border relative {% if current_status == status_val %}bg-[#8a1538] text-white{% else %}border-gray-300{% endif %}">
+                {{ status_name }}
+                <span class="absolute -top-2 -right-2 bg-gray-500 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center">
+                    {{ count }}
+                </span>
+            </a>
+        {% endfor %}
+    </div>
+
+    <div class="bg-white shadow-xl rounded-xl overflow-hidden border border-gray-100">
+        <table class="w-full text-left">
+            <thead class="bg-gray-50 border-b border-gray-100">
+                <tr>
+                    <th class="px-6 py-4 text-xs font-bold uppercase text-gray-400">ID</th>
+                    <th class="px-6 py-4 text-xs font-bold uppercase text-gray-400">{% trans "Автор" %}</th>
+                    <th class="px-6 py-4 text-xs font-bold uppercase text-gray-400">{% trans "Название" %}</th>
+                    <th class="px-6 py-4 text-xs font-bold uppercase text-gray-400">{% trans "Статус" %}</th>
+                    <th class="px-6 py-4 text-xs font-bold uppercase text-gray-400"></th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100">
+                {% for sub in submissions %}
+                <tr class="hover:bg-gray-50 transition-colors cursor-pointer" 
+                    onclick="window.location='{% url 'conferences:submission_management_detail' sub.id %}'">
+                    <td class="px-6 py-4 text-sm">#{{ sub.id }}</td>
+                    <td class="px-6 py-4 text-sm">{{ sub.user.get_full_name }}</td>
+                    <td class="px-6 py-4 text-sm font-medium">{{ sub.title }}</td>
+                    <td class="px-6 py-4 text-sm">
+                        <span class="px-3 py-1 rounded-full text-xs font-bold 
+                            {% if sub.status == 'approved' %}bg-green-100 text-green-700
+                            {% elif sub.status == 'rejected' %}bg-red-100 text-red-700
+                            {% else %}bg-blue-100 text-blue-700{% endif %}">
+                            {{ sub.get_status_display }}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 text-right">
+                        <a href="{% url 'conferences:submission_management_detail' sub.id %}" class="text-[#8a1538] hover:underline font-bold text-sm"
+                           onclick="event.stopPropagation()">
+                            {% trans "Просмотр" %} →
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

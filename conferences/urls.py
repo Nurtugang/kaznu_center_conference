@@ -1,7 +1,6 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
-from . import views
-from .views import UserLoginView
+from . import views, views_organizer
 from .api import active_conferences_api
 
 app_name = 'conferences'
@@ -10,12 +9,16 @@ urlpatterns = [
     path('', views.conference_detail, name='detail'),
     
     path('register/', views.register, name='register'),
-    path('login/', UserLoginView.as_view(), name='login'),
+    path('login/', views.UserLoginView.as_view(), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('profile/', views.profile_view, name='profile'),
     
     path('submit/', views.submit_work, name='submit'),
     path('submission/<int:submission_id>/resubmit/', views.resubmit_work, name='resubmit'),
+    
+    path('management/submissions/', views_organizer.submission_management_list, name='submission_management_list'),
+    path('management/submissions/<int:submission_id>/', views_organizer.submission_management_detail, name='submission_management_detail'),
+    path('management/submissions/<int:submission_id>/update/', views_organizer.update_submission_status, name='update_submission_status'),
     
     path('program/', views.conference_program, name='program'),
     path('committee/', views.conference_committee, name='committee'),

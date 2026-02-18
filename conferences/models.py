@@ -65,8 +65,17 @@ class Conference(models.Model):
     @classmethod
     def get_current(cls):
         return cls.objects.order_by('-id').first()
+    
+    def clean(self):
+        if Conference.objects.exists() and not self.pk:
+            raise ValidationError(("Вы не можете создать более одной конференции. Пожалуйста, отредактируйте существующую."))
 
     def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+
         if self.poster:
             try:
                 img = Image.open(self.poster)
@@ -196,7 +205,7 @@ class SubmissionVersion(models.Model):
         ordering = ['-created_at']
 
 class Proceedings(models.Model):
-    conference = models.ForeignKey(Conference, on_delete=models.CASCADE, related_name='proceedings_archive')
+    conference = models.ForeignKey(Conference, on_delete=models.CASCADE, related_name='proceedings_archive', unique=True)
     file = models.FileField("Файл сборника", upload_to='conf/proceedings/')
     created_at = models.DateTimeField("Дата создания", auto_now_add=True)
     
@@ -207,6 +216,14 @@ class Proceedings(models.Model):
 
     def __str__(self):
         return f"Сборник {self.conference.short_title}"
+    
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            existing = Proceedings.objects.filter(conference=self.conference).exists()
+            if existing:
+                raise ValidationError(f"Сборник для конференции {self.conference} уже существует.")
+        
+        super().save(*args, **kwargs)
 
 
 class GalleryMedia(models.Model):

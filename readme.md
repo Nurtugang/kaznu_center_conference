@@ -22,4 +22,7 @@ Requirements:
 10. ``python manage.py runserver``
 
 TODO:
-https://tourismforum.ecokazwest.kz/index.php/documentation/ here if u tap button **PROCEEDINGS OF THE FORUM** 3d book will open. You must inplement the same 3d book viewer in templates/proceedings.html,  **proceeding_pdf** variable is passed to this html
+1. https://tourismforum.ecokazwest.kz/index.php/documentation/ here if u tap button **PROCEEDINGS OF THE FORUM** 3d book will open. You must inplement the same 3d book viewer in templates/proceedings.html,  **proceeding_pdf** variable is passed to this html
+2. Ваша работа успешно принята и отправлена на проверку! Текста в месседжах и в формах. Transalte those text
+3. Сделать так чтобы система принимала только одну конференцию
+4. Сделать так чтобы система генерировала только один сборник 

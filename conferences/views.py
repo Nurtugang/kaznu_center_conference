@@ -137,7 +137,7 @@ def conference_gallery(request):
 
 def conference_proceedings(request):
     conference = Conference.get_current()
-    proceeding_pdf = Proceedings.objects.filter(conference=conference).first().file.url
+    proceeding = Proceedings.objects.filter(conference=conference).first()
     is_released = timezone.now().date() >= conference.notification_date
     submissions = []
     if is_released:
@@ -147,7 +147,7 @@ def conference_proceedings(request):
         'conference': conference, 
         'is_released': is_released,
         'submissions': submissions,
-        'proceeding_pdf': proceeding_pdf
+        'proceeding': proceeding
     })
     
 def conference_venue(request):
