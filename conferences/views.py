@@ -7,6 +7,7 @@ from .forms import RegistrationForm, SubmissionForm
 from django.contrib import messages
 from django.db.models import Prefetch
 from django.contrib.auth.views import LoginView
+from django.utils.translation import gettext as _
 
 
 def register(request):
@@ -32,11 +33,11 @@ def submit_work(request):
     conference = Conference.get_current()
     
     if conference.registration_deadline < timezone.now():
-        messages.error(request, "Срок подачи заявок на эту конференцию истек.")
+        messages.error(request, _("Срок подачи заявок на эту конференцию истек."))
         return redirect('conferences:detail')
 
     if Submission.objects.filter(user=request.user, conference=conference).exists():
-        messages.warning(request, "Вы уже подали заявку на эту конференцию.")
+        messages.warning(request, _("Вы уже подали заявку на эту конференцию."))
         return redirect('conferences:profile')
 
     if request.method == 'POST':
@@ -54,7 +55,7 @@ def submit_work(request):
                 author_comment=form.cleaned_data['author_comment']
             )
             
-            messages.success(request, "Ваша работа успешно принята и отправлена на проверку!")
+            messages.success(request, _("Ваша работа успешно принята и отправлена на проверку!"))
             return redirect('conferences:profile')
     else:
         form = SubmissionForm()
@@ -71,7 +72,7 @@ def resubmit_work(request, submission_id):
     last_version = submission.versions.order_by('-version_number').first()
     
     if submission.status != 'revision':
-        messages.error(request, "Эта работа не требует доработки или уже проверяется.")
+        messages.error(request, _("Эта работа не требует доработки или уже проверяется."))
         return redirect('conferences:profile')
 
     if request.method == 'POST':
@@ -93,10 +94,10 @@ def resubmit_work(request, submission_id):
             submission.status = 'under_review'
             submission.save()
             
-            messages.success(request, f"Версия №{new_version_num} успешно загружена. Статус обновлен.")
+            messages.success(request, _("Версия №{0} успешно загружена. Статус обновлен.").format(new_version_num))
             return redirect('conferences:profile')
         else:
-            messages.error(request, "Пожалуйста, выберите файл.")
+            messages.error(request, _("Пожалуйста, выберите файл."))
 
     return render(request, 'conferences/resubmit.html', {
         'submission': submission,

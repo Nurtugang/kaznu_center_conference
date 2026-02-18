@@ -3,6 +3,7 @@ from django.core.exceptions import PermissionDenied
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Conference, Submission
+from django.utils.translation import gettext as _
 
 def organizer_required(view_func):
     def _wrapped_view(request, *args, **kwargs):
@@ -22,7 +23,7 @@ def submission_management_list(request):
         if not proceedings:
             from .services import create_conference_proceedings
             create_conference_proceedings(conference.id)
-            messages.success(request, "Сборник успешно сформирован.")
+            messages.success(request, _("Сборник успешно сформирован."))
             return redirect('conferences:submission_management_list')
         
     
@@ -84,9 +85,9 @@ def update_submission_status(request, submission_id):
             if last_version:
                 last_version.admin_comment = comment
                 last_version.save()
-            messages.info(request, f"Замечания отправлены автору.")
+            messages.info(request, _("Замечания отправлены автору."))
 
-        messages.success(request, f"Статус изменен на: {submission.get_status_display()}")
+        messages.success(request, _("Статус изменен на: {}").format(submission.get_status_display()))
         
         return redirect('conferences:submission_management_detail', submission_id=submission.id)
     

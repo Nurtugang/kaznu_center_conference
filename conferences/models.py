@@ -11,20 +11,20 @@ from django.forms import ValidationError
 from django.core.files.base import ContentFile
 from django.contrib.auth.models import AbstractUser
 from django_ckeditor_5.fields import CKEditor5Field
+from django.utils.translation import gettext_lazy as _
 from django.core.validators import FileExtensionValidator
-
 logger = logging.getLogger(__name__)
 
 
 class User(AbstractUser):
     ROLE_CHOICES = [
-        ('author', 'Автор (Участник)'),
-        ('organizer', 'Организатор (Админ/Редактор)'),
+        ('author', _('Автор (Участник)')),
+        ('organizer', _('Организатор (Админ/Редактор)')),
     ]
     
-    role = models.CharField("Роль", max_length=20, choices=ROLE_CHOICES, default='author')
-    organization = models.CharField("Организация", max_length=255, blank=True)
-    email = models.EmailField("Электронная почта", unique=True)
+    role = models.CharField(_("Роль"), max_length=20, choices=ROLE_CHOICES, default='author')
+    organization = models.CharField(_("Организация"), max_length=255, blank=True)
+    email = models.EmailField(_("Электронная почта"), unique=True)
 
     @property
     def is_organizer(self):
@@ -106,11 +106,11 @@ def get_submission_file_path(instance, filename):
 
 class Submission(models.Model):
     STATUS_CHOICES = [
-        ('under_review', 'На проверке'),
-        ('revision', 'Требуется доработка'),
-        ('accepted', 'Принято'),
-        ('rejected', 'Отклонено'),
-        ('ready_for_print', 'Готово к печати (верстка)'),
+        ('under_review', _('На проверке')),
+        ('revision', _('Требуется доработка')),
+        ('accepted', _('Принято')),
+        ('rejected', _('Отклонено')),
+        ('ready_for_print', _('Готово к печати (верстка)')),
     ]
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='submissions')

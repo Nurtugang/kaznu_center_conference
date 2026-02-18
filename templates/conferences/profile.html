@@ -7,55 +7,79 @@
 {% block content %}
 <div class="bg-white min-h-screen py-12 md:py-16">
     <div class="container mx-auto px-4 sm:px-6 max-w-6xl">
-
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
-
-            <div class="lg:col-span-3">
-                <div class="sticky top-24">
-                    <div class="mb-6">
-                        <h2 class="text-2xl font-serif font-bold text-gray-900 leading-tight mb-2">
-                            {{ user.last_name }}<br>
-                            {{ user.first_name }}
-                        </h2>
-                        <p class="text-xs font-bold text-gray-400 uppercase tracking-widest">
-                            {{ user.get_role_display }}
-                        </p>
-                    </div>
-
-                    <div class="space-y-4 text-sm text-gray-600 mb-8">
-                        {% if user.organization %}
-                        <div>
-                            <p class="text-[10px] text-gray-400 uppercase font-bold mb-0.5">{% trans "Организация" %}</p>
-                            <p class="leading-snug">{{ user.organization }}</p>
+            {% if user.role == 'organizer' or user.is_staff %}
+                <div class="col-span-12 lg:col-span-12 w-full">
+                    <div class="mb-8 w-full">
+                        <div class="mb-6">
+                            <h2 class="text-2xl font-serif font-bold text-gray-900 leading-tight mb-2">
+                                {{ user.last_name }}
+                                {{ user.first_name }}
+                            </h2>
+                            <p class="text-xs font-bold text-gray-400 uppercase tracking-widest">
+                                {{ user.get_role_display }}
+                            </p>
                         </div>
-                        {% endif %}
 
-                        <div>
-                            <p class="text-[10px] text-gray-400 uppercase font-bold mb-0.5">Email</p>
-                            <p class="font-medium text-gray-900">{{ user.email }}</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-gray-600 mb-8">
+                            {% if user.organization %}
+                            <div>
+                                <p class="text-[10px] text-gray-400 uppercase font-bold mb-0.5">{% trans "Организация" %}</p>
+                                <p class="leading-snug">{{ user.organization }}</p>
+                            </div>
+                            {% endif %}
+
+                            <div>
+                                <p class="text-[10px] text-gray-400 uppercase font-bold mb-0.5">Email</p>
+                                <p class="font-medium text-gray-900">{{ user.email }}</p>
+                            </div>
                         </div>
-                    </div>
 
-                    <form action="{% url 'conferences:logout' %}" method="post">
-                        {% csrf_token %}
-                        <button type="submit" class="text-xs font-bold text-[#8a1538] hover:text-[#70102d] uppercase tracking-widest border-b border-[#8a1538]/30 hover:border-[#8a1538] transition-all pb-0.5">
-                            {% trans "Выйти из системы" %}
-                        </button>
-                    </form>
+                        <form action="{% url 'conferences:logout' %}" method="post" class="mt-4">
+                            {% csrf_token %}
+                            <button type="submit" class="cursor-pointer text-xs font-bold text-[#8a1538] hover:text-[#70102d] uppercase tracking-widest border-b border-[#8a1538]/30 hover:border-[#8a1538] transition-all pb-0.5">
+                                {% trans "Выйти из системы" %}
+                            </button>
+                        </form>
+                    </div>
                 </div>
-            </div>
+            {% else %}
+                <div class="lg:col-span-3">
+                    <div class="sticky top-24">
+                        <div class="mb-6">
+                            <h2 class="text-2xl font-serif font-bold text-gray-900 leading-tight mb-2">
+                                {{ user.last_name }}<br>
+                                {{ user.first_name }}
+                            </h2>
+                            <p class="text-xs font-bold text-gray-400 uppercase tracking-widest">
+                                {{ user.get_role_display }}
+                            </p>
+                        </div>
 
-            <div class="lg:col-span-9">
-                {% if user.role == 'organizer' or user.is_staff %}
-                    <div class="flex items-center justify-between mb-8 border-b border-gray-200 pb-6">
-                        <h1 class="text-3xl font-bold text-gray-900 tracking-tight">
-                            {% trans "Мои заявки" %}
-                        </h1>
-                        <a href="/admin/conferences/submission/" target="_blank" class="inline-flex items-center gap-2 px-5 py-2 bg-gray-900 text-white text-xs font-bold uppercase tracking-widest rounded hover:bg-[#8a1538] transition-colors">
-                            <span class="hidden sm:inline">{% trans "Управление заявками" %}</span>
-                        </a>
+                        <div class="space-y-4 text-sm text-gray-600 mb-8">
+                            {% if user.organization %}
+                            <div>
+                                <p class="text-[10px] text-gray-400 uppercase font-bold mb-0.5">{% trans "Организация" %}</p>
+                                <p class="leading-snug">{{ user.organization }}</p>
+                            </div>
+                            {% endif %}
+
+                            <div>
+                                <p class="text-[10px] text-gray-400 uppercase font-bold mb-0.5">Email</p>
+                                <p class="font-medium text-gray-900">{{ user.email }}</p>
+                            </div>
+                        </div>
+
+                        <form action="{% url 'conferences:logout' %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="text-xs font-bold text-[#8a1538] hover:text-[#70102d] uppercase tracking-widest border-b border-[#8a1538]/30 hover:border-[#8a1538] transition-all pb-0.5">
+                                {% trans "Выйти из системы" %}
+                            </button>
+                        </form>
                     </div>
-                {% else %}
+                </div>
+
+                <div class="lg:col-span-9">
                     <div class="flex items-center justify-between mb-8 border-b border-gray-200 pb-6">
                         <h1 class="text-3xl font-bold text-gray-900 tracking-tight">
                             {% trans "Мои публикации" %}
@@ -188,8 +212,8 @@
                             </a>
                         </div>
                     {% endif %}
-                {% endif %}
-            </div>
+                </div>
+            {% endif %}
         </div>
     </div>
 </div>

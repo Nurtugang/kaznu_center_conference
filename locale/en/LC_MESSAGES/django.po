@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KAZNU Conference\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-17 17:42+0500\n"
+"POT-Creation-Date: 2026-02-18 17:57+0500\n"
 "PO-Revision-Date: 2026-02-03 13:30+0500\n"
 "Last-Translator: Admin <admin@kaznu.kz>\n"
 "Language-Team: English\n"
@@ -11,6 +11,96 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\conferences\models.py:21
+#, fuzzy
+#| msgid "Участник"
+msgid "Автор (Участник)"
+msgstr "Participant"
+
+#: .\conferences\models.py:22
+#, fuzzy
+#| msgid "Организационный комитет"
+msgid "Организатор (Админ/Редактор)"
+msgstr "Organizing Committee"
+
+#: .\conferences\models.py:25
+msgid "Роль"
+msgstr "Role"
+
+#: .\conferences\models.py:26 .\templates\conferences\profile.html:27
+#: .\templates\conferences\profile.html:62
+msgid "Организация"
+msgstr "Organization"
+
+#: .\conferences\models.py:27
+msgid "Электронная почта"
+msgstr "Email"
+
+#: .\conferences\models.py:109 .\templates\conferences\profile.html:115
+msgid "На проверке"
+msgstr "Under Review"
+
+#: .\conferences\models.py:110 .\templates\conferences\profile.html:103
+msgid "Требуется доработка"
+msgstr "Revision Required"
+
+#: .\conferences\models.py:111 .\templates\conferences\profile.html:99
+msgid "Принято"
+msgstr "Accepted"
+
+#: .\conferences\models.py:112 .\templates\conferences\profile.html:107
+msgid "Отклонено"
+msgstr "Rejected"
+
+#: .\conferences\models.py:113
+#, fuzzy
+#| msgid "Готово к печати"
+msgid "Готово к печати (верстка)"
+msgstr "Ready for print"
+
+#: .\conferences\views.py:36
+#, fuzzy
+#| msgid "Правила проведения конференции"
+msgid "Срок подачи заявок на эту конференцию истек."
+msgstr "Conference Rules"
+
+#: .\conferences\views.py:40
+#, fuzzy
+#| msgid "Вы можете подать научную работу на активную конференцию."
+msgid "Вы уже подали заявку на эту конференцию."
+msgstr "You can submit a paper to an active conference."
+
+#: .\conferences\views.py:58
+msgid "Ваша работа успешно принята и отправлена на проверку!"
+msgstr ""
+
+#: .\conferences\views.py:75
+msgid "Эта работа не требует доработки или уже проверяется."
+msgstr ""
+
+#: .\conferences\views.py:97
+#, python-brace-format
+msgid "Версия №{0} успешно загружена. Статус обновлен."
+msgstr ""
+
+#: .\conferences\views.py:100
+#, fuzzy
+#| msgid "Пожалуйста, исправьте ошибки:"
+msgid "Пожалуйста, выберите файл."
+msgstr "Please correct the errors:"
+
+#: .\conferences\views_organizer.py:26
+msgid "Сборник успешно сформирован."
+msgstr "Proceedings generated"
+
+#: .\conferences\views_organizer.py:88
+msgid "Замечания отправлены автору."
+msgstr "Comments sent to the author."
+
+#: .\conferences\views_organizer.py:90
+msgid "Статус изменен на: {}"
+msgstr "Status changed to: {}"
 
 #: .\kaznu_center_conference\settings.py:91
 msgid "Russian"
@@ -118,7 +208,7 @@ msgid "Формат"
 msgstr "Format"
 
 #: .\templates\conferences\base_conf.html:196
-#: .\templates\conferences\profile.html:55
+#: .\templates\conferences\management\submission_list.html:6
 msgid "Управление заявками"
 msgstr "Submission Management"
 
@@ -386,7 +476,8 @@ msgid "Файлы, шаблоны и ресурсы"
 msgstr "Files, Templates, and Resources"
 
 #: .\templates\conferences\documentation.html:53
-#: .\templates\conferences\profile.html:160
+#: .\templates\conferences\management\submission_detail.html:87
+#: .\templates\conferences\profile.html:184
 msgid "Скачать"
 msgstr "Download"
 
@@ -463,6 +554,150 @@ msgstr "No account?"
 #: .\templates\conferences\register.html:119
 msgid "Зарегистрироваться"
 msgstr "Register"
+
+#: .\templates\conferences\management\submission_detail.html:14
+msgid "Назад к списку"
+msgstr "Back to the list"
+
+#: .\templates\conferences\management\submission_detail.html:17
+msgid "Подано"
+msgstr "Submitted"
+
+#: .\templates\conferences\management\submission_detail.html:26
+msgid "Информация"
+msgstr "Information"
+
+#: .\templates\conferences\management\submission_detail.html:31
+msgid "Версии и файлы"
+msgstr "Versions and files"
+
+#: .\templates\conferences\management\submission_detail.html:37
+msgid "Аннотация (Abstract)"
+msgstr "Abstract"
+
+#: .\templates\conferences\management\submission_detail.html:44
+msgid "Список авторов"
+msgstr "Author List"
+
+#: .\templates\conferences\management\submission_detail.html:48
+msgid "Ключевые слова"
+msgstr "Keywords"
+
+#: .\templates\conferences\management\submission_detail.html:61
+msgid "Финальная версия"
+msgstr "Final version"
+
+#: .\templates\conferences\management\submission_detail.html:63
+msgid "Сформированный PDF-файл для публикации в сборнике"
+msgstr "Generated PDF file for publication in the proceeding"
+
+#: .\templates\conferences\management\submission_detail.html:67
+msgid "Скачать версию для печати"
+msgstr "Download print version"
+
+#: .\templates\conferences\management\submission_detail.html:78
+msgid "Версия"
+msgstr "Version"
+
+#: .\templates\conferences\management\submission_detail.html:80
+msgid "Последняя"
+msgstr "Last"
+
+#: .\templates\conferences\management\submission_detail.html:91
+msgid "Файлы не найдены"
+msgstr "Files have not found"
+
+#: .\templates\conferences\management\submission_detail.html:106
+msgid "Текущий статус"
+msgstr "Current status"
+
+#: .\templates\conferences\management\submission_detail.html:115
+msgid "Принять статью?"
+msgstr "Accept the paper?"
+
+#: .\templates\conferences\management\submission_detail.html:115
+msgid "Принять"
+msgstr "Accept"
+
+#: .\templates\conferences\management\submission_detail.html:117
+msgid "Принять статью"
+msgstr "Accept the paper"
+
+#: .\templates\conferences\management\submission_detail.html:122
+msgid "На доработку"
+msgstr "For revision"
+
+#: .\templates\conferences\management\submission_detail.html:125
+msgid "Укажите замечания для автора..."
+msgstr "Type comments for the author"
+
+#: .\templates\conferences\management\submission_detail.html:127
+msgid "Отправить автору"
+msgstr "Send to the author"
+
+#: .\templates\conferences\management\submission_detail.html:133
+msgid "Отклонить статью?"
+msgstr "Reject the paper?"
+
+#: .\templates\conferences\management\submission_detail.html:133
+#: .\templates\conferences\management\submission_detail.html:135
+msgid "Отклонить"
+msgstr "Reject"
+
+#: .\templates\conferences\management\submission_detail.html:141
+msgid "Перевести на верстку?"
+msgstr "Translate to print?"
+
+#: .\templates\conferences\management\submission_detail.html:141
+msgid "Перевести"
+msgstr "Translate"
+
+#: .\templates\conferences\management\submission_detail.html:143
+msgid "Перевести на верстку"
+msgstr "Translate to print"
+
+#: .\templates\conferences\management\submission_detail.html:162
+msgid "Это действие изменит статус заявки и может быть необратимым."
+msgstr ""
+"This action will change the status of the application and may be "
+"irreversible."
+
+#: .\templates\conferences\management\submission_detail.html:166
+#: .\templates\conferences\resubmit.html:94
+msgid "Отмена"
+msgstr "Cancel"
+
+#: .\templates\conferences\management\submission_list.html:13
+msgid "Сформировать сборник"
+msgstr "Generate proceedings"
+
+#: .\templates\conferences\management\submission_list.html:18
+msgid "Сборник сформирован"
+msgstr "Proceedings generated"
+
+#: .\templates\conferences\management\submission_list.html:27
+msgid "Просмотреть сборник (PDF)"
+msgstr "View proceedings (PDF)"
+
+#: .\templates\conferences\management\submission_list.html:34
+msgid "Все"
+msgstr "All"
+
+#: .\templates\conferences\management\submission_list.html:55
+msgid "Автор"
+msgstr "Author"
+
+#: .\templates\conferences\management\submission_list.html:56
+msgid "Название"
+msgstr "Title"
+
+#: .\templates\conferences\management\submission_list.html:57
+msgid "Статус"
+msgstr "Status"
+
+#: .\templates\conferences\management\submission_list.html:79
+msgid "Просмотр"
+msgstr "View"
 
 #: .\templates\conferences\participation_fee.html:13
 msgid "Стоимость и порядок оплаты"
@@ -602,39 +837,43 @@ msgstr ""
 "If you have any questions regarding this policy, you can contact us at:"
 
 #: .\templates\conferences\proceedings.html:4
-#: .\templates\conferences\proceedings.html:12
+#: .\templates\conferences\proceedings.html:10
 msgid "Материалы конференции"
 msgstr "Conference Materials"
 
-#: .\templates\conferences\proceedings.html:15
+#: .\templates\conferences\proceedings.html:13
 msgid "Сборник принятых докладов"
 msgstr "List of accepted materials"
 
-#: .\templates\conferences\proceedings.html:46
+#: .\templates\conferences\proceedings.html:45
 msgid "Скрыть"
 msgstr "Hide"
 
-#: .\templates\conferences\proceedings.html:46
+#: .\templates\conferences\proceedings.html:45
 msgid "Подробнее"
 msgstr "More"
 
-#: .\templates\conferences\proceedings.html:65
+#: .\templates\conferences\proceedings.html:64
 msgid "Скачать PDF"
 msgstr "PDF жүктеп алу"
 
-#: .\templates\conferences\proceedings.html:79
+#: .\templates\conferences\proceedings.html:74
 msgid "Работы пока не добавлены"
 msgstr "Жұмыстар әлі қосылмаған"
 
-#: .\templates\conferences\proceedings.html:82
-msgid "Список принятых докладов формируется организационным комитетом."
-msgstr "The list of accepted papers is formed by the organizing committee."
+#: .\templates\conferences\proceedings.html:83
+msgid "Ваш браузер не поддерживает просмотр PDF."
+msgstr ""
 
-#: .\templates\conferences\proceedings.html:93
+#: .\templates\conferences\proceedings.html:84
+msgid "скачать его по ссылке"
+msgstr ""
+
+#: .\templates\conferences\proceedings.html:97
 msgid "Материалы еще не опубликованы"
 msgstr "Materials are not published yet"
 
-#: .\templates\conferences\proceedings.html:95
+#: .\templates\conferences\proceedings.html:99
 msgid ""
 "Публикация сборника трудов состоится после завершения этапа рецензирования "
 "всех работ."
@@ -642,76 +881,53 @@ msgstr ""
 "The publication of the collected papers will take place after the review "
 "stage of all papers has been completed."
 
-#: .\templates\conferences\proceedings.html:98
+#: .\templates\conferences\proceedings.html:102
 msgid "Ожидаемая дата"
 msgstr "Expected date"
 
-#: .\templates\conferences\profile.html:28
-msgid "Организация"
-msgstr "Organization"
-
-#: .\templates\conferences\profile.html:42
+#: .\templates\conferences\profile.html:41
+#: .\templates\conferences\profile.html:76
 msgid "Выйти из системы"
 msgstr "Log out"
 
-#: .\templates\conferences\profile.html:52
-msgid "Мои заявки"
-msgstr "My Submissions"
-
-#: .\templates\conferences\profile.html:61
+#: .\templates\conferences\profile.html:85
 msgid "Мои публикации"
 msgstr "My Publications"
 
-#: .\templates\conferences\profile.html:75
-msgid "Принято"
-msgstr "Accepted"
-
-#: .\templates\conferences\profile.html:79
-msgid "Требуется доработка"
-msgstr "Revision Required"
-
-#: .\templates\conferences\profile.html:83
-msgid "Отклонено"
-msgstr "Rejected"
-
-#: .\templates\conferences\profile.html:87
+#: .\templates\conferences\profile.html:111
 msgid "Готово к печати"
 msgstr "Ready for print"
 
-#: .\templates\conferences\profile.html:91
-msgid "На проверке"
-msgstr "Under Review"
-
-#: .\templates\conferences\profile.html:109
+#: .\templates\conferences\profile.html:133
 msgid "Авторы:"
 msgstr "Authors:"
 
-#: .\templates\conferences\profile.html:124
+#: .\templates\conferences\profile.html:148
 msgid "Загрузить исправленную версию"
 msgstr "Upload Revised Version"
 
-#: .\templates\conferences\profile.html:131
+#: .\templates\conferences\profile.html:155
 msgid "История версий"
 msgstr "Version History"
 
-#: .\templates\conferences\profile.html:146
+#: .\templates\conferences\profile.html:170
 msgid "Рецензия:"
 msgstr "Review:"
 
-#: .\templates\conferences\profile.html:153
+#: .\templates\conferences\profile.html:177
 msgid "Ваш коммент:"
 msgstr "Your Comment:"
 
-#: .\templates\conferences\profile.html:181
+#: .\templates\conferences\profile.html:205
 msgid "Нет активных заявок"
 msgstr "No active submissions"
 
-#: .\templates\conferences\profile.html:184
+#: .\templates\conferences\profile.html:208
 msgid "Вы еще не подали ни одной работы. Начните с подачи заявки на участие."
 msgstr ""
 "You haven't submitted any papers yet. Start by submitting an application."
 
-#: .\templates\conferences\profile.html:187
+#: .\templates\conferences\profile.html:211
 msgid "Подать первую заявку"
 msgstr "Submit First Paper"
 
@@ -816,10 +1032,6 @@ msgstr "This will help the reviewer check corrections faster"
 #: .\templates\conferences\resubmit.html:90
 msgid "Отправить на повторную проверку"
 msgstr "Submit for Re-review"
-
-#: .\templates\conferences\resubmit.html:94
-msgid "Отмена"
-msgstr "Cancel"
 
 #: .\templates\conferences\submission_format.html:13
 msgid "Требования к оформлению публикаций"
@@ -996,11 +1208,11 @@ msgstr ""
 "Participants requiring visa support or accommodation assistance are "
 "requested to contact the organizing committee in advance."
 
-#~ msgid "Подать"
-#~ msgstr "Submit"
+#~ msgid "Список принятых докладов формируется организационным комитетом."
+#~ msgstr "The list of accepted papers is formed by the organizing committee."
 
-#~ msgid "Участник"
-#~ msgstr "Participant"
+#~ msgid "Мои заявки"
+#~ msgstr "My Submissions"
 
 #~ msgid "Подать заявку"
 #~ msgstr "Submit Paper"
@@ -1014,9 +1226,6 @@ msgstr ""
 #~ msgid "Требует доработки"
 #~ msgstr "Revision Required"
 
-#~ msgid "Скачать версию"
-#~ msgstr "Download Version"
-
 #~ msgid "Всего версий:"
 #~ msgstr "Total Versions:"
 
@@ -1028,6 +1237,3 @@ msgstr ""
 
 #~ msgid "Действий нет"
 #~ msgstr "No actions"
-
-#~ msgid "Вы можете подать научную работу на активную конференцию."
-#~ msgstr "You can submit a paper to an active conference."
