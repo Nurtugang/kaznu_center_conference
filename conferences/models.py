@@ -160,7 +160,7 @@ class Submission(models.Model):
         try:
             # Вызов LibreOffice
             subprocess.run([
-                'soffice',
+                '/usr/bin/soffice',
                 '--headless',
                 '--convert-to', 'pdf',
                 '--outdir', output_dir,
